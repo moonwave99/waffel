@@ -81,7 +81,7 @@ module.exports = class Waffel
     @registerTemplates()
 
   registerTemplates: ->
-    @env = nunjucks.configure @options.viewFolder
+    @env = nunjucks.configure @options.viewFolder, watch: false, express: null
     for name, filter of @filters
       @env.addFilter name, filter.bind @
     
@@ -102,7 +102,6 @@ module.exports = class Waffel
       @data
           
   generate: ->
-    structure = yaml.safeLoad()
     @start = process.hrtime()
     console.log "--> Start generation process...\n---"
     fs.ensureDirAsync( @options.destinationFolder ).then =>
