@@ -1,0 +1,32 @@
+{
+  "name": "waffel",
+  "version": "0.0.1",
+  "description": "Static website generator, best companion to Vaneella.",
+  "main": "lib/index.js",
+  "author": "moonwave99 <diego.caponera@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:moonwave00/waffel.git"
+  },  
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },  
+  "license": "ISC",
+  "dependencies": {
+    "async": "^0.9.0",
+    "bluebird": "^2.9.23",
+    "colors": "^1.0.3",
+    "fs-extra": "^0.18.0",
+    "globby": "^1.2.0",
+    "i18next": "^1.7.10",
+    "lodash": "^3.6.0",
+    "marked": "^0.3.3",
+    "moment": "^2.9.0",
+    "nunjucks": "^1.2.0",
+    "nunjucks-markdown": "^1.0.0",
+    "yaml-front-matter": "^3.2.3"
+  },
+  "devDependencies": {
+    "coffee-script": "^1.9.1"
+  }
+}
