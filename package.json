@@ -1,12 +1,12 @@
 {
   "name": "waffel",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Static website generator, best companion to Vaneella.",
   "main": "lib/index.js",
   "author": "moonwave99 <diego.caponera@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "git@github.com:moonwave00/waffel.git"
+    "url": "git@github.com:moonwave99/waffel.git"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
