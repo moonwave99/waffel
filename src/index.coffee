@@ -2,6 +2,7 @@ _         = require 'lodash'
 colors    = require 'colors'
 Promise   = require 'bluebird'
 path      = require 'path'
+util      = require 'util'
 async     = require 'async'
 yaml      = require 'yaml-front-matter'
 fs        = Promise.promisifyAll require 'fs-extra'
@@ -46,6 +47,8 @@ module.exports = class Waffel
       _.compact( [@options.domain, url] ).join '/'
     t: (key, page) ->
       i18n.translate key, lng: page.language
+    inspect: (object) ->
+      console.log util.inspect(object, false, 2, true)
       
   filters:
     toArray: (object) ->
@@ -122,10 +125,12 @@ module.exports = class Waffel
     tasks = []
     for name, page of @structure
       if page.template
+        page.name = name
         url = @_url page, {}, { language: language, localised: localised }
         tasks.push @_createPage page, name, url, {}, language, localised
       else if page.collection
         for _name, _page of page.pages
+          _page.name = "#{name}.#{_name}"
           if _name is 'single'
             tasks = tasks.concat @_createSinglePages _page, "#{name}.single", @data[page.collection], language, localised
           else
