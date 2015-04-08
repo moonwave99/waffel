@@ -12,6 +12,7 @@ moment    = require 'moment'
 nunjucks  = require 'nunjucks'
 markdown  = require 'nunjucks-markdown'
 marked    = require 'marked'
+cheerio   = require 'cheerio'
 
 module.exports = class Waffel
   brunchPlugin: yes
@@ -39,14 +40,21 @@ module.exports = class Waffel
     
   helpers:
     url: (name, data = {}, options = {}) ->
-      page = @_getPageByName name      
+      page = @_getPageByName name
+      if options.page
+        page.pagination = 
+          page: options.page      
       _.compact( [@options.domain, (@_url page, data, options), 'index.html'] ).join '/'
+      
     asset: (_path = '') ->
       _.compact( [@options.domain, @options.assetPath, _path] ).join '/'
+      
     absoluteURL: (url) ->
       _.compact( [@options.domain, url] ).join '/'
+      
     t: (key, page) ->
       i18n.translate key, lng: page.language
+      
     inspect: (object) ->
       console.log util.inspect(object, false, 2, true)
       
@@ -54,11 +62,35 @@ module.exports = class Waffel
     toArray: (object) ->
       _.toArray object
     
+    pluck: (object = {}, key) ->
+      _.pluck object, key
+      
+    flatten: (array = []) ->
+      _.flatten array
+    
+    uniq: (array = []) ->
+      _.uniq array
+    
+    where: (array = [], search = {}) ->
+      _.where array, search
+    
     limit: (array = [], count = 10) ->
       array.slice 0, count
     
     format: (date, format = @options.dateFormat) ->
-      moment(date).format format          
+      moment(date).format format
+    
+    excerpt: (text, size = 200) ->
+      $ = cheerio.load marked text
+      text = $('p').filter (index, element) ->
+          element.children[0].type == 'text'
+        .first().text().trim()
+      if text.length > size
+        words = text.substring(0,size).split(' ')
+        words.pop()
+        "#{words.join ' '}…"
+      else
+        text
       
   constructor: (opts) ->
     @options = _.extend @defaults, opts
@@ -74,6 +106,9 @@ module.exports = class Waffel
 
     for name, filter of @filters
       @filters[name] = _.bind filter, @
+      
+    @filters.excerpt = _.memoize @filters.excerpt, (text, size) ->
+      "#{text.substring(0,16)}.#{size}"
 
     @data = {}
 
