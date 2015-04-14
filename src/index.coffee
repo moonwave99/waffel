@@ -225,6 +225,15 @@ module.exports = class Waffel
     
     _.compact tokens
       .join '/'
+
+  _target: (url) ->
+    ext = path.extname url
+    if ext
+      path.join @options.destinationFolder, url
+    else if @options.uglyUrls and url.length > 0
+      path.join @options.destinationFolder, "#{url}.html"
+    else
+      path.join @options.destinationFolder, url, 'index.html'      
   
   _renderPage: (page, item) ->
     nunjucks.render "#{page.template}#{@options.templateExt}",
@@ -275,15 +284,6 @@ module.exports = class Waffel
       data = if item._localised then item[language] or item[@options.fallbackLanguage] else item
       url = @_url page, data, { language: language, localised: localised }
       @_createPage page, name, url, data, language, localised
-  
-  _target: (url) ->
-    ext = path.extname url
-    if ext
-      path.join @options.destinationFolder, url
-    else if @options.uglyUrls
-      path.join @options.destinationFolder, "#{url}.html"
-    else
-      path.join @options.destinationFolder, url, 'index.html'
     
   _createPage: (page, name, url, data = {}, language, localised) ->
     (callback) =>
