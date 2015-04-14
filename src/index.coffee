@@ -36,6 +36,7 @@ module.exports = class Waffel
     defaultLanguage:    'en'
     fallbackLanguage:   'en'
     sitemap:            true
+    uglyUrls:           false
     dateFormat:         'YYYY-MM-DD'
     helpers:            {}
     filters:            {}
@@ -273,10 +274,19 @@ module.exports = class Waffel
       data = if item._localised then item[language] or item[@options.fallbackLanguage] else item
       url = @_url page, data, { language: language, localised: localised }
       @_createPage page, name, url, data, language, localised
+  
+  _target: (url) ->
+    ext = path.extname url
+    if ext
+      path.join @options.destinationFolder, url
+    else if @options.uglyUrls
+      path.join @options.destinationFolder, "#{url}.html"
+    else
+      path.join @options.destinationFolder, url, 'index.html'
     
   _createPage: (page, name, url, data = {}, language, localised) ->
     (callback) =>
-      target = path.join @options.destinationFolder, url, 'index.html'
+      target = @_target url
       _page = _.clone page
       _page.language = language
       _page.localised = localised
