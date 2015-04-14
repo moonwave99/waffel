@@ -37,6 +37,8 @@ module.exports = class Waffel
     fallbackLanguage:   'en'
     sitemap:            true
     dateFormat:         'YYYY-MM-DD'
+    helpers:            {}
+    filters:            {}
     
   helpers:
     url: (name, data = {}, options = {}) ->
@@ -91,6 +93,9 @@ module.exports = class Waffel
         "#{words.join ' '}…"
       else
         text
+    
+    toJSON: (data) ->
+      JSON.stringify(data)
       
   constructor: (opts) ->
     @options = _.extend @defaults, opts
@@ -100,6 +105,9 @@ module.exports = class Waffel
     @options.localesFolder      = path.join @options.root, @options.localesFolder
     @options.destinationFolder  = path.join @options.root, @options.destinationFolder
     @options.structureFile      = path.join @options.root, @options.structureFile
+    
+    @helpers = _.extend @helpers, @options.helpers
+    @filters = _.extend @filters, @options.filters
 
     for name, helper of @helpers
       @helpers[name] = _.bind helper, @
