@@ -58,9 +58,6 @@ module.exports = class Waffel
     t: (key, page) ->
       i18n.translate key, lng: page.language
       
-    inspect: (object) ->
-      console.log util.inspect(object, false, 2, true)
-      
   filters:
     toArray: (object) ->
       _.toArray object
@@ -97,6 +94,10 @@ module.exports = class Waffel
     
     toJSON: (data) ->
       JSON.stringify(data)
+      
+    inspect: (object) ->
+      console.log util.inspect(object, false, 2, true)     
+      object 
       
   constructor: (opts) ->
     @options = _.extend @defaults, opts
