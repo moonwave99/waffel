@@ -188,6 +188,7 @@ module.exports = class Waffel
     collection = tokens[0]
     @data[collection] ||= {}
     data = yaml.loadFront file
+    data.slug = data.slug || path.basename relativePath, @options.ext
     if tokens[1] in @options.languages
       language = tokens[1]
       @data[collection][data.slug] || = { _localised: true }
