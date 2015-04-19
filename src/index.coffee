@@ -83,7 +83,7 @@ module.exports = class Waffel
     excerpt: (text, size = 200) ->
       $ = cheerio.load marked text
       text = $('p').filter (index, element) ->
-          element.children[0].type == 'text'
+          (element.children[0].type == 'text') || _.contains ['em', 'strong'], element.children[0].name
         .first().text().trim()
       if text.length > size
         words = text.substring(0,size).split(' ')
