@@ -314,7 +314,7 @@ module.exports = class Waffel
         options : @options
         config  : @config
         data    : @data
-        pages   : pages
+        pages   : pages.filter (p) -> !_.isBoolean p.page.sitemap and p.page.sitemap is not false
         now     : new Date
     fs.outputFile target, output, (err) =>
       console.log "--> Created #{'sitemap.xml'.cyan}"
