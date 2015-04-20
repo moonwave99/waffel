@@ -58,7 +58,7 @@ module.exports = class Waffel
     t: (key, page) ->
       i18n.translate key, lng: page.language
     
-    get: (data, language) ->
+    loc: (data, language = @options.defaultLanguage) ->
       if not data._localised
         data
       else
