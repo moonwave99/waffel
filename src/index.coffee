@@ -17,7 +17,7 @@ cheerio   = require 'cheerio'
 module.exports = class Waffel
   brunchPlugin: yes
   defaults:
-    verbose:            true
+    verbose:            false
     defaultPagination:  10    
     defaultSortField:   'slug'
     defaultSortOrder:   'desc'
