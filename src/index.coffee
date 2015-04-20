@@ -57,6 +57,12 @@ module.exports = class Waffel
       
     t: (key, page) ->
       i18n.translate key, lng: page.language
+    
+    get: (data, language) ->
+      if not data._localised
+        data
+      else
+        data[language] or data[@options.fallbackLanguage]
       
   filters:
     toArray: (object) ->
