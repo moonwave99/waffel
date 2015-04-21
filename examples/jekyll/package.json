@@ -17,7 +17,8 @@
     "faker": "git://github.com/FotoVerite/Faker.js#e47f38e811d1f487c460d65ca59d7ef6dc034819",
     "fs-extra": "^0.18.2",
     "lodash": "^3.7.0",
-    "waffel": "0.0.17",
+    "pushserve": "^0.1.6",
+    "waffel": "0.0.18",
     "yaml-front-matter": "^3.2.3"
   }
 }

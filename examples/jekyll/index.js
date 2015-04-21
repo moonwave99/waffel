@@ -1,16 +1,17 @@
-var Waffel = require('Waffel');
-var fs = require('fs-extra');
-var _ = require('lodash');
-var faker = require('faker');
-var yaml = require('yaml-front-matter');
+var Waffel = require('Waffel')
+var fs = require('fs-extra')
+var _ = require('lodash')
+var faker = require('faker')
+var yaml = require('yaml-front-matter')
 
-var movies = fs.readFileSync('movies.txt').toString().split("\n");
-var categories = ['classic', 'independent', 'avantgarde'];
+// we fake some data here.
+var movies = fs.readFileSync('movies.txt').toString().split("\n")
+var categories = ['classic', 'independent', 'avantgarde']
 var tags = _.reduce(_.range(25), function(memo, index){
-  memo.push(faker.random.bs_buzz());
-  return memo;
-}, []);
-tags = _.uniq(tags);
+  memo.push(faker.random.bs_buzz())
+  return memo
+}, [])
+tags = _.uniq(tags)
 
 movies.forEach(function(movie, index){
   var data = {
@@ -25,19 +26,20 @@ movies.forEach(function(movie, index){
   fs.outputFileSync(
     __dirname + '/data/posts/' + data.slug + '.md',
     "---\n" + yaml.safeDump(data) + "---\n" + _.reduce(_.range(3,10), function(memo, index){
-      memo += faker.Lorem.paragraph(_.random(2,5)) + '\n\n';
-      return memo;
+      memo += faker.Lorem.paragraph(_.random(2,5)) + '\n\n'
+      return memo
     }, '')
-  );
-  
-});
+  )
+})
 
+// we do the waffel stuff here.
+var port = 1337
 var wfl = new Waffel({
-  domain: "http://localhost:8000"
-});
+  domain: "http://localhost:" + port,
+  server: true,
+  serverConfig: { port: port, path: 'public' }
+})
 
 wfl.init().then(function(){
-  wfl.generate().then(function(){
-    console.log('Y0 WAFFEL Y0')
-  })
+  wfl.generate()
 })
