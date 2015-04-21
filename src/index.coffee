@@ -13,6 +13,7 @@ nunjucks  = require 'nunjucks'
 markdown  = require 'nunjucks-markdown'
 marked    = require 'marked'
 cheerio   = require 'cheerio'
+pushserve = require 'pushserve'
 
 module.exports = class Waffel
   brunchPlugin: yes
@@ -40,6 +41,10 @@ module.exports = class Waffel
     dateFormat:         'YYYY-MM-DD'
     helpers:            {}
     filters:            {}
+    server:             false
+    serverConfig:
+      port: 1999
+      path: 'public'
     
   helpers:
     url: (name, data = {}, options = {}) ->
@@ -171,6 +176,7 @@ module.exports = class Waffel
     millis = elapsed[1] / 1000000
     console.log "--> Generated #{(pages.length + '').cyan} pages in #{elapsed[0]}.#{millis.toFixed(0)}s."
     @_createSitemap pages if @options.sitemap
+    @_launchServer() if @options.server
   
   _generateForLanguage: (language, localised) ->
     tasks = []
@@ -318,3 +324,9 @@ module.exports = class Waffel
         now     : new Date
     fs.outputFile target, output, (err) =>
       console.log "--> Created #{'sitemap.xml'.cyan}"
+  
+  _launchServer: ->
+    opts = _.extend @options.serverConfig, @options.server
+    pushserve opts, ->
+      address = "http://localhost:#{opts.port}"
+      console.log "--> waffel server waiting for you at #{ address.green }"
