@@ -10,3 +10,5 @@ npm-debug.log
 debug.log
 .tm_properties
 .idea
+data
+public

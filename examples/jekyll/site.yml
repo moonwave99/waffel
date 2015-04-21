@@ -1,0 +1,43 @@
+config:
+  google_analytics: UA-XXXXXXXX-Y
+  sitemap:          true
+  title:            This is a beautiful blog about movies made in Waffel.
+structure:
+  blog:
+    collection: posts
+    pages:
+      index:
+        template: blog/index
+        url:      /
+        priority: 0.5
+        sort:
+          field: date
+          order: desc
+      categories:
+        template: blog/category
+        url:      /category/:category
+        groupBy:  category
+        priority: 0.5
+        sort:
+          field: date
+          order: desc        
+      tags:
+        template: blog/tag
+        url:      /tag/:tag
+        groupBy:  tags
+        changefreq: weekly
+        priority: 0.7
+        sort:
+          field: date
+          order: desc
+      single:
+        template: blog/post
+        url:      /posts/:slug
+        priority: 0.8
+  about:
+    template: about
+    url: /about
+  404:
+    template: 404
+    url: /404
+    sitemap:  false

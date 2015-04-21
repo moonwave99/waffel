@@ -1,0 +1,23 @@
+{
+  "name": "waffel.examples.jekyll",
+  "version": "0.0.1",
+  "description": "Example of static blog generation [like Jekyll]",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "waffel",
+    "jekyll",
+    "static-generator"
+  ],
+  "author": "moonwave99 <diego.caponera@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "faker": "git://github.com/FotoVerite/Faker.js#e47f38e811d1f487c460d65ca59d7ef6dc034819",
+    "fs-extra": "^0.18.2",
+    "lodash": "^3.7.0",
+    "waffel": "0.0.17",
+    "yaml-front-matter": "^3.2.3"
+  }
+}

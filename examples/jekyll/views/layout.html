@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block navigation %}
+  {% include '_includes/navigation.html' %}
+{% endblock %}
+
+{% block layout %}
+<div class="container">
+  {% block header %}{% endblock %}
+  <hr>
+  {% block body %}{% endblock %}
+  {% block footer %}
+    {% include '_includes/footer.html' %}
+  {% endblock %}
+</div>  
+{% endblock %}

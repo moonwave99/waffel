@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block title %}about | waffel blog{% endblock %}
+{% block header %}
+<header>
+  <h1>{{ data.pages.about.title }}</h1>
+</header>
+{% endblock %}
+{% block body %}
+<section class="content">{% markdown %}{{ data.pages.about.__content }}{% endmarkdown %}</section>
+{% endblock %}

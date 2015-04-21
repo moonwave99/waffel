@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block title %}{{ item.title }} | waffel blog{% endblock %}
+{% block body %}
+<header>
+  <h1>{{ item.title }}</h1>
+  <p><img src="{{ item.cover }}" class="img-responsive" alt="{{ item.title }}"></p>
+  <p class="info">Written on <strong>{{ item.date | format('MMM DD YYYY') }}</strong> in <a href="{{ url('blog.categories', item, page) }}">{{ item.category | capitalize }}</a></p>
+</header>
+<hr>
+<section class="content">{% markdown %}{{ item.__content }}{% endmarkdown %}</section>
+<hr>
+<footer>
+  {% if item.tags %}
+  <ul class="list-inline">
+    <li>Tagged as:</li>
+    {% for tag in item.tags %}
+    <li><a class="label label-default" href="{{ url('blog.tags', { 'tag' : tag }, page) }}">{{ tag }}</a>
+    {% endfor %}
+  </ul>
+  {% endif %}
+</footer>
+{% endblock %}

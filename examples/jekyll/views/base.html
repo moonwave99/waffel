@@ -1,0 +1,76 @@
+<!doctype html>
+<html class="no-js" lang="{{ page.language }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{% block title %}waffel blog{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='http://fonts.googleapis.com/css?family=Merriweather:300italic,300,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,700,300' rel='stylesheet' type='text/css'>      
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+      html, body{
+        font-family: 'Merriweather', Georgia, serif;
+        font-size: 16px;
+        line-height: 1.618rem;
+          -webkit-font-smoothing: antialiased;
+      }
+      h1, h2{
+        font-family: 'Roboto Slab','Helvetica Neue',sans-serif;
+        font-weight: 700;
+        margin: 3rem 0 2rem 0;
+      }
+      h1{
+        font-size: 2rem;
+      }
+      h2{
+        font-size:1.5rem;
+      }
+      nav{
+        font-family: 'Roboto Slab','Helvetica Neue',sans-serif;
+      }
+      hr{
+        margin: 2.5rem auto;
+        width: 50%;
+      }
+      p, blockquote, ul{
+        margin-bottom: 1.5rem;
+      }
+      footer, .btn, .info{
+        font-family: 'Roboto Slab','Helvetica Neue',sans-serif;
+      }
+      footer{
+        text-align:center;
+      }
+      a, a:hover, a:active, a:visited{
+        color:#EA2E49;
+      }
+      a:hover{
+        text-decoration:underline;
+      }
+      .container{
+        width: 40rem;
+        max-width:100%;
+      }
+      .contatiner img{
+        max-width: 100%;
+      }
+      .content{
+        min-height:35rem;        
+      }
+      .footer{
+        font-size:.9rem;
+        margin-bottom: 3rem;
+      }
+      .more{
+        font-family: 'Roboto Slab','Helvetica Neue',sans-serif;
+        font-size: .9rem;
+      }
+    </style>
+  </head>
+  <body class="{{ page.name | replace('.', '-') }}">
+    {% block navigation %}{% endblock %}
+    {% block layout %}{% endblock %}
+    {% include '_includes/google_analytics.html' %}
+  </body>
+</html>
