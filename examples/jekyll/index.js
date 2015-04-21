@@ -13,11 +13,15 @@ var tags = _.reduce(_.range(25), function(memo, index){
 }, [])
 tags = _.uniq(tags)
 
+function randomDate(start, end) {
+  return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+}
+
 movies.forEach(function(movie, index){
   var data = {
     title: movie,
     slug: movie.toLowerCase().replace(/\s+/g, '-').replace(/[^-\w]/g, ''),
-    date: faker.Date.past(3, new Date().toJSON()),
+    date: randomDate(new Date(2005, 0, 1), new Date()),
     category: _.sample(categories),
     cover: "http://lorempixel.com/g/640/480/" + _.sample(['people', 'city', 'fashion', 'nature', 'nightlife', 'transport']) + '/' + _.random(1, 10),
     tags: _.sample(tags, _.random(2,5))
