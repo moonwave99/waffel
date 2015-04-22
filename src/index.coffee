@@ -38,6 +38,8 @@ module.exports = class Waffel
     fallbackLanguage:   'en'
     sitemap:            true
     uglyUrls:           false
+    outputExt:          '.html'
+    displayExt:         true
     dateFormat:         'YYYY-MM-DD'
     helpers:            {}
     filters:            {}
@@ -52,7 +54,12 @@ module.exports = class Waffel
       if options.page
         page.pagination = 
           page: options.page      
-      _.compact( [@options.domain, (@_url page, data, options), 'index.html'] ).join '/'
+      if @options.uglyUrls
+        relativeUrl = (@_url page, data, options) || 'index'
+        url = [@options.domain, relativeUrl].join '/'
+        if @options.displayExt then "#{url}#{@options.outputExt}" else url
+      else
+        _.compact( [@options.domain, (@_url page, data, options), 'index.html'] ).join '/'
       
     asset: (_path = '') ->
       _.compact( [@options.domain, @options.assetPath, _path] ).join '/'
@@ -168,11 +175,10 @@ module.exports = class Waffel
       for language in @options.languages
         tasks = tasks.concat @_generateForLanguage language, true
       tasks = tasks.concat @_generateForLanguage @options.defaultLanguage, false  
-      
       async.parallel tasks, @postGenerate
       
   postGenerate: (err, pages) =>
-    elapsed = process.hrtime(@start)
+    elapsed = process.hrtime @start
     millis = elapsed[1] / 1000000
     console.log "--> Generated #{(pages.length + '').cyan} pages in #{elapsed[0]}.#{millis.toFixed(0)}s."
     @_createSitemap pages if @options.sitemap
@@ -244,7 +250,7 @@ module.exports = class Waffel
     if ext
       path.join @options.destinationFolder, url
     else if @options.uglyUrls and url.length > 0
-      path.join @options.destinationFolder, "#{url}.html"
+      path.join @options.destinationFolder, "#{url}#{@options.outputExt}"
     else
       path.join @options.destinationFolder, url, 'index.html'      
   
