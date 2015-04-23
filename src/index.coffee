@@ -112,11 +112,27 @@ module.exports = class Waffel
         text
     
     toJSON: (data) ->
-      JSON.stringify(data)
+      JSON.stringify data
       
     inspect: (object) ->
       console.log util.inspect(object, false, 2, true)     
-      object 
+      object
+      
+    top: (data, thresh = 3) ->
+      data = _.flatten data
+      data = _.reduce data,
+        (memo, x) ->
+          if memo[x] then memo[x] = memo[x]+1 else memo[x] = 1
+          memo
+        , {}
+      data = _.reduce data, 
+        (memo, freq, key) ->
+          memo.push { key: key, freq: freq }
+          memo
+        , []
+      data = _.sortBy data, (bin) ->
+        -bin.freq  
+      data.slice(0, thresh).map (x) -> x.key      
       
   constructor: (opts) ->
     @options = _.extend @defaults, opts
@@ -138,6 +154,9 @@ module.exports = class Waffel
       
     @filters.excerpt = _.memoize @filters.excerpt, (text, size) ->
       "#{text.substring(0,16)}.#{size}"
+      
+    @filters.top = _.memoize @filters.top, (data, size) ->
+      "#{_.flattenDeep data .join ''}.#{size}"
 
     @data = {}
 

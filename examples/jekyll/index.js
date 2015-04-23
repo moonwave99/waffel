@@ -4,7 +4,8 @@ var _ = require('lodash')
 var faker = require('faker')
 var yaml = require('yaml-front-matter')
 
-// we fake some data here.
+// We fake some data here.
+// [ignore this, as it merely fixtures data for example's sake]
 var movies = fs.readFileSync('movies.txt').toString().split("\n")
 var categories = ['classic', 'independent', 'avantgarde']
 var tags = _.reduce(_.range(25), function(memo, index){
@@ -36,7 +37,7 @@ movies.forEach(function(movie, index){
   )
 })
 
-// we do the waffel stuff here.
+// We do the Waffel stuff here.
 var port = 1337
 var wfl = new Waffel({
   domain: "http://localhost:" + port,

@@ -14,7 +14,7 @@
   <ul class="list-inline">
     <li>Tagged as:</li>
     {% for tag in item.tags %}
-    <li><a class="label label-default" href="{{ url('blog.tags', { 'tag' : tag }, page) }}">{{ tag }}</a>
+    <li><a class="label label-default" href="{{ url('blog.tags', { 'tag' : tag }, { 'language': page.language, 'localised': page.localised, 'page' : 1 } ) }}">{{ tag }}</a>
     {% endfor %}
   </ul>
   {% endif %}
