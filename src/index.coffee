@@ -329,6 +329,7 @@ module.exports = class Waffel
     (callback) =>
       target = @_target url
       _page = _.clone page
+      _page.path = url
       _page.language = language
       _page.localised = localised
       output = @_renderPage _page, data      
