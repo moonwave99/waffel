@@ -1,6 +1,6 @@
 {
   "name": "waffel",
-  "version": "0.0.23",
+  "version": "0.0.24",
   "description": "Static website generator, best companion to Vaneella.",
   "main": "lib/index.js",
   "author": "moonwave99 <diego.caponera@gmail.com>",

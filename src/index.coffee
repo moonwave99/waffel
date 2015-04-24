@@ -42,6 +42,7 @@ module.exports = class Waffel
     outputExt:          '.html'
     displayExt:         true
     dateFormat:         'YYYY-MM-DD'
+    markdownOptions:    {}
     helpers:            {}
     filters:            {}
     server:             false
@@ -171,6 +172,7 @@ module.exports = class Waffel
     for name, filter of @filters
       @env.addFilter name, filter.bind @
     
+    marked.setOptions @options.markdownOptions
     markdown.register @env, marked
     nunjucks.precompile @options.viewFolder, { env: @env }
     
