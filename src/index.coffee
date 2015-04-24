@@ -289,7 +289,9 @@ module.exports = class Waffel
   _createCollectionPage: (page, name, set, language, localised) ->
     sort = if page.sort and page.sort.field then page.sort.field else @options.defaultSortField
     order = if page.sort and page.sort.order then page.sort.order else @options.defaultSortOrder
-
+    
+    if page['filter']
+      set = _.where set, page['filter']
     if page.groupBy
       sets = {}
       _(set).pluck(page.groupBy).flatten().unique().sort().value().forEach (group) =>
