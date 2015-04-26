@@ -189,9 +189,10 @@ module.exports = class Waffel
       files.forEach @_parseFile, @
       @data
           
-  generate: ->
+  generate: (options) ->
     @start = process.hrtime()
     console.log "--> Start generation process...\n---"
+    if options.data then _.merge @data, options.data
     fs.ensureDirAsync( @options.destinationFolder ).then =>
       tasks = []
       languages = if @options.localiseDefault then languages else @options.languages.filter (l) => l != @options.defaultLanguage
