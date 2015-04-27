@@ -190,7 +190,7 @@ module.exports = class Waffel
       files.forEach @_parseFile, @
       @data
           
-  generate: (options) ->
+  generate: (options = {}) ->
     @start = process.hrtime()
     console.log "--> Start generation process...\n---"
     if options.data then _.merge @data, options.data
