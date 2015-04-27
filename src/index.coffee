@@ -47,8 +47,9 @@ module.exports = class Waffel
     filters:            {}
     server:             false
     serverConfig:
-      port: 1999
-      path: 'public'
+      port:       1999
+      path:       'public'
+      indexPath:  'public/404.html'
     
   helpers:
     url: (name, data = {}, options = {}) ->
