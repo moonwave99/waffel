@@ -280,14 +280,15 @@ module.exports = class Waffel
     else
       path.join @options.destinationFolder, url, 'index.html'      
   
-  _renderPage: (page, item) ->
+  _renderPage: (page, _data) ->
+    tmpData = {}
+    tmpData[page.export || 'item'] = _data
     nunjucks.render "#{page.template}#{@options.templateExt}",
-      _.extend @helpers,
+      _.extend @helpers, tmpData,
         options : @options
         config  : @config
         data    : @data
         page    : page
-        item    : item
 
   _createCollectionPage: (page, name, set, language, localised) ->
     sort = if page.sort and page.sort.field then page.sort.field else @options.defaultSortField
