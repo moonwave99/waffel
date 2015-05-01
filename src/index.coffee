@@ -2,6 +2,7 @@ _         = require 'lodash'
 colors    = require 'colors'
 Promise   = require 'bluebird'
 path      = require 'path'
+md5       = require 'MD5'
 util      = require 'util'
 async     = require 'async'
 yaml      = require 'yaml-front-matter'
@@ -155,7 +156,7 @@ module.exports = class Waffel
       @filters[name] = _.bind filter, @
       
     @filters.excerpt = _.memoize @filters.excerpt, (text, size) ->
-      "#{text.substring(0,16)}.#{size}"
+      "#{md5(text)}.#{size}"
       
     @filters.top = _.memoize @filters.top, (data, size) ->
       "#{_.flattenDeep data .join ''}.#{size}"
