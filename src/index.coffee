@@ -59,9 +59,11 @@ module.exports = class Waffel
         page.pagination = 
           page: options.page      
       if @options.uglyUrls
-        relativeUrl = (@_url page, data, options) || 'index'
-        url = [@options.domain, relativeUrl].join '/'
-        if @options.displayExt then "#{url}#{@options.outputExt}" else url
+        relativeUrl = @_url page, data, options
+        if @options.displayExt
+          ([@options.domain, (relativeUrl || 'index')].join '/') + @options.outputExt
+        else
+          [@options.domain, relativeUrl].join '/'
       else
         _.compact( [@options.domain, (@_url page, data, options), 'index.html'] ).join '/'
       
