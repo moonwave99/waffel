@@ -18,7 +18,7 @@
     "fs-extra": "^0.18.2",
     "lodash": "^3.7.0",
     "pushserve": "^0.1.6",
-    "waffel": "0.0.19",
+    "waffel": "0.0.31",
     "yaml-front-matter": "^3.2.3"
   }
 }
