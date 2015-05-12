@@ -5,7 +5,8 @@ path      = require 'path'
 md5       = require 'MD5'
 util      = require 'util'
 async     = require 'async'
-yaml      = require 'yaml-front-matter'
+yaml      = require 'js-yaml'
+matter    = require 'gray-matter'
 fs        = Promise.promisifyAll require 'fs-extra'
 glob      = Promise.promisifyAll require 'globby'
 i18n      = require 'i18next'
@@ -17,7 +18,6 @@ cheerio   = require 'cheerio'
 pushserve = require 'pushserve'
 
 module.exports = class Waffel
-  brunchPlugin: yes
   defaults:
     verbose:            false
     defaultPagination:  10    
@@ -47,6 +47,8 @@ module.exports = class Waffel
     helpers:            {}
     filters:            {}
     server:             false
+    frontmatter:
+      delims: ['---', '---']
     serverConfig:
       port:       1999
       path:       'public'
@@ -233,7 +235,9 @@ module.exports = class Waffel
     tokens = relativePath.split(path.sep).slice 1
     collection = tokens[0]
     @data[collection] ||= {}
-    data = yaml.loadFront file
+    loadedData = matter.read file, delims: @options.frontmatter.delims
+    data = loadedData.data
+    data.__content = loadedData.content
     data.slug = data.slug || path.basename relativePath, @options.ext
     if tokens[1] in @options.languages
       language = tokens[1]
