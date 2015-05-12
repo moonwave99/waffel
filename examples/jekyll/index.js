@@ -1,8 +1,8 @@
-var Waffel = require('Waffel')
-var fs = require('fs-extra')
-var _ = require('lodash')
-var faker = require('faker')
-var yaml = require('yaml-front-matter')
+var Waffel  = require('Waffel')
+var fs      = require('fs-extra')
+var _       = require('lodash')
+var faker   = require('faker')
+var yaml    = require('yaml-front-matter')
 
 // We fake some data here.
 // [ignore this, as it merely fixtures data for example's sake]
@@ -40,11 +40,14 @@ movies.forEach(function(movie, index){
 // We do the Waffel stuff here.
 var port = 1337
 var wfl = new Waffel({
-  domain: "http://localhost:" + port,
-  server: true,
-  serverConfig: { port: port, path: 'public' }
+  domain:   "http://localhost:" + port,
+  uglyUrls: true,
+  server:   true,
+  serverConfig: {
+    port:       port,
+    path:       'public',
+    indexPath:  'public/404.html'
+  }
 })
 
-wfl.init().then(function(){
-  wfl.generate()
-})
+wfl.init().then(function(){ wfl.generate(); })
