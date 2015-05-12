@@ -1,23 +1,24 @@
-_         = require 'lodash'
-colors    = require 'colors'
-Promise   = require 'bluebird'
-path      = require 'path'
-md5       = require 'MD5'
-util      = require 'util'
-async     = require 'async'
-yaml      = require 'js-yaml'
-matter    = require 'gray-matter'
-fs        = Promise.promisifyAll require 'fs-extra'
-glob      = Promise.promisifyAll require 'globby'
-i18n      = require 'i18next'
-moment    = require 'moment'
-nunjucks  = require 'nunjucks'
-markdown  = require 'nunjucks-markdown'
-marked    = require 'marked'
-cheerio   = require 'cheerio'
-pushserve = require 'pushserve'
+_             = require 'lodash'
+colors        = require 'colors'
+Promise       = require 'bluebird'
+path          = require 'path'
+md5           = require 'MD5'
+EventEmitter  = require('events').EventEmitter
+util          = require 'util'
+async         = require 'async'
+yaml          = require 'js-yaml'
+matter        = require 'gray-matter'
+i18n          = require 'i18next'
+moment        = require 'moment'
+nunjucks      = require 'nunjucks'
+markdown      = require 'nunjucks-markdown'
+marked        = require 'marked'
+cheerio       = require 'cheerio'
+pushserve     = require 'pushserve'
+fs            = Promise.promisifyAll require 'fs-extra'
+glob          = Promise.promisifyAll require 'globby'
 
-module.exports = class Waffel
+module.exports = class Waffel extends EventEmitter
   defaults:
     verbose:            false
     defaultPagination:  10    
@@ -199,6 +200,7 @@ module.exports = class Waffel
     @start = process.hrtime()
     console.log "--> Start generation process...\n---"
     if options.data then _.merge @data, options.data
+    @emit 'startGeneration'
     fs.ensureDirAsync( @options.destinationFolder ).then =>
       tasks = []
       languages = if @options.localiseDefault then languages else @options.languages.filter (l) => l != @options.defaultLanguage
@@ -212,6 +214,7 @@ module.exports = class Waffel
     millis = elapsed[1] / 1000000
     console.log "--> Generated #{(pages.length + '').cyan} pages in #{elapsed[0]}.#{millis.toFixed(0)}s."
     @_createSitemap pages if @options.sitemap
+    @emit 'generation:complete'
     @_launchServer() if @options.server
   
   _generateForLanguage: (language, localised) ->
@@ -369,6 +372,6 @@ module.exports = class Waffel
   
   _launchServer: ->
     opts = _.extend @options.serverConfig, @options.server
-    pushserve opts, ->
-      address = "http://localhost:#{opts.port}"
-      console.log "--> waffel server waiting for you at #{ address.green }"
+    server = pushserve opts, =>
+      console.log "--> waffel server waiting for you at " + "http://localhost:#{opts.port}".green
+      @emit 'server:start', server
