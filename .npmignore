@@ -1,2 +1,11 @@
 examples
+data
+app
+locales
+public
+views
+brunch-config.coffee
+server.coffee
+site.yml
+bower.json
 .gitignore
