@@ -1,0 +1,22 @@
+{
+  "nav": {
+    "toggle"  : "Toggle navigation",
+    "home"    : {
+      "regular" : "Aurora Demasi",
+      "light"   : "Photography"
+    },
+    "about"   : "About",
+    "categories": {
+      "portraits"   : "Portraits",
+      "landscapes"  : "Landscapes and Other"
+    }
+  },
+  "home" : {
+    "title" : "Hello there!",
+    "text"  : "Just tryin' to be polite ^.^"    
+  },
+  "notFound" : {
+    "title" : "Not Found",
+    "text"  : "Life's hard, sometimes - Go back to Homepage."
+  }
+}

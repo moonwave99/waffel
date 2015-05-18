@@ -1,0 +1,7 @@
+{% set img = imgInfo('images/pictures/' + pic.image) %}
+<article class="picture">
+  <a class="img-placeholder" href="{{ asset('images/pictures/' + pic.image) }}" style="padding-bottom:{{ img.ratioPercent }}" rel="lightbox">
+    <img src="{{ asset('images/1px.png') }}" alt="{{ pic.title }}" data-src="{{ asset( img.thumb ) }}">
+  </a>
+  <span class="title">{{ pic.title }}</span>
+</article>

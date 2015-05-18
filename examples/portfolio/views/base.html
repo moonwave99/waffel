@@ -1,0 +1,30 @@
+<!doctype html>
+<html class="no-js" lang="{{ page.language }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="generator" content="waffel">
+    {% if options.revision %}
+    <meta name="version" content="{{ options.revision }}">
+    {% endif %}        
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% if config.google_webmaster_tools %}<meta name="google-site-verification" content="{{ config.google_webmaster_tools }}">{% endif %}
+    {% block meta %}{% endblock %}
+    {% if config.google_fonts %}{% include '_includes/google_fonts.html' %}{% endif %}
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+  </head>
+  <body class="{{ page.name | replace('.', '-') }}"{% block bodyStyle %}{% endblock %}>
+    {% block layout %}{% endblock %}
+    <script src="{{ asset('js/vendor.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script>
+      $(function(){
+        require('initialize')({
+          // place options here
+        });
+      })
+    </script>
+    {% include '_includes/google_analytics.html' %}
+  </body>
+</html>

@@ -1,0 +1,24 @@
+config:
+  title:                  Auora Demasi Photography
+  google_analytics:       UA-XXXXXXX-Y
+  google_webmaster_tools: xyz
+  google_fonts:
+    Ubuntu: 300,400,700,400italic
+structure:
+  home:
+    template: home
+    url:      /
+  about:
+    template: about
+    url:      /about
+  pictures:
+    collection: pictures
+    pages:
+      categories:
+        template: category
+        url:      /:category
+        groupBy:  category
+  404:
+    template: '404'
+    url:      /404
+    sitemap:  false

@@ -1,0 +1,22 @@
+{% set categories = data.pictures | toArray | pluck('category') | uniq %}
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+        <span class="sr-only">{{ t('nav.toggle', page) }}</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="{{ url('home') }}">{{ t('nav.home.regular', page) }} <span class="light">{{ t('nav.home.light', page) }}</span></a>
+    </div>
+    <div class="collapse navbar-collapse navbar-right" id="navbar-collapse">
+      <ul class="nav navbar-nav">
+        {% for cat in categories %}
+        <li{% if page.group == cat%} class="active"{% endif %}><a href="{{ url('pictures.categories', { 'category' : cat }) }}">{{ t('nav.categories.' + cat, page) }}</a></li>
+        {% endfor %}        
+        <li{% if page.name == 'about'%} class="active"{% endif %}><a href="{{ url('about') }}">{{ t('nav.about', page) }}</a></li>
+      </ul>
+    </div>  
+  </div>
+</nav>

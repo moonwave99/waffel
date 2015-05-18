@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block title %}{{ page.group | capitalize }}{% endblock %}
+
+{% block body %}
+<div class="masonry-container">
+{% for pic in item %}
+  {% include '_includes/picture.html' %}
+{% endfor %}
+</div>
+{% endblock %}

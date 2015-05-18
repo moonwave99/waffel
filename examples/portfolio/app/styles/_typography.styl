@@ -1,0 +1,26 @@
+html, body
+  sansSerif()
+  font-size $baseFontSize
+  @media(min-width: $largeScreenThreshold)
+    font-size $baseFontSizeWide
+  
+body
+  line-height 1.6180339885rem // aka phi
+  text-rendering optimizeLegibility
+  font-smoothing antialiased
+  
+  h1, h2, h3
+    font-weight bold
+    margin 2rem 0
+    
+  h1
+    font-size size($h1FontSize)
+    line-height size(1.25 * $h1FontSize)
+    
+  h2
+    font-size size($h2FontSize)
+    line-height size(1.25 * $h2FontSize)
+    
+  h3
+    font-size size($h3FontSize)
+    line-height size(1.25 * $h3FontSize)    

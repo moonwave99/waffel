@@ -1,0 +1,153 @@
+html
+  box-sizing border-box
+  
+*, *:before, *:after
+  box-sizing inherit
+  
+body
+  padding-top 3rem
+  color $mainColor
+  background-color $contentBgColor
+  background-size cover
+  background-position center
+  background-repeat no-repeat
+  &.about
+    padding-top 0
+    .navbar-default
+      background-color transparent
+      box-shadow none
+      .navbar-brand
+        colorHover($navAboutColor, rgba($navAboutColor, .7))
+  
+a
+  color $linkColor
+  &:hover
+    background-color $linkColor
+    color $contentBgColor
+    text-decoration none
+  &.fluidbox
+    background-color $contentBgColor
+    color $contentBgColor
+    
+p, ul, ol, blockquote, pre
+  margin 0 auto 2rem auto    
+
+blockquote
+  border-left-color lighten($mainColor, 20%)
+  font-style italic
+  color lighten($mainColor, 20%)
+
+.navbar-default
+  background-color $navBgColor
+  border none
+  box-shadow 0 0 2rem rgba(black, .5)
+  margin 0
+  min-height 3rem
+  .container-fluid
+    padding 0 1rem
+  .navbar-toggle
+    border-color transparent
+    border-radius 0
+    margin-right .25rem
+    &:hover, &:focus
+      background-color rgba(white, .1)
+  .navbar-brand
+    colorHover($navColor, rgba($navColor, .7))
+    font-size size($brandFontSize)
+    font-weight 400
+    line-height 3rem
+    padding 0 1rem
+    height auto    
+    .light
+      font-weight 300
+    @media screen and (max-width: 767px)
+      font-size 1rem
+  .navbar-nav
+    >li
+      &.active
+        >a
+          colorHover($navColor, $navColor)        
+          backgroundHover(rgba(white, .2), rgba(white, .3))
+      >a
+        colorHover($navColor, rgba($navColor, .7))
+        font-weight 300
+        font-size size($navFontSize)
+        line-height 3rem
+        padding 0 1rem
+
+.fluidbox-overlay
+  background-color $overlayBgColor
+
+.main
+  min-height calc(100vh - 10rem)
+  .about
+    max-width $textWidth
+    padding 6rem 2rem 0 2rem
+    margin 0 0 0 auto
+    background-color rgba(black, .6)
+    height 100vh
+  @media screen and (max-width: 767px)
+    min-height 0
+    .about
+      margin 0 auto
+      padding 1rem
+    
+.masonry-container
+  .picture
+    position relative
+    width 25%
+    margin-bottom $gutterSize
+    padding-left  $gutterSize
+    opacity 0
+    transition opacity .3s ease-in-out
+    &::after
+      content ''
+      position absolute
+      top 0
+      bottom 0
+      left 0
+      right 0
+      background-color rgba(black, .4)
+      opacity 0
+      transition opacity .25s ease-in-out
+      pointer-events none
+      z-index 1000
+    &.loaded
+      opacity 1
+    &:hover
+      &::after
+        opacity 1    
+      .title
+        opacity 1
+    &.fluidbox-open
+      &::after
+        opacity 0
+      .fluidbox-ghost
+        z-index 1020        
+    @media screen and (max-width: 767px)
+      width 50%
+    .img-placeholder
+      height 0
+      display block
+      width 100%
+      img
+        width 100%
+      &.fluidbox-opened + .title
+        opacity 0
+    .title
+      position absolute
+      bottom 0
+      width 100%
+      text-align right
+      z-index 1001
+      font-size size($pictureTitleFontSize)
+      font-weight 300
+      padding-right 1rem
+      opacity 0
+      transition opacity .3s ease-in-out
+      
+.footer
+  font-size $footerFontSize
+  font-weight 300
+  p
+    margin 1rem 0

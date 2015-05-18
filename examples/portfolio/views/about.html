@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+{% block title %}{{ data.pages.about.title }}{% endblock %}
+{% block bodyStyle %}style="background-image:url({{ asset('images/pictures/it.jpg' ) }})"{% endblock %}
+{% block body %}
+<article class="about">
+  <h1>{{ data.pages.about.title }}</h1>
+  {% markdown %}{{ data.pages.about.__content }}{% endmarkdown %}
+</article>
+{% endblock %}

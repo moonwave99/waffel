@@ -1,0 +1,32 @@
+pictures:
+  label:  Pictures
+  icon:   fa-camera-retro
+  labelPattern: "#{title}"
+  defaultView: grid
+  showMeta: true
+  fields:
+    title:
+      type: text
+      label: Title
+      sort:
+        sortable: true    
+    image:
+      type: image
+      label: Full Image
+      cover: true      
+      align: center
+      filterable: false      
+    flickr:
+      type:   url
+      label:  Flickr
+      align:  center
+    category:
+      type: select
+      label: Category
+      align: center
+      relation:
+        type: array
+        from: ['landscapes', 'portraits', 'music']
+      sort:
+        sortable: true
+        main: true

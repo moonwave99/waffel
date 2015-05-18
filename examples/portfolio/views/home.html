@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block title %}{{config.title}}{% endblock %}
+
+{% block body %}
+<div class="masonry-container">
+{% for name, pic in data.pictures %}
+  {% include '_includes/picture.html' %}
+{% endfor %}
+</div>
+{% endblock %}
