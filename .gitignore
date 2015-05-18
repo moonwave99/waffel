@@ -10,5 +10,8 @@ npm-debug.log
 debug.log
 .tm_properties
 .idea
+**/node_modules
+**/bower_components
 **/data/posts
-public
+**/public
+**/dist
