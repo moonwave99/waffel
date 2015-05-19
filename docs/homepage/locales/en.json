@@ -39,5 +39,8 @@
   },
   "philosophy":{
     "title" : "Philosophy"
+  },
+  "documentation":{
+    "title": "Documentation"
   }
 }

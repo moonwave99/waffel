@@ -21,6 +21,9 @@ structure:
   home:
     template: home
     url: /
+  documentation:
+    template: documentation
+    url: /docs    
   examples:
     collection: examples
     pages:

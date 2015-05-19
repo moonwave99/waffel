@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% set title = t('documentation.title', page) %}
+{% block title %}Waffel - {{ title }}{% endblock %}
+
+{% block body %}
+<section class="container">
+  <h1>{{ t('documentation.title', page) }}</h1>
+  {% markdown %}{{ data.pages.documentation.__content }}{% endmarkdown %}
+</section>  
+{% endblock %}
