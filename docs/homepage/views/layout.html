@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block meta %}
-  {% set metaCover = 'images/waffel.jpg' %}
+  {% set metaCover = ('images/examples/' + item.cover) if item.cover else config.defaultCover %}
   {% block meta_basic %}
     <meta name="description" content="{{ t('home.description', page) }}">
   {% endblock %}
@@ -14,7 +14,7 @@
     <meta property="og:description" content="{{ t('home.description', page) }}">
   {% endblock %}    
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:site" content="{{ absoluteURL('/') }}">
+    <meta name="twitter:site" content="{{ absoluteURL('') }}">
     <meta name="twitter:creator" content="@moonwavelabs">
     <meta name="twitter:url" content="{{ absoluteURL(page.path) }}">
     <meta name="twitter:title" content="Waffel - {{ title }}">    

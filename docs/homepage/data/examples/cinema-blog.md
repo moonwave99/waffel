@@ -1,10 +1,11 @@
 ---
 title: A Cinema Blog, à la Jekyll
 slug: cinema-blog-ala-jekyll
+cover: annie-hall.jpg
 ---
 [Jekyll](http://www.jekyll.io) is the static blog generation staple. Let's mimic its behaviour in Waffel!
 
-[See live demo here](/waffel/examples/cinema-blog-ala-jekyll/demo/index.html).
+[See live demo here »](/waffel/examples/cinema-blog-ala-jekyll/demo/index.html).
 
 ## Goal
 

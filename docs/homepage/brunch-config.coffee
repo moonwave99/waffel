@@ -20,7 +20,11 @@ exports.config =
   conventions:
     assets: /(assets|vendor\/assets|font)/
     
-  plugins:            
+  plugins:
+    assetsmanager:
+      minTimeSpanSeconds: 10
+      copyTo:
+        '' : ['data/images']   
     autoReload:
       enabled:
         js: on
@@ -38,7 +42,6 @@ exports.config =
         wfl = new Waffel     
           domain:             'http://moonwave99.github.io/waffel'
           destinationFolder:  'dist'
-          uglyUrls:           true
 
         wfl.init().then ->
           wfl.generate()

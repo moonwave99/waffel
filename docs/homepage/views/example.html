@@ -15,6 +15,9 @@
 {% block body %}
 <article class="container">
   <h1>{{ item.title }}</h1>
+  {% if item.cover %}      
+  <p><img src="{{ asset('images/examples/' + item.cover) }}" alt="{{ item.title }}" class="img-responsive"></p>
+  {% endif %}
   {% markdown %}{{ item.__content }}{% endmarkdown %}
 </article>
 {% endblock %}

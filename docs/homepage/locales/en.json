@@ -1,5 +1,8 @@
 {
   "title" : "Static site generation done tasty.",
+  "navigation": {
+    "github" : "See on Github"
+  },
   "home": {
     "description": "Waffel is a static generator tool written in JavaScript, that covers concrete use cases like localisation, pagination, arbitrary page group generation."
   },
