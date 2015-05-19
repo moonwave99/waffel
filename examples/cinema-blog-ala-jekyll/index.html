@@ -1,0 +1,190 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    
+    <title>Waffel - A Cinema Blog, à la Jekyll</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="waffel">    
+    <meta name="google-site-verification" content="i8NjOC8rJvuvTJANxL3ZU5lemfbFkovx0ZqSCYwg430">
+    
+  
+  
+    <meta name="description" content="We are going to generate a blog that thoroughly reviews the best 1000 movies ever, according to NY Times.First, you would like to have a look at it…">
+
+    <meta property="og:site_name" content="Static site generation done tasty.">
+    <meta property="og:url" content="http://moonwave99.github.io/waffel/examples/cinema-blog-ala-jekyll">
+    <meta property="og:title" content="Waffel - A Cinema Blog, à la Jekyll">    
+    <meta property="og:image" content="http://moonwave99.github.io/waffel/images/examples/annie-hall.jpg">
+  
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="We are going to generate a blog that thoroughly reviews the best 1000 movies ever, according to NY Times.First, you would like to have a look at it yourself, so generate it via:">
+    <meta property="article:published_time" content="2015-05-19T11:58:27.497+0200">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="http://moonwave99.github.io/waffel">
+    <meta name="twitter:creator" content="@moonwavelabs">
+    <meta name="twitter:url" content="http://moonwave99.github.io/waffel/examples/cinema-blog-ala-jekyll">
+    <meta name="twitter:title" content="Waffel - A Cinema Blog, à la Jekyll">    
+    <meta name="twitter:image:src" content="http://moonwave99.github.io/waffel/images/examples/annie-hall.jpg">
+  
+    <meta name="twitter:description" content="We are going to generate a blog that thoroughly reviews the best 1000 movies ever, according to NY Times.First, you would like to have a look at it yourself, so generate it via:">
+
+
+    <link href='http://fonts.googleapis.com/css?family=Ubuntu:400,700,400italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Arvo:400,700,400italic' rel='stylesheet' type='text/css'>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://moonwave99.github.io/waffel/css/app.css">
+  </head>
+  <body class="examples-single">
+    
+  <nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://moonwave99.github.io/waffel/index.html#top">Waffel</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li><a href="http://moonwave99.github.io/waffel/index.html#philosophy">Philosophy</a></li>        
+        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Examples <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          
+          <li><a href="http://moonwave99.github.io/waffel/examples/cinema-blog-ala-jekyll/index.html">A Cinema Blog, à la Jekyll</a></li>
+          
+          <li><a href="http://moonwave99.github.io/waffel/examples/portfolio/index.html">A Photo portfolio</a></li>
+          
+          </ul>
+        </li>        
+        <li><a href="#">Documentation</a></li>
+        <li><a href="http://moonwave99.github.io/waffel/index.html#faq">FAQ</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="https://github.com/moonwave99/waffel"><i class="fa fa-github"></i> See on Github</a></li>
+      </ul>
+    </div>
+        
+  </div>
+</nav>
+  
+<article class="container">
+  <h1>A Cinema Blog, à la Jekyll</h1>
+        
+  <p><img src="http://moonwave99.github.io/waffel/images/examples/annie-hall.jpg" alt="A Cinema Blog, à la Jekyll" class="img-responsive"></p>
+  
+  <p><a href="http://www.jekyll.io">Jekyll</a> is the static blog generation staple. Let&#39;s mimic its behaviour in Waffel!</p>
+<p><a href="/waffel/examples/cinema-blog-ala-jekyll/demo/index.html">See live demo here »</a>.</p>
+<h2 id="goal">Goal</h2>
+<p>We are going to generate a blog that thoroughly reviews <a href="http://www.nytimes.com/ref/movies/1000best.html">the best 1000 movies ever, according to NY Times</a>.<br>First, you would like to have a look at it yourself, so generate it via:</p>
+<pre><code>$ npm install
+$ node index.js
+</code></pre><p>Et voilà, point your browser to the URL written in your console (with all chance, <a href="http://localhost:1337">http://localhost:1337</a>) and browse around.</p>
+<p>Cool! Fast! Tell me more about how you made it!</p>
+<h2 id="walktrough">Walktrough</h2>
+<h3 id="the-structurefile-">The <code>structureFile</code>.</h3>
+<p>Sure, here we go. As you may have already read, Waffel generates output from website content (by default located in <code>/data</code>), following the instructions contained in the <code>structureFile</code>(namely <code>site.yml</code>). No configuration in any file / YAML frontmatter, because the old concern separation adagio still holds.</p>
+<p>Let&#39;s check the <code>structure</code> part of the  <code>structureFile</code>:</p>
+<pre><code>structure:
+  blog:
+    collection: posts
+    pages:
+      index:
+        template: blog/index
+        url:      /
+        priority: 0.5
+        sort:
+          field: date
+          order: desc
+      categories:
+        template: blog/category
+        url:      /category/:category
+        groupBy:  category
+        priority: 0.5
+        sort:
+          field: date
+          order: desc        
+      tags:
+        template: blog/tag
+        url:      /tag/:tag
+        groupBy:  tags
+        changefreq: weekly
+        priority: 0.7
+        sort:
+          field: date
+          order: desc
+      single:
+        template: blog/post
+        url:      /posts/:slug
+        priority: 0.8
+  about:
+    template: about
+    url: /about
+  404:
+    template: 404
+    url: /404
+    sitemap:  false
+</code></pre><p>We have a <code>blog</code> section, holding three <code>pages</code>:</p>
+<ul>
+<li><code>index</code> is the list of <strong>all posts</strong>, that will serve as homepage (simply because its URL schema is <code>/</code>);</li>
+<li><code>categories</code> is a <em>set</em> of pages, one per <strong>category</strong> (among all categories used over all posts, in this case <em>classic</em>, <em>independent</em>, <em>avantgarde</em>);</li>
+<li><code>tags</code>: as above, but referred to <strong>tags</strong>.</li>
+</ul>
+<p>Notice the <code>collection</code> property (set to <code>posts</code>): Waffel will tie the <code>blog</code> section to the list of posts, and generate pages accordingly.</p>
+<p>And what does <code>groupBy</code> do? It tells Waffel to generate a different page for every single instance of the given property all over the <code>collection</code> - in this case, for the <code>categories</code> page we get:</p>
+<pre><code>/category/avantgarde/index.html
+/category/classic/index.html
+/category/independent/index.html
+</code></pre><p>For <code>tags</code>:</p>
+<pre><code>/tag/247/index.html
+/tag/b2b/index.html
+/tag/back-end/index.html
+/tag/best-of-breed/index.html
+/tag/bricks-and-clicks/index.html
+/tag/clicks-and-mortar/index.html
+/tag/collaborative/index.html
+/tag/cross-media/index.html
+/tag/customized/index.html
+/tag/cutting-edge/index.html
+...
+/tag/web-enabled/index.html
+/tag/wireless/index.html
+world-class/index.html
+</code></pre><p>(<em>silly random buzzwords, may vary across different generations</em>)</p>
+<p>On top of that, every <code>page</code> is sorted according to the <code>sort</code> field, and is paginated in chunks whose default size is 10.</p>
+<p>A different one can be provided via <code>paginate</code> parameter, e.g.:</p>
+<pre><code>tags:
+  template: blog/tag
+  url:      /tag/:tag
+  groupBy:  tags
+  paginate: 20
+</code></pre><p>There is so just one property not covered yet, the <code>template</code>!</p>
+<h3 id="templates">Templates</h3>
+<p>Waffel uses <a href="https://mozilla.github.io/nunjucks/">Nunjucks</a>, due to its expressiveness.</p>
+
+</article>
+
+  <footer class="footer text-center container">
+  <hr>
+  <p class="copyright">&copy; 2015 <a href="http://www.diegocaponera.com" target="_blank">MWLabs</a>, made w/ <a href="http://moonwave99.github.io/waffel/index.html" target="_blank">waffel</a> and love.</p> 
+</footer>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script>
+  (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+  function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+  e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+  e.src='https://www.google-analytics.com/analytics.js';
+  r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+  ga('create','UA-5216615-10','auto');ga('send','pageview');
+</script>
+  </body>
+</html>

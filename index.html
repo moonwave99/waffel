@@ -22,7 +22,7 @@
     <meta property="og:description" content="Waffel is a static generator tool written in JavaScript, that covers concrete use cases like localisation, pagination, arbitrary page group generation.">
       
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:site" content="http://moonwave99.github.io/waffel//">
+    <meta name="twitter:site" content="http://moonwave99.github.io/waffel">
     <meta name="twitter:creator" content="@moonwavelabs">
     <meta name="twitter:url" content="http://moonwave99.github.io/waffel">
     <meta name="twitter:title" content="Waffel - Static site generation done tasty.">    
@@ -57,14 +57,17 @@
         <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Examples <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
           
-          <li><a href="http://moonwave99.github.io/waffel/examples/cinema-blog-ala-jekyll.html">A Cinema Blog, à la Jekyll</a></li>
+          <li><a href="http://moonwave99.github.io/waffel/examples/cinema-blog-ala-jekyll/index.html">A Cinema Blog, à la Jekyll</a></li>
           
-          <li><a href="http://moonwave99.github.io/waffel/examples/portfolio.html">A Photo portfolio</a></li>
+          <li><a href="http://moonwave99.github.io/waffel/examples/portfolio/index.html">A Photo portfolio</a></li>
           
           </ul>
         </li>        
         <li><a href="#">Documentation</a></li>
         <li><a href="http://moonwave99.github.io/waffel/index.html#faq">FAQ</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="https://github.com/moonwave99/waffel"><i class="fa fa-github"></i> See on Github</a></li>
       </ul>
     </div>
         
@@ -177,12 +180,12 @@ Now that all our pathetic <code>comments.php</code> efforts have been teared apa
 <blockquote>
 <p>Does Waffel provide support for a complex relational model?</p>
 </blockquote>
-<p>Waffel doesn&#39;t know anything about your data schema. But as all the loaded data is exposed in the templates via the <code>data</code> property, you can deal with any sort of composition (e.g. <code>data.users[post.author]</code>). It&#39;s the price to pay if you don&#39;t have to write a schema, but I don&#39;t find it very high : ))</p>
+<p>Waffel doesn&#39;t know anything about your data schema. But as all the loaded data is exposed in the templates via the <code>data</code> property, you can deal with any sort of composition (e.g. <code>data.users[post.author]</code>). It is the price to pay for not having to write a schema, but I don&#39;t find it very expensive : ))</p>
 <p>In case you really need a complex query mechanism, chances are that you need a different stack.</p>
 <blockquote>
 <p>Are there plugins? Is there a way to write any?</p>
 </blockquote>
-<p>Writing a plugin for such a specific tool usually ends up in following a narrow DSL, with no real benefit on top of that hassle.<br>You can include even complicate <strong>filters</strong> and <strong>helpers</strong>, that can be used all over the HTML template codes.</p>
+<p>Writing a plugin for such a specific tool usually ends up in following a narrow DSL, with no real benefit on top of the hassle.<br>You can include even complicate <strong>filters</strong> and <strong>helpers</strong>, that can be used all over the HTML template codes.</p>
 <p>Nevertheless, have a look at the examples up here, they may help you to achieve your goal!</p>
 </section>  
 
