@@ -98,11 +98,11 @@ For `tags`:
     /tag/wireless/index.html
     world-class/index.html
 
-(silly random buzzwords, may vary across different generations)
+(_silly random buzzwords, may vary across different generations_)
 
 On top of that, every `page` is sorted according to the `sort` field, and is paginated in chunks whose default size is 10.
 
-Aa different one can be provided via `paginate` parameter, e.g.:
+A different one can be provided via `paginate` parameter, e.g.:
 
     tags:
       template: blog/tag
