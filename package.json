@@ -1,8 +1,9 @@
 {
   "name": "waffel",
-  "version": "0.0.35",
+  "version": "0.0.36",
   "description": "Static website generator, best companion to Vaneella.",
   "main": "lib/index.js",
+  "homepage" : "http://moonwave99.github.io/waffel/",
   "author": "moonwave99 <diego.caponera@gmail.com>",
   "repository": {
     "type": "git",
