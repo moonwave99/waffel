@@ -1,5 +1,17 @@
 {% extends "layout.html" %}
-{% block title %}Waffel Examples - {{ item.title }}{% endblock %}
+{% set title = item.title %}
+{% block title %}Waffel - {{ item.title }}{% endblock %}
+{% block meta_basic %}
+    <meta name="description" content="{{ item.__content | excerpt(150) }}">
+{% endblock %}
+{% block meta_og %}
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="{{ item.__content | excerpt(350) }}">
+    <meta property="article:published_time" content="{{ item.date | format('YYYY-MM-DDTHH:mm:ss.SSSZZ') }}">
+{% endblock %} 
+{% block meta_twitter %}
+    <meta name="twitter:description" content="{{ item.__content | excerpt(350) }}">
+{% endblock %}
 {% block body %}
 <article class="container">
   <h1>{{ item.title }}</h1>
