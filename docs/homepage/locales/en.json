@@ -1,0 +1,37 @@
+{
+  "title" : "Static site generation done tasty.",
+  "cover": {
+    "title": "Waffel",
+    "subtitle": "Static site generation done <strike>right</strike> <em>tasty</em>.",
+    "description": "Yet <a href='https://staticsitegenerators.net/' target='_blank'>another static generator</a>, here to help you with more concrete use cases than just <em>your personal blog</em>.",
+    "tiles": {
+      "data": {
+        "title" : "Markdown + Frontmatter",
+        "text"  : "The wonder duo. Why change it?"
+      },
+      "configure": {
+        "title" : "Highly Configurable.",
+        "text"  : "No need to store rules in documents or templates!"        
+      },
+      "extend": {
+        "title" : "Extensible.",
+        "text"  : "Write your own <strong>filters</strong> and <strong>helpers</strong>."        
+      },
+      "group": {
+        "title" : "Group by any property.",
+        "text"  : "You want sections for <strong>categories</strong>, groups by <strong>tag</strong>, archives by <strong>date</strong>. You want it bad."
+      },
+      "paginate": {
+        "title" : "Paginate.",
+        "text"  : "You have a lot of data, you want to split it. Let Waffle do the job for you!"        
+      },
+      "localisation": {
+        "title" : "Localise your content.",
+        "text"  : "Different users, different languages, different URLs, one meaning."
+      }
+    }
+  },
+  "philosophy":{
+    "title" : "Philosophy"
+  }
+}

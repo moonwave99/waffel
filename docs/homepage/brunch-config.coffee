@@ -1,7 +1,4 @@
-Waffel    = require 'waffel'
-filters   = require './lib/filters'
-helpers   = require './lib/helpers'
-thumbs    = require './lib/thumbs'
+Waffel = require 'waffel'
 
 exports.config =
   files:
@@ -13,6 +10,9 @@ exports.config =
     stylesheets:
       joinTo:
         'css/app.css': /^(vendor|bower_components|app)/
+
+    templates:
+      joinTo: 'js/app.js'        
         
   server:
     path: 'server.coffee'
@@ -21,11 +21,6 @@ exports.config =
     assets: /(assets|vendor\/assets|font)/
     
   plugins:            
-    assetsmanager:
-      minTimeSpanSeconds: 10
-      copyTo:
-        '' : ['data/images']    
-        
     autoReload:
       enabled:
         js: on
@@ -33,18 +28,17 @@ exports.config =
         assets: off
         
   overrides:
-    production:
+    gh_pages:
       optimize: true
       sourcemaps: false
       paths:
-        public: 'production'
+        public: 'dist'
         
       onCompile: (generatedFiles) ->
-        wfl = new Waffel
-          domain:             'http//example.com'
-          destinationFolder:  'production'
+        wfl = new Waffel     
+          domain:             'http://moonwave99.github.io/waffel'
+          destinationFolder:  'dist'
           uglyUrls:           true
-          filters:            filters         
-          helpers:            helpers
 
-        wfl.init().then -> wfl.generate()
+        wfl.init().then ->
+          wfl.generate()

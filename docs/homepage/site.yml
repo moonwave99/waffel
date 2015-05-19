@@ -1,0 +1,29 @@
+config:
+  google_analytics:       UA-5216615-10
+  google_webmaster_tools: i8NjOC8rJvuvTJANxL3ZU5lemfbFkovx0ZqSCYwg430
+  tiles:
+    data:
+      icon: fa-file-code-o
+    configure:
+      icon: fa-cogs
+    extend:
+      icon: fa-expand
+    group:
+      icon: fa-bars
+    paginate:
+      icon: fa-sort-numeric-asc
+    localisation:
+      icon: fa-globe
+
+structure:
+  home:
+    template: home
+    url: /
+  examples:
+    collection: examples
+    pages:
+      single:
+        template: example
+        url:      /examples/:slug
+        priority: 0.8
+        

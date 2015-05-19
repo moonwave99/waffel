@@ -1,0 +1,8 @@
+{% extends "layout.html" %}
+{% block title %}Waffel Examples - {{ item.title }}{% endblock %}
+{% block body %}
+<article class="container">
+  <h1>{{ item.title }}</h1>
+  {% markdown %}{{ item.__content }}{% endmarkdown %}
+</article>
+{% endblock %}

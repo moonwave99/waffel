@@ -19,9 +19,10 @@ exports.startServer = (port, path, callback) ->
       path:       path
       indexPath:  "#{path}/404.html"    
   
-  thumbs pattern, thumbPath, thumbRelativePath, thumbnailWidth, (imgInfo) ->
+  thumbs pattern, thumbPath, thumbRelativePath, thumbnailWidth, process.cwd(), (imgInfo) ->
     wfl.on 'server:start', callback    
     wfl.init().then ->
+      console.log imgInfo
       wfl.generate
         data:
           imgInfo:  imgInfo

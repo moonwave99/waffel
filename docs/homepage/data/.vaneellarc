@@ -1,0 +1,74 @@
+albums:
+  label:  Albums
+  icon:   fa-file-text-o
+  labelPattern: "<strong>#{artist}</strong><br>#{title}"
+  imagePath: images/covers
+  defaultView: grid
+  languages: ['it', 'en']
+  showMeta: true
+  fields:
+    thumb:
+      type: image
+      label: Thumb
+      cover: true
+      imagePath: images/thumbs
+      filterable: false
+      align:  center
+      validation:
+        required: false       
+    cover:
+      type: image
+      label: Cover
+      filterable: false
+      align:  center
+      validation:
+        required: false
+      display:
+        table: false
+    artist:
+      type: text
+      label: Artist
+      sort:
+        sortable: true
+    title:
+      type: text
+      label: Title
+      sort:
+        sortable: true
+    slug:
+      type: slug
+      label: Slug
+      filterable: false
+      display:
+        table:  false
+    info:
+      type: text
+      label: Info
+      sort:
+        sortable: true      
+    category:
+      type: select
+      label: Category
+      align: center
+      relation:
+        type: array
+        from: ['roots', 'basic', 'nugaze']
+      sort:
+        sortable: true
+        main: true
+    video:
+      type: url
+      label: Youtube Video
+      align:  center
+      validation:
+        required: false
+    discogs:
+      type: url
+      label: Discogs
+      align:  center
+    spotify:
+      type: url
+      label: Spotify
+      align:  center
+      validation:
+        required: false

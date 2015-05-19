@@ -1,21 +1,23 @@
 {
+  "author": "moonwave99 <diego.caponera@gmail.com>",
   "name": "waffel.examples.jekyll",
   "version": "0.0.2",
+  "homepage": "http://moonwave99.github.io/waffel/examples/cinema-blog-ala-jekyll/index.html",
   "description": "Example of static blog generation [like Jekyll]",
   "main": "index.js",
   "scripts": {
     "clean": "rm -rf public/ dist/",
-    "start": "node ./index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./index.js"
   },
+  "private": true,
   "keywords": [
     "waffel",
     "jekyll",
     "static-generator"
   ],
-  "author": "moonwave99 <diego.caponera@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "bluebird": "^2.9.25",
     "faker": "git://github.com/FotoVerite/Faker.js#e47f38e811d1f487c460d65ca59d7ef6dc034819",
     "fs-extra": "^0.18.2",
     "lodash": "^3.7.0",

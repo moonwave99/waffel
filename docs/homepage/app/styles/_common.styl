@@ -1,0 +1,106 @@
+html
+  box-sizing border-box
+*, *:before, *:after
+  box-sizing inherit
+body
+  padding-top 50px
+  color $mainColor
+  background-color $contentBgColor
+  
+a
+  color $linkColor
+  &:hover
+    background-color $linkColor
+    color white
+    text-decoration none
+    
+p, ul, ol, blockquote, pre
+  margin 0 auto 2rem auto    
+
+blockquote
+  border-left-color lighten($mainColor, 30%)
+  font-style italic
+  color lighten($mainColor, 30%)
+  p
+    word-wrap break-word
+
+.navbar-default
+  background-color rgba($navBgColor, .8)
+  border none
+  box-shadow 0 0 1rem rgba(black, .2)
+  .navbar-brand
+    color $navColor
+    font-weight bold
+  .navbar-nav
+    >li
+      >a
+        color $navColor
+
+.cover
+  min-height calc(100vh - 50px)
+  padding-top 5vh
+  font-size size($bodyFontSize)
+  position relative
+  background-color $coverBgColor
+  background-image repeating-linear-gradient(120deg, transparent, transparent 3rem, rgba(255,255,255,.5) 3rem, rgba(255,255,255,.5) 6rem)
+    
+  header
+    margin-bottom 10vh
+    padding 0 1rem
+  h1
+    font-size size($coverH1Size)
+    line-height size($coverH1Size)
+    margin-bottom 2rem
+  h2, h3
+    font-weight 400
+  h2
+    color lighten($mainColor, 40%)
+  img
+    height $logoSize
+    @media screen and (min-width: 1700px)
+      height 2 * $logoSize
+      
+  .tiles
+    margin-top 5vh
+    padding-bottom 5vh
+    text-align left
+    background-color lighten($mainColor, 40%)
+    color white
+    position absolute
+    bottom 0
+    width 100%
+    @media screen and (max-width: 1199px)
+      position static
+    h3
+      margin-bottom 1rem
+      color #F6C74D
+    p
+      font-size size($tileFontSize)
+
+section
+  &.container
+    @media (min-width: 992px)
+      width $bodyWidth
+  > h2
+    font-size size($sectionTitleFontSize)
+    text-align center
+    margin 4rem 0
+  > h3
+    margin 3rem 0
+  > hr
+    margin 2rem auto
+    width unit(100/3, '%')
+    border-color $mainColor
+
+article
+  &.container
+    @media (min-width: 992px)
+      width $bodyWidth
+
+.footer
+  font-size $footerFontSize
+  font-weight 300
+  > hr
+    margin 2rem auto
+    width unit(100/3, '%')
+    border-color $mainColor  

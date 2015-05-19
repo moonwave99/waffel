@@ -1,0 +1,42 @@
+{
+  "name": "waffel-homepage",
+  "version": "0.0.1",
+  "description": "Waffel homepage.",
+  "main": "index.html",
+  "author": "moonwave99 <diego.caponera@gmail.com>",
+  "homepage": "http://moonwave99.github.io/waffel/",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:moonwave99/waffel.git"
+  },
+  "scripts": {
+    "clean": "rm -rf public dist",
+    "start": "brunch watch --server",
+    "build": "brunch b -P -e gh_pages",
+    "deploy": "node ./bin/deploy.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "assetsmanager-brunch": "^1.8.1",
+    "auto-reload-brunch": "^1.7.8",
+    "brunch": "^1.8.2",
+    "clean-css-brunch": "^1.7.2",
+    "css-brunch": "^1.7.0",
+    "handlebars-brunch": "^1.9.1",
+    "hbs": "*",
+    "pushserve": "^0.1.6",
+    "stylus-brunch": "^1.8.1",
+    "uglify-js-brunch": "^1.7.8",
+    "underscore": "*",
+    "waffel": "0.0.35"
+  },
+  "devDependencies": {
+    "bluebird": "^2.9.25",
+    "coffee-script": "^1.9.2",
+    "colors": "^1.1.0",
+    "fs-extra": "^0.18.3",
+    "gh-pages": "^0.3.0",
+    "lodash": "^3.8.0",
+    "shelljs": "^0.4.0"
+  }
+}

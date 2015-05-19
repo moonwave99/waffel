@@ -6,7 +6,7 @@ colors      = require 'colors'
 glob        = Promise.promisifyAll require 'globby'
 im          = Promise.promisifyAll require 'imagemagick'
 
-module.exports = (pattern, thumbPath, thumbRelativePath, thumbnailWidth, callback) ->
+module.exports = (pattern, thumbPath, thumbRelativePath, thumbnailWidth, root = process.cwd(), callback) ->
   thumbnailStartTime = process.hrtime()      
   glob.callAsync(null, pattern).then (images) ->
     tasks = _.reduce images,  (memo, img) ->
@@ -18,7 +18,7 @@ module.exports = (pattern, thumbPath, thumbRelativePath, thumbnailWidth, callbac
               im.identifyAsync(img).then (features) ->
                 ratio = features.height / features.width
                 ratioPercent = "#{ratio * 100}%"
-                seriesCallback null, _(features).pick(['width', 'height']).extend({ src: img.replace("#{process.cwd()}/data/", ''), ratio: ratio, ratioPercent: ratioPercent }).value()
+                seriesCallback null, _(features).pick(['width', 'height']).extend({ src: img.replace("#{root}/data/", ''), ratio: ratio, ratioPercent: ratioPercent }).value()
               .catch seriesCallback
             ,
             # make a thumbnail out of it

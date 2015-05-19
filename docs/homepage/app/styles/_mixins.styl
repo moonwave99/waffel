@@ -1,0 +1,36 @@
+backgroundHover(
+  defaultColor = rgba(0,0,0,.05),
+  activeColor = rgba(0,0,0,.1),
+  focusColor = activeColor,
+  transitionTime = .2s,
+  transitionEasing = linear)
+  background-color defaultColor
+  transition background-color transitionTime transitionEasing
+  &:hover, &.active
+    background-color activeColor
+  &:focus
+    background-color focusColor
+    
+colorHover(
+  defaultColor = rgba(0,0,0,.05),
+  activeColor = rgba(0,0,0,.1),
+  hoverColor = activeColor,
+  transitionTime = .2s,
+  transitionEasing = linear)
+  color defaultColor
+  transition color transitionTime transitionEasing
+  &:hover
+    color hoverColor
+  &.active
+    color activeColor
+
+ellipsed()
+  white-space nowrap           
+  overflow hidden
+  text-overflow ellipsis
+  
+sansSerif()
+  font-family 'Ubuntu', 'Arial', sans-serif
+
+slab()
+  font-family 'Arvo', 'Georgia', serif
