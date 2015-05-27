@@ -7,8 +7,6 @@ I strongly recommend you to use Waffel with [Brunch](http://brunch.io/), startin
     
     $ brunch new gh:moonwave99/brunch-with-waffel path/to/project
     $ cd path/to/project
-    $ npm install
-    $ bower install
     $ npm start
 
 Visit [`http://localhost:3333`](http://localhost:3333) and you ready to go!
