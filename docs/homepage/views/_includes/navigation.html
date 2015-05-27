@@ -12,15 +12,16 @@
 
     <div class="collapse navbar-collapse" id="navbar-collapse">
       <ul class="nav navbar-nav">
-        <li><a href="{{ url('home')}}#philosophy">Philosophy</a></li>        
-        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Examples <span class="caret"></span></a>
+        <li><a href="{{ url('home')}}#getting-started">{{ t('navigation.started', page) }}</a></li>        
+        <li><a href="{{ url('documentation') }}">{{ t('documentation.title', page) }}</a></li>
+        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ t('navigation.examples', page) }} <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
           {% for slug, example in data.examples %}
           <li><a href="{{ url('examples.single', example) }}">{{ example.title }}</a></li>
           {% endfor %}
           </ul>
         </li>        
-        <li><a href="{{ url('documentation') }}">{{ t('documentation.title', page) }}</a></li>
+        <li><a href="{{ url('home')}}#philosophy">{{ t('navigation.philosophy', page) }}</a></li>        
         <li><a href="{{ url('home')}}#faq">FAQ</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">

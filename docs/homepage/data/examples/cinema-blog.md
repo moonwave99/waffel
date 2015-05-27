@@ -116,3 +116,7 @@ There is so just one property not covered yet, the `template`!
 ### Templates
 
 Waffel uses [Nunjucks](https://mozilla.github.io/nunjucks/), due to its expressiveness.
+
+---
+
+**WIP**

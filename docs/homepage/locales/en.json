@@ -1,6 +1,9 @@
 {
   "title" : "Static site generation done tasty.",
   "navigation": {
+    "started" : "Getting Started",
+    "philosophy" : "Philosophy",
+    "examples" : "Examples",
     "github" : "See on Github"
   },
   "home": {
