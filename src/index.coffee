@@ -220,7 +220,9 @@ module.exports = class Waffel extends EventEmitter
   _generateForLanguage: (language, localised) ->
     tasks = []
     for name, page of @structure
-      if page.template
+      if page.languages and language not in page.languages
+        console.log "#{"Notice:".magenta} #{name.green} won't be rendered in #{language.yellow}" if @options.verbose
+      else if page.template
         page.name = name
         url = @_url page, {}, { language: language, localised: localised }
         tasks.push @_createPage page, name, url, {}, language, localised
