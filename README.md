@@ -1,6 +1,6 @@
 # Waffel
 
-Static site generation done ~right~ _tasty_.
+Static site generation done ~~right~~ _tasty_.
 
 Yet another static generator, here to help you with more concrete use cases than just _your personal blog_.
 
