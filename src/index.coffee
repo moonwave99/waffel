@@ -21,7 +21,7 @@ glob          = Promise.promisifyAll require 'globby'
 module.exports = class Waffel extends EventEmitter
   defaults:
     verbose:            false
-    defaultPagination:  10    
+    defaultPagination:  10
     defaultSortField:   'slug'
     defaultSortOrder:   'desc'
     structureFile:      'site.yml'
@@ -54,13 +54,13 @@ module.exports = class Waffel extends EventEmitter
       port:       1999
       path:       'public'
       indexPath:  'public/404.html'
-    
+
   helpers:
     url: (name, data = {}, options = {}) ->
       page = @_getPageByName name
       if options.page
-        page.pagination = 
-          page: options.page      
+        page.pagination =
+          page: options.page
       if @options.uglyUrls
         relativeUrl = @_url page, data, options
         if @options.displayExt
@@ -69,44 +69,44 @@ module.exports = class Waffel extends EventEmitter
           [@options.domain, relativeUrl].join '/'
       else
         _.compact( [@options.domain, (@_url page, data, options), 'index.html'] ).join '/'
-      
+
     asset: (_path = '') ->
       _.compact( [@options.domain, @options.assetPath, _path] ).join '/'
-      
+
     absoluteURL: (url) ->
       _.compact( [@options.domain, url] ).join '/'
-      
+
     t: (key, page) ->
       i18n.translate key, lng: page.language
-    
+
     loc: (data, language = @options.defaultLanguage) ->
       if not data._localised
         data
       else
         data[language] or data[@options.fallbackLanguage]
-      
+
   filters:
     toArray: (object) ->
       _.toArray object
-    
+
     pluck: (object = {}, key) ->
       _.pluck object, key
-      
+
     flatten: (array = []) ->
       _.flatten array
-    
+
     uniq: (array = []) ->
       _.uniq array
-    
+
     where: (array = [], search = {}) ->
       _.where array, search
-    
+
     limit: (array = [], count = 10) ->
       array.slice 0, count
-    
+
     format: (date, format = @options.dateFormat) ->
       moment(date).format format
-    
+
     excerpt: (text, size = 200) ->
       $ = cheerio.load marked text
       text = $('p').filter (index, element) ->
@@ -118,14 +118,14 @@ module.exports = class Waffel extends EventEmitter
         "#{words.join ' '}…"
       else
         text
-    
+
     toJSON: (data) ->
       JSON.stringify data
-      
+
     inspect: (object) ->
-      console.log util.inspect(object, false, 2, true)     
+      console.log util.inspect(object, false, 2, true)
       object
-      
+
     top: (data, thresh = 3) ->
       data = _.flatten data
       data = _.reduce data,
@@ -133,15 +133,15 @@ module.exports = class Waffel extends EventEmitter
           if memo[x] then memo[x] = memo[x]+1 else memo[x] = 1
           memo
         , {}
-      data = _.reduce data, 
+      data = _.reduce data,
         (memo, freq, key) ->
           memo.push { key: key, freq: freq }
           memo
         , []
       data = _.sortBy data, (bin) ->
-        -bin.freq  
-      data.slice(0, thresh).map (x) -> x.key      
-      
+        -bin.freq
+      data.slice(0, thresh).map (x) -> x.key
+
   constructor: (opts) ->
     @options = _.extend @defaults, opts
     @options.dataFolder         = path.join @options.root, @options.dataFolder
@@ -150,7 +150,7 @@ module.exports = class Waffel extends EventEmitter
     @options.localesFolder      = path.join @options.root, @options.localesFolder
     @options.destinationFolder  = path.join @options.root, @options.destinationFolder
     @options.structureFile      = path.join @options.root, @options.structureFile
-    
+
     @helpers = _.extend @helpers, @options.helpers
     @filters = _.extend @filters, @options.filters
 
@@ -159,10 +159,10 @@ module.exports = class Waffel extends EventEmitter
 
     for name, filter of @filters
       @filters[name] = _.bind filter, @
-      
+
     @filters.excerpt = _.memoize @filters.excerpt, (text, size) ->
       "#{md5(text)}.#{size}"
-      
+
     @filters.top = _.memoize @filters.top, (data, size) ->
       "#{_.flattenDeep data .join ''}.#{size}"
 
@@ -178,11 +178,11 @@ module.exports = class Waffel extends EventEmitter
     @env = nunjucks.configure @options.viewFolder, watch: false, express: null
     for name, filter of @filters
       @env.addFilter name, filter.bind @
-    
+
     marked.setOptions @options.markdownOptions
     markdown.register @env, marked
     nunjucks.precompile @options.viewFolder, { env: @env }
-    
+
   init: ->
     _path = path.join(@options.dataFolder, "**/*#{@options.ext}")
     console.log "--> Globbing #{_path.cyan}:"
@@ -191,11 +191,11 @@ module.exports = class Waffel extends EventEmitter
       lng: @options.defaultLanguage
       fallbackLng: 'dev'
       resGetPath: path.join @options.localesFolder, '__lng__.json'
-      
+
     glob.callAsync( @, _path).then (files) =>
       files.forEach @_parseFile, @
       @data
-          
+
   generate: (options = {}) ->
     @start = process.hrtime()
     console.log "--> Start generation process...\n---"
@@ -206,9 +206,9 @@ module.exports = class Waffel extends EventEmitter
       languages = if @options.localiseDefault then languages else @options.languages.filter (l) => l != @options.defaultLanguage
       for language in languages
         tasks = tasks.concat @_generateForLanguage language, true
-      tasks = tasks.concat @_generateForLanguage @options.defaultLanguage, false  
+      tasks = tasks.concat @_generateForLanguage @options.defaultLanguage, false
       async.parallel tasks, @postGenerate
-      
+
   postGenerate: (err, pages) =>
     elapsed = process.hrtime @start
     millis = elapsed[1] / 1000000
@@ -216,7 +216,7 @@ module.exports = class Waffel extends EventEmitter
     @_createSitemap pages if @options.sitemap
     @emit 'generation:complete'
     @_launchServer() if @options.server
-  
+
   _generateForLanguage: (language, localised) ->
     tasks = []
     for name, page of @structure
@@ -230,11 +230,11 @@ module.exports = class Waffel extends EventEmitter
         for _name, _page of page.pages
           _page.name = "#{name}.#{_name}"
           if _name is 'single'
-            tasks = tasks.concat @_createSinglePages _page, "#{name}.single", @data[page.collection], language, localised
+            tasks = tasks.concat _.compact @_createSinglePages _page, "#{name}.single", @data[page.collection], language, localised
           else
-            tasks = tasks.concat @_createCollectionPage _page, "#{name}.#{_name}", @data[page.collection], language, localised
+            tasks = tasks.concat _.compact @_createCollectionPage _page, "#{name}.#{_name}", @data[page.collection], language, localised
     tasks
-    
+
   _parseFile: (file) ->
     relativePath = file.replace @options.dataFolder, ''
     tokens = relativePath.split(path.sep).slice 1
@@ -250,35 +250,35 @@ module.exports = class Waffel extends EventEmitter
       @data[collection][data.slug][language] = data
     else
       @data[collection][data.slug] = data
-  
+
   _getPageByName: (name) ->
     tokens = name.split '.'
     if tokens.length == 1
       @structure[name]
     else
       @structure[tokens[0]].pages[tokens[1]]
-    
+
   _slugify: (value = '') ->
     value
       .toLowerCase()
       .replace /\s+/g, '-'
       .replace /[^-\w]/g, ''
-     
+
   _formatToken: (value) ->
     if value instanceof Date
       value = moment(value).format @options.dateFormat
     @_slugify value
-    
+
   _url: (page, data, opts = {}) ->
     tokens = page.url.split '/'
     tokens.unshift opts.language if opts.localised
     tokens = tokens.map (token) =>
       if token[0] is ':'then @_formatToken data.group or data[token.slice 1] else token
-        
+
     if page.pagination and page.pagination.page > 1
       tokens.push 'page'
       tokens.push page.pagination.page
-    
+
     _.compact tokens
       .join '/'
 
@@ -289,8 +289,8 @@ module.exports = class Waffel extends EventEmitter
     else if @options.uglyUrls and url.length > 0
       path.join @options.destinationFolder, "#{url}#{@options.outputExt}"
     else
-      path.join @options.destinationFolder, url, 'index.html'      
-  
+      path.join @options.destinationFolder, url, 'index.html'
+
   _renderPage: (page, _data) ->
     tmpData = {}
     tmpData[page.export || 'item'] = _data
@@ -304,7 +304,7 @@ module.exports = class Waffel extends EventEmitter
   _createCollectionPage: (page, name, set, language, localised) ->
     sort = if page.sort and page.sort.field then page.sort.field else @options.defaultSortField
     order = if page.sort and page.sort.order then page.sort.order else @options.defaultSortOrder
-    
+
     if page['filter']
       set = _.where set, page['filter']
     if page.groupBy
@@ -328,22 +328,23 @@ module.exports = class Waffel extends EventEmitter
 
       pages.map (p, index) =>
         _page = _.clone page
-        _page.pagination = 
+        _page.pagination =
           page0:  index
           page:   index+1
           total:  pages.length
         _page.group = group
         url = @_url _page, { group: group }, { language: language, localised: localised }
         @_createPage _page, name, url, p, language, localised
-      
+
     _.flatten tasks
-    
+
   _createSinglePages: (page, name, set, language, localised) ->
     _.map set, (item, slug) =>
       data = if item._localised then item[language] or item[@options.fallbackLanguage] else item
+      if page.filter and not _.where([data], page.filter).length then return false
       url = @_url page, data, { language: language, localised: localised }
       @_createPage page, name, url, data, language, localised
-    
+
   _createPage: (page, name, url, data = {}, language, localised) ->
     (callback) =>
       target = @_target url
@@ -351,7 +352,7 @@ module.exports = class Waffel extends EventEmitter
       _page.path = url
       _page.language = language
       _page.localised = localised
-      output = @_renderPage _page, data      
+      output = @_renderPage _page, data
       languageInfo = if localised then "[#{language}] " else '[--] '
       paginationInfo = if page.pagination then " #{page.pagination.page}/#{page.pagination.total}" else ''
       pageInfo = data.slug || data.group || page.group || ''
@@ -359,7 +360,7 @@ module.exports = class Waffel extends EventEmitter
       console.log "#{languageInfo.red}Generating #{name.green}#{pageInfo.yellow}#{paginationInfo.magenta} at: #{target.cyan}" if @options.verbose
       fs.outputFile target, output, (err) =>
         callback err, page: _page, data: data, url: url
-        
+
   _createSitemap: (pages) ->
     target = path.join @options.destinationFolder, 'sitemap.xml'
     output = nunjucks.render 'sitemap.xml',
@@ -371,7 +372,7 @@ module.exports = class Waffel extends EventEmitter
         now     : new Date
     fs.outputFile target, output, (err) =>
       console.log "--> Created #{'sitemap.xml'.cyan}"
-  
+
   _launchServer: ->
     opts = _.extend @options.serverConfig, @options.server
     server = pushserve opts, =>
