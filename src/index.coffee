@@ -79,7 +79,7 @@ module.exports = class Waffel extends EventEmitter
     t: (key, page) ->
       i18n.translate key, lng: page.language
 
-    loc: (data, language = @options.defaultLanguage) ->
+    loc: (data = {}, language = @options.defaultLanguage) ->
       if not data._localised
         data
       else
