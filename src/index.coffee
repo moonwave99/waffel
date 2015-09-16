@@ -203,7 +203,7 @@ module.exports = class Waffel extends EventEmitter
     @emit 'startGeneration'
     fs.ensureDirAsync( @options.destinationFolder ).then =>
       tasks = []
-      languages = if @options.localiseDefault then languages else @options.languages.filter (l) => l != @options.defaultLanguage
+      languages = if @options.localiseDefault then @options.languages else @options.languages.filter (l) => l != @options.defaultLanguage
       for language in languages
         tasks = tasks.concat @_generateForLanguage language, true
       tasks = tasks.concat @_generateForLanguage @options.defaultLanguage, false
