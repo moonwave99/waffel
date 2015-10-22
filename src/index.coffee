@@ -31,6 +31,7 @@ module.exports = class Waffel extends EventEmitter
     staticFolder:       'assets'
     localesFolder:      'locales'
     domain:             ''
+    basePath:           ''
     assetPath:          ''
     root:               process.cwd()
     ext:                '.md'
@@ -64,17 +65,17 @@ module.exports = class Waffel extends EventEmitter
       if @options.uglyUrls
         relativeUrl = @_url page, data, options
         if @options.displayExt
-          ([@options.domain, (relativeUrl || 'index')].join '/') + @options.outputExt
+          ([@options.domain, @options.basePath, (relativeUrl || 'index')].join '/') + @options.outputExt
         else
-          [@options.domain, relativeUrl].join '/'
+          [@options.domain, @options.basePath, relativeUrl].join '/'
       else
-        _.compact( [@options.domain, (@_url page, data, options), 'index.html'] ).join '/'
+        _.compact( [@options.domain, @options.basePath, (@_url page, data, options), 'index.html'] ).join '/'
 
     asset: (_path = '') ->
-      _.compact( [@options.domain, @options.assetPath, _path] ).join '/'
+      _.compact( [@options.domain, @options.basePath, @options.assetPath, _path] ).join '/'
 
     absoluteURL: (url) ->
-      _.compact( [@options.domain, url] ).join '/'
+      _.compact( [@options.domain, @options.basePath, url] ).join '/'
 
     t: (key, page) ->
       i18n.translate key, lng: page.language
