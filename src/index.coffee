@@ -81,7 +81,10 @@ module.exports = class Waffel extends EventEmitter
       i18n.translate key, lng: page.language
 
     loc: (data = {}, language = @options.defaultLanguage) ->
-      if not data._localised
+      if _.isArray data
+        data.map (item) =>
+          if item._localised then item[language] or item[@options.fallbackLanguage] else item
+      else if not data._localised
         data
       else
         data[language] or data[@options.fallbackLanguage]
@@ -101,6 +104,9 @@ module.exports = class Waffel extends EventEmitter
 
     where: (array = [], search = {}) ->
       _.where array, search
+
+    findWhere: (array = [], search = {}) ->
+      _.findWhere array, search
 
     limit: (array = [], count = 10) ->
       array.slice 0, count
