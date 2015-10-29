@@ -65,9 +65,9 @@ module.exports = class Waffel extends EventEmitter
       if @options.uglyUrls
         relativeUrl = @_url page, data, options
         if @options.displayExt
-          ([@options.domain, @options.basePath, (relativeUrl || 'index')].join '/') + @options.outputExt
+          (_.compact( [@options.domain, @options.basePath, (relativeUrl || 'index')] ).join '/') + @options.outputExt
         else
-          [@options.domain, @options.basePath, relativeUrl].join '/'
+          _.compact( [@options.domain, @options.basePath, relativeUrl] ).join '/'
       else
         _.compact( [@options.domain, @options.basePath, (@_url page, data, options), 'index.html'] ).join '/'
 
