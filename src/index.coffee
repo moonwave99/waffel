@@ -20,6 +20,7 @@ glob          = Promise.promisifyAll require 'globby'
 
 module.exports = class Waffel extends EventEmitter
   defaults:
+    silent:             false
     verbose:            false
     defaultPagination:  10
     defaultSortField:   'slug'
@@ -149,6 +150,14 @@ module.exports = class Waffel extends EventEmitter
         -bin.freq
       data.slice(0, thresh).map (x) -> x.key
 
+  log: (what) ->
+    console.log(what) if not @options.silent
+
+  error: (what, e) ->
+    console.error "#{what}".red
+    console.error e if @options.verbose
+    console.error e.stack if @options.verbose
+
   constructor: (opts) ->
     @options = _.extend @defaults, opts
     @options.dataFolder         = path.join @options.root, @options.dataFolder
@@ -175,7 +184,9 @@ module.exports = class Waffel extends EventEmitter
 
     @data = {}
 
-    site = yaml.safeLoad fs.readFileSync(@options.structureFile, 'utf8')
+    try structureFileContents = fs.readFileSync @options.structureFile, 'utf8'
+    catch e then @error "Could not locate structureFile: #{@options.structureFile}", e
+    site = yaml.safeLoad structureFileContents
 
     @config = site.config
     @structure = site.structure
@@ -192,7 +203,7 @@ module.exports = class Waffel extends EventEmitter
 
   init: ->
     _path = path.join(@options.dataFolder, "**/*#{@options.ext}")
-    console.log "--> Globbing #{_path.cyan}:"
+    @log "--> Globbing #{_path.cyan}:"
     i18n.init
       preload: @options.languages.concat ['dev']
       lng: @options.defaultLanguage
@@ -205,7 +216,7 @@ module.exports = class Waffel extends EventEmitter
 
   generate: (options = {}) ->
     @start = process.hrtime()
-    console.log "--> Start generation process...\n---"
+    @log "--> Start generation process...\n---"
     if options.data then _.merge @data, options.data
     @emit 'startGeneration'
     fs.ensureDirAsync( @options.destinationFolder ).then =>
@@ -219,7 +230,7 @@ module.exports = class Waffel extends EventEmitter
   postGenerate: (err, pages) =>
     elapsed = process.hrtime @start
     millis = elapsed[1] / 1000000
-    console.log "--> Generated #{(pages.length + '').cyan} pages in #{elapsed[0]}.#{millis.toFixed(0)}s."
+    @log "--> Generated #{(pages.length + '').cyan} pages in #{elapsed[0]}.#{millis.toFixed(0)}s."
     @_createSitemap pages if @options.sitemap
     @emit 'generation:complete'
     @_launchServer() if @options.server
@@ -228,7 +239,7 @@ module.exports = class Waffel extends EventEmitter
     tasks = []
     for name, page of @structure
       if page.languages and language not in page.languages
-        console.log "#{"Notice:".magenta} #{name.green} won't be rendered in #{language.yellow}" if @options.verbose
+        @log "#{"Notice:".magenta} #{name.green} won't be rendered in #{language.yellow}" if @options.verbose
       else if page.template
         page.name = name
         url = @_url page, {}, { language: language, localised: localised }
@@ -364,7 +375,7 @@ module.exports = class Waffel extends EventEmitter
       paginationInfo = if page.pagination then " #{page.pagination.page}/#{page.pagination.total}" else ''
       pageInfo = data.slug || data.group || page.group || ''
       pageInfo = if pageInfo then " [#{pageInfo}]" else ''
-      console.log "#{languageInfo.red}Generating #{name.green}#{pageInfo.yellow}#{paginationInfo.magenta} at: #{target.cyan}" if @options.verbose
+      @log "#{languageInfo.red}Generating #{name.green}#{pageInfo.yellow}#{paginationInfo.magenta} at: #{target.cyan}" if @options.verbose
       fs.outputFile target, output, (err) =>
         callback err, page: _page, data: data, url: url
 
@@ -378,10 +389,10 @@ module.exports = class Waffel extends EventEmitter
         pages   : pages.filter (p) -> !_.isBoolean p.page.sitemap and p.page.sitemap is not false
         now     : new Date
     fs.outputFile target, output, (err) =>
-      console.log "--> Created #{'sitemap.xml'.cyan}"
+      @log "--> Created #{'sitemap.xml'.cyan}"
 
   _launchServer: ->
     opts = _.extend @options.serverConfig, @options.server
     server = pushserve opts, =>
-      console.log "--> waffel server waiting for you at " + "http://localhost:#{opts.port}".green
+      @log "--> waffel server waiting for you at " + "http://localhost:#{opts.port}".green
       @emit 'server:start', server
