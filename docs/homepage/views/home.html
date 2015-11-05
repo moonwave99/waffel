@@ -1,16 +1,16 @@
 {% extends "layout.html" %}
 {% set title = t('title', page) %}
-{% block title %}Waffel - {{ t('title', page) }}{% endblock %}
+{% block title %}Waffel - {{ t('title') }}{% endblock %}
 
 {% block body %}
 <section class="text-center cover">
   <header>
-    <h1>{{ t('cover.title', page) }}</h1>
-    <h2>{{ t('cover.subtitle', page) }}</h2>
+    <h1>{{ t('cover.title') }}</h1>
+    <h2>{{ t('cover.subtitle') }}</h2>
     <p>
       <img src="{{ asset('images/waffel.svg') }}" alt="Waffel">
     </p>
-    <p>{{ t('cover.description', page) }}</p>
+    <p>{{ t('cover.description') }}</p>
   </header>
   <div class="tiles clearfix">
     <div class="container">
@@ -18,8 +18,8 @@
         
       {% for key, tile in config.tiles %}
         <div class="col-sm-4">
-          <h3><i class="fa fa-fw {{tile.icon}}"></i> {{ t('cover.tiles.' + key + '.title', page) }}</h3>
-          <p>{{ t('cover.tiles.' + key + '.text', page) }}</p>
+          <h3><i class="fa fa-fw {{tile.icon}}"></i> {{ t('cover.tiles.' + key + '.title') }}</h3>
+          <p>{{ t('cover.tiles.' + key + '.text') }}</p>
         </div>
       {% if not loop.fist and not loop.last and (loop.index % 3) == 0 %}
       </div>

@@ -5,9 +5,9 @@
       <ul class="nav navbar-nav">
         <li><a href="{{ url('blog.index', {}, { 'page' : 1}) }}">Home</a></li>
         {% for cat in categories %}
-        <li><a href="{{ url( 'blog.categories', { 'category' : cat }, { 'page' : 1 } ) }}">{{ cat  | capitalize }}</a></li>
+        <li><a href="{{ url( 'blog.categories', { 'category' : cat }, { 'page' : 1 } ) }}">{{ cat | capitalize }}</a></li>
         {% endfor %}
-        <li><a href="{{ url('about', {}, page) }}">About</a></li>
+        <li><a href="{{ url('about') }}">About</a></li>
       </ul>
     </div>
   </div>

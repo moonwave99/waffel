@@ -1,9 +1,9 @@
 {% extends "layout.html" %}
-{% block title %}{{ t('notFound.title', page) }}{% endblock %}
+{% block title %}{{ t('notFound.title') }}{% endblock %}
 
 {% block body %}
   <div class="container">
-    <h1>{{ t('notFound.title', page) }}</h1>
-    <p><a href="{{ url('home') }}">{{ t('notFound.text', page) }}</a></p>
+    <h1>{{ t('notFound.title') }}</h1>
+    <p><a href="{{ url('home') }}">{{ t('notFound.text') }}</a></p>
   </div>
 {% endblock %}

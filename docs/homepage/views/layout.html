@@ -3,15 +3,15 @@
 {% block meta %}
   {% set metaCover = ('images/examples/' + item.cover) if item.cover else config.defaultCover %}
   {% block meta_basic %}
-    <meta name="description" content="{{ t('home.description', page) }}">
+    <meta name="description" content="{{ t('home.description') }}">
   {% endblock %}
-    <meta property="og:site_name" content="{{ t('title', page) }}">
+    <meta property="og:site_name" content="{{ t('title') }}">
     <meta property="og:url" content="{{ absoluteURL(page.path) }}">
     <meta property="og:title" content="Waffel - {{ title }}">    
     <meta property="og:image" content="{{ asset( metaCover ) }}">
   {% block meta_og %}
     <meta property="og:type" content="website">
-    <meta property="og:description" content="{{ t('home.description', page) }}">
+    <meta property="og:description" content="{{ t('home.description') }}">
   {% endblock %}    
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="{{ absoluteURL('') }}">
@@ -20,7 +20,7 @@
     <meta name="twitter:title" content="Waffel - {{ title }}">    
     <meta name="twitter:image:src" content="{{ asset( metaCover ) }}">
   {% block meta_twitter %}
-    <meta name="twitter:description" content="{{ t('home.description', page) }}">
+    <meta name="twitter:description" content="{{ t('home.description') }}">
   {% endblock %}
 {% endblock %}
 

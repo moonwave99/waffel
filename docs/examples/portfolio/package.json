@@ -25,8 +25,7 @@
     "javascript-brunch": ">= 1.0 < 1.8",
     "lodash": "^3.8.0",
     "stylus-brunch": ">= 1.0 < 1.8",
-    "uglify-js-brunch": ">= 1.0 < 1.8",
-    "waffel": "0.0.35"
+    "uglify-js-brunch": ">= 1.0 < 1.8"
   },
   "devDependencies": {
     "shelljs": "^0.4.0"
