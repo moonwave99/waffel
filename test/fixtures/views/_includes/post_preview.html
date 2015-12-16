@@ -1,0 +1,13 @@
+<article>
+  <header>
+    <h2><a href="{{ url('blog.single', post) }}">{{ post.title }}</a></h2>
+    <p>
+      <a href="{{ url('blog.single', post) }}"><img src="{{ post.cover }}" class="img-responsive" alt="{{ post.title }}"></a>
+    </p>
+    <p class="info">
+      <strong>{{ post.date | format('MMM DD YYYY') }}</strong> - posted in <a href="{{ url('blog.categories', post) }}">{{ post.category | capitalize }}</a>
+    </p>
+  </header>
+  <p>{{ post.__content | excerpt(300) | capitalize }}</p>
+  <p><a class="more" href="{{ url('blog.single', post) }}">Read More 〉</a></p>
+</article>

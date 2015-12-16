@@ -1,0 +1,8 @@
+{% extends "blog/base.html" %}
+
+{% block title %}posts tagged as {{ page.group | capitalize }} | waffel blog{% endblock %}
+{% block header %}
+<header>
+  <h1>Posts tagged as <em>{{ page.group | capitalize }}</em>:</h1>
+</header>
+{% endblock %}

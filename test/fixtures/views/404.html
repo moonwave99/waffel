@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}404 | {{ config.title }}{% endblock %}
+
+{% block content %}
+<header>
+  <h1>Page not found</h1>
+</header>
+<main>
+  <p>
+    <a href="{{ url('home') }}">Go to homepage</a>
+  </p>
+</main>
+{% endblock %}
