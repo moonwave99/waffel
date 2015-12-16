@@ -123,7 +123,7 @@ module.exports = class Waffel extends EventEmitter
     @start = process.hrtime()
     @log "--> Start generation process...\n---"
     if options.data then _.merge @data, options.data
-    @emit 'startGeneration'
+    @emit 'generation:start'
     fs.ensureDirAsync( @options.destinationFolder ).then =>
       tasks = []
       languages = if @options.localiseDefault then @options.languages else @options.languages.filter (l) => l != @options.defaultLanguage
