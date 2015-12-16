@@ -1,4 +1,4 @@
-var Waffel = require('../../../lib/index')
+var Waffel    = require('../../../lib/index')
 var generator = require('./lib/generator')
 
 // Generate some data here

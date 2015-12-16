@@ -2,13 +2,14 @@
   "name": "waffel-homepage",
   "version": "0.0.1",
   "description": "Waffel homepage.",
-  "main": "index.html",
+  "main": "server.coffee",
   "author": "moonwave99 <diego.caponera@gmail.com>",
   "homepage": "http://moonwave99.github.io/waffel/",
   "repository": {
     "type": "git",
     "url": "git@github.com:moonwave99/waffel.git"
   },
+  "private": true,
   "scripts": {
     "clean": "rm -rf public dist",
     "start": "brunch watch --server",
@@ -24,11 +25,10 @@
     "css-brunch": "^1.7.0",
     "handlebars-brunch": "^1.9.1",
     "hbs": "*",
+    "lodash": "^3.10.1",
     "pushserve": "^0.1.6",
     "stylus-brunch": "^1.8.1",
-    "uglify-js-brunch": "^1.7.8",
-    "underscore": "*",
-    "waffel": "0.0.35"
+    "uglify-js-brunch": "^1.7.8"
   },
   "devDependencies": {
     "bluebird": "^2.9.25",
@@ -36,7 +36,6 @@
     "colors": "^1.1.0",
     "fs-extra": "^0.18.3",
     "gh-pages": "^0.3.0",
-    "lodash": "^3.8.0",
     "shelljs": "^0.4.0"
   }
 }

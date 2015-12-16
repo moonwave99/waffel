@@ -7,8 +7,10 @@ var yaml = require('yaml-front-matter')
 var Promise = require('bluebird')
 var fs = Promise.promisifyAll(require('fs-extra'))
 
-module.exports = function(){
-  // We fake some data here.
+module.exports = function(opts){
+  opts = opts || {}
+  opts.root = opts.root || path.join(__dirname, '..', 'data/posts/')
+  opts.threshold = opts.threshold || 1000
   var movies = fs.readFileSync(path.join(__dirname, '..', 'movies.txt')).toString().split("\n")
   var categories = ['classic', 'independent', 'avantgarde']
   var tags = _.reduce(_.range(25), function(memo, index){
@@ -22,7 +24,7 @@ module.exports = function(){
   }
 
   return fs.readFileAsync(path.join(__dirname, '..', 'movies.txt'), 'utf8').then(function(data){
-    return Promise.all(data.split("\n").map(function(movie, index){
+    return Promise.all(data.split("\n").slice(0, opts.threshold).map(function(movie, index){
       var data = {
         title: movie,
         slug: movie.toLowerCase().replace(/\s+/g, '-').replace(/[^-\w]/g, ''),
@@ -32,7 +34,7 @@ module.exports = function(){
         tags: _.sample(tags, _.random(2,5))
       }
       return fs.outputFileAsync(
-        path.join(__dirname, '..', 'data/posts/', data.slug + '.md'),
+        path.join(opts.root, data.slug + '.md'),
         "---\n" + yaml.safeDump(data) + "---\n" + _.reduce(_.range(3,10), function(memo, index){
           memo += faker.Lorem.paragraph(_.random(2,5)) + '.\n\n'
           return memo

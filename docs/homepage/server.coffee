@@ -1,10 +1,10 @@
-Waffel = require 'waffel'
+Waffel    = require '../../src/index'
 pushserve = require 'pushserve'
-_ = require 'underscore'
+_         = require 'lodash'
 
-exports.startServer = (port, path, callback) ->        
+exports.startServer = (port, path, callback) ->
   wfl = new Waffel
-    domain:           "http://localhost:#{port}"
-    
+    domain: "http://localhost:#{port}"
+
   wfl.init().then ->
     wfl.generate().then callback pushserve port: port, path: path
