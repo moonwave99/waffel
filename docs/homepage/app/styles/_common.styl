@@ -91,7 +91,22 @@ section
 .documentation
   section.container
     @media (min-width: 992px)
-      width 1.5 * $bodyWidth  
+      width 1.5 * $bodyWidth
+  table
+    font-size .9rem
+    thead
+      tr
+        th
+          &:nth-child(1)
+          &:nth-child(2)
+          &:nth-child(3)
+            padding-right 2rem
+          &:last-child
+            width 1%
+    tbody
+      tr
+        td
+          padding .25rem 0
 
 hr
     margin 2rem auto
