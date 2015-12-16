@@ -59,13 +59,12 @@ module.exports = class Waffel extends EventEmitter
       path:       'public'
       indexPath:  'public/404.html'
 
-  log: (what) ->
-    console.log(what) if not @options.silent
+  log: ->
+    console.log.apply null, arguments if not @options.silent
 
   error: (what, e) ->
-    console.error "#{what}".red
-    console.error e if @options.verbose
-    console.error e.stack if @options.verbose
+    console.log util.inspect(what, false, 2, true) if @options.verbose
+    console.error e.stack
 
   constructor: (opts) ->
     @options = _.extend {}, @defaults, opts
@@ -229,8 +228,24 @@ module.exports = class Waffel extends EventEmitter
           config  : @config
           data    : @data
           page    : page
-    catch e
-      @log page.name
+    catch error
+      switch error.name
+        when 'Template render error' then @_printTemplateError error, page, _data
+        else @error page, error
+
+  _printTemplateError: (error, page, data) ->
+    if errorInfo = error.message.match /template not found: (.*)/i
+      message = "#{"Template not found: ".red} #{errorInfo[1].green}"
+      info = error.message.split("\n")[0]
+    else if errorInfo = error.message.match /Template render error: (.*) \[Line (\d+), Column (\d+)\]/
+      message = "#{"Syntax Error:".red} #{error.message.split("\n").pop().trim().green}"
+      info = "#{errorInfo[1]} [Line #{errorInfo[2]}, Column #{errorInfo[3]}]"
+    else
+      errorInfo = error.message.split("\n").map (x) -> x.trim()
+      info = errorInfo[0]
+      message = "#{"Syntax Error:".red} #{errorInfo[1].green}"
+
+    console.log "#{message}\n#{info.yellow}\n"
 
   _createCollectionPage: (page, name, set, language, localised) ->
     sort = if page.sort and page.sort.field then page.sort.field else @options.defaultSortField
