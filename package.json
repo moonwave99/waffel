@@ -1,17 +1,16 @@
 {
   "name": "waffel",
-  "version": "0.0.44",
+  "version": "0.0.45",
   "description": "Static website generator, best companion to Vaneella.",
   "main": "lib/index.js",
   "homepage": "http://moonwave99.github.io/waffel/",
-  "author": "moonwave99 <diego.caponera@gmail.com>",
+  "author": "moonwave99 <diego.caponera@gmail.com> [http://www.diegocaponera.com]",
   "repository": {
     "type": "git",
     "url": "git@github.com:moonwave99/waffel.git"
   },
   "scripts": {
     "test": "node_modules/.bin/mocha --recursive --reporter spec --timeout 15000 --compilers coffee:coffee-script/register",
-    "deployDocs": "node ./docs/homepage/bin/deploy.js",
     "prepublish": "coffee --bare -o lib -c src/*.coffee"
   },
   "license": "MIT",
