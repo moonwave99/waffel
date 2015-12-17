@@ -30,6 +30,13 @@
   </url>
   
   <url>
+    <loc>http://moonwave99.github.io/waffel/examples/cinema-blog-ala-jekyll/demo/tag/247</loc>
+    <lastmod>2015-12-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
     <loc>http://moonwave99.github.io/waffel/examples/cinema-blog-ala-jekyll/demo/tag/back-end</loc>
     <lastmod>2015-12-17</lastmod>
     <changefreq>weekly</changefreq>
@@ -37,63 +44,35 @@
   </url>
   
   <url>
-    <loc>http://moonwave99.github.io/waffel/examples/cinema-blog-ala-jekyll/demo/tag/bricks-and-clicks</loc>
+    <loc>http://moonwave99.github.io/waffel/examples/cinema-blog-ala-jekyll/demo/tag/best-of-breed</loc>
     <lastmod>2015-12-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
-    <loc>http://moonwave99.github.io/waffel/examples/cinema-blog-ala-jekyll/demo/tag/cross-platform</loc>
+    <loc>http://moonwave99.github.io/waffel/examples/cinema-blog-ala-jekyll/demo/tag/compelling</loc>
     <lastmod>2015-12-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
-    <loc>http://moonwave99.github.io/waffel/examples/cinema-blog-ala-jekyll/demo/tag/dynamic</loc>
+    <loc>http://moonwave99.github.io/waffel/examples/cinema-blog-ala-jekyll/demo/tag/cross-media</loc>
     <lastmod>2015-12-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
-    <loc>http://moonwave99.github.io/waffel/examples/cinema-blog-ala-jekyll/demo/tag/frictionless</loc>
+    <loc>http://moonwave99.github.io/waffel/examples/cinema-blog-ala-jekyll/demo/tag/dot-com</loc>
     <lastmod>2015-12-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
-    <loc>http://moonwave99.github.io/waffel/examples/cinema-blog-ala-jekyll/demo/tag/global</loc>
-    <lastmod>2015-12-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  
-  <url>
-    <loc>http://moonwave99.github.io/waffel/examples/cinema-blog-ala-jekyll/demo/tag/holistic</loc>
-    <lastmod>2015-12-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  
-  <url>
-    <loc>http://moonwave99.github.io/waffel/examples/cinema-blog-ala-jekyll/demo/tag/integrated</loc>
-    <lastmod>2015-12-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  
-  <url>
-    <loc>http://moonwave99.github.io/waffel/examples/cinema-blog-ala-jekyll/demo/tag/interactive</loc>
-    <lastmod>2015-12-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  
-  <url>
-    <loc>http://moonwave99.github.io/waffel/examples/cinema-blog-ala-jekyll/demo/tag/intuitive</loc>
+    <loc>http://moonwave99.github.io/waffel/examples/cinema-blog-ala-jekyll/demo/tag/efficient</loc>
     <lastmod>2015-12-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -107,7 +86,7 @@
   </url>
   
   <url>
-    <loc>http://moonwave99.github.io/waffel/examples/cinema-blog-ala-jekyll/demo/tag/proactive</loc>
+    <loc>http://moonwave99.github.io/waffel/examples/cinema-blog-ala-jekyll/demo/tag/open-source</loc>
     <lastmod>2015-12-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -121,14 +100,28 @@
   </url>
   
   <url>
-    <loc>http://moonwave99.github.io/waffel/examples/cinema-blog-ala-jekyll/demo/tag/scalable</loc>
+    <loc>http://moonwave99.github.io/waffel/examples/cinema-blog-ala-jekyll/demo/tag/robust</loc>
     <lastmod>2015-12-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
-    <loc>http://moonwave99.github.io/waffel/examples/cinema-blog-ala-jekyll/demo/tag/strategic</loc>
+    <loc>http://moonwave99.github.io/waffel/examples/cinema-blog-ala-jekyll/demo/tag/seamless</loc>
+    <lastmod>2015-12-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>http://moonwave99.github.io/waffel/examples/cinema-blog-ala-jekyll/demo/tag/sticky</loc>
+    <lastmod>2015-12-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>http://moonwave99.github.io/waffel/examples/cinema-blog-ala-jekyll/demo/tag/turn-key</loc>
     <lastmod>2015-12-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -142,14 +135,14 @@
   </url>
   
   <url>
-    <loc>http://moonwave99.github.io/waffel/examples/cinema-blog-ala-jekyll/demo/tag/virtual</loc>
+    <loc>http://moonwave99.github.io/waffel/examples/cinema-blog-ala-jekyll/demo/tag/wireless</loc>
     <lastmod>2015-12-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
-    <loc>http://moonwave99.github.io/waffel/examples/cinema-blog-ala-jekyll/demo/tag/visionary</loc>
+    <loc>http://moonwave99.github.io/waffel/examples/cinema-blog-ala-jekyll/demo/tag/world-class</loc>
     <lastmod>2015-12-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -157,70 +150,70 @@
   
   <url>
     <loc>http://moonwave99.github.io/waffel/examples/cinema-blog-ala-jekyll/demo/posts/a-nous-la-liberte-1932</loc>
-    <lastmod>2010-12-23</lastmod>
+    <lastmod>2010-11-19</lastmod>
     
     
   </url>
   
   <url>
     <loc>http://moonwave99.github.io/waffel/examples/cinema-blog-ala-jekyll/demo/posts/about-schmidt-2002</loc>
-    <lastmod>2006-01-11</lastmod>
+    <lastmod>2009-11-12</lastmod>
     
     
   </url>
   
   <url>
     <loc>http://moonwave99.github.io/waffel/examples/cinema-blog-ala-jekyll/demo/posts/absence-of-malice-1981</loc>
-    <lastmod>2011-01-08</lastmod>
+    <lastmod>2007-08-06</lastmod>
     
     
   </url>
   
   <url>
     <loc>http://moonwave99.github.io/waffel/examples/cinema-blog-ala-jekyll/demo/posts/adams-rib-1949</loc>
-    <lastmod>2015-11-02</lastmod>
+    <lastmod>2011-08-14</lastmod>
     
     
   </url>
   
   <url>
     <loc>http://moonwave99.github.io/waffel/examples/cinema-blog-ala-jekyll/demo/posts/adaptation-2002</loc>
-    <lastmod>2012-05-13</lastmod>
+    <lastmod>2010-11-20</lastmod>
     
     
   </url>
   
   <url>
     <loc>http://moonwave99.github.io/waffel/examples/cinema-blog-ala-jekyll/demo/posts/affliction-1998</loc>
-    <lastmod>2010-03-19</lastmod>
+    <lastmod>2014-02-12</lastmod>
     
     
   </url>
   
   <url>
     <loc>http://moonwave99.github.io/waffel/examples/cinema-blog-ala-jekyll/demo/posts/lage-dor-1930-reviewed-1964</loc>
-    <lastmod>2014-01-26</lastmod>
+    <lastmod>2013-12-01</lastmod>
     
     
   </url>
   
   <url>
     <loc>http://moonwave99.github.io/waffel/examples/cinema-blog-ala-jekyll/demo/posts/the-adjuster-1991</loc>
-    <lastmod>2013-06-03</lastmod>
+    <lastmod>2005-06-07</lastmod>
     
     
   </url>
   
   <url>
     <loc>http://moonwave99.github.io/waffel/examples/cinema-blog-ala-jekyll/demo/posts/the-adventures-of-robin-hood-1938</loc>
-    <lastmod>2010-04-07</lastmod>
+    <lastmod>2012-04-07</lastmod>
     
     
   </url>
   
   <url>
     <loc>http://moonwave99.github.io/waffel/examples/cinema-blog-ala-jekyll/demo/posts/the-african-queen-1952</loc>
-    <lastmod>2015-09-13</lastmod>
+    <lastmod>2005-01-20</lastmod>
     
     
   </url>
