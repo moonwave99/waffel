@@ -77,7 +77,231 @@
   
 <section class="container">
   <h1>Documentation</h1>
-  <p>WIP</p>
+  <h2 id="-quick-start">(Quick) Start</h2>
+<p>Okay, there is no real <em>quick</em> start, because Waffel generates websites from a well structured data folder, through a <code>site.yml</code> config file and a set of HTML views. So all three elements should be there! Assuming that, this is the bare minimum example for generating your website, and serving its content via Waffel built-in webserver:</p>
+<pre><code>var Waffel = require(&#39;waffel&#39;)
+var port = 1337;
+
+var wfl = new Waffel({
+  domain:   &quot;http://localhost:&quot; + port,
+  server:   true,
+  serverConfig: {
+    port:       port,
+    path:       &#39;public&#39;,
+    indexPath:  &#39;public/404.html&#39;
+  }
+})
+
+wfl.init().then(function(data){ wfl.generate() })
+</code></pre><h2 id="why-wfl-init-then-">Why wfl.init().then( ... )?</h2>
+<p>This way, you have the chance to intercept the <code>data</code> after parsing the files but before generating the actual website.</p>
+<h2 id="options">Options</h2>
+<p>You can pass an hash of options to Waffel at creation time, like:</p>
+<pre><code>var Waffel = require(&#39;waffel&#39;)
+...
+var wfl = new Waffel({
+  domain: &#39;http://www.example.com&#39;,
+  ...
+})
+</code></pre><p>Let&#39;s inspect what&#39;s available:</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Accepts</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>silent</code></td>
+<td>Suppresses all log outputs.</td>
+<td>boolean</td>
+<td><code>false</code></td>
+</tr>
+<tr>
+<td><code>verbose</code></td>
+<td>Prints single page generation information.</td>
+<td>boolean</td>
+<td><code>false</code></td>
+</tr>
+<tr>
+<td><code>defaultPagination</code></td>
+<td>Pagination size.</td>
+<td>number</td>
+<td><code>10</code></td>
+</tr>
+<tr>
+<td><code>defaultSortField</code></td>
+<td>Default field for collection sorting.</td>
+<td>string</td>
+<td><code>slug</code></td>
+</tr>
+<tr>
+<td><code>defaultSortOrder</code></td>
+<td>Default order for collection sorting.</td>
+<td>string</td>
+<td><code>desc</code></td>
+</tr>
+<tr>
+<td><code>structureFile</code></td>
+<td>Configuration filename.</td>
+<td>string</td>
+<td><code>site.yml</code></td>
+</tr>
+<tr>
+<td><code>viewFolder</code></td>
+<td>HTML Views folder.</td>
+<td>string</td>
+<td><code>views</code></td>
+</tr>
+<tr>
+<td><code>dataFolder</code></td>
+<td>Data files folder.</td>
+<td>string</td>
+<td><code>data</code></td>
+</tr>
+<tr>
+<td><code>destinationFolder</code></td>
+<td>Output folder.</td>
+<td>string</td>
+<td><code>public</code></td>
+</tr>
+<tr>
+<td><code>staticFolder</code></td>
+<td>Asset folder. Is copied over verbatim to the <code>destinationFolder</code>.</td>
+<td>string</td>
+<td><code>assets</code></td>
+</tr>
+<tr>
+<td><code>localesFolder</code></td>
+<td>Folder where translation files are stored.</td>
+<td>string</td>
+<td><code>locales</code></td>
+</tr>
+<tr>
+<td><code>domain</code></td>
+<td>Your website domain, e.g. <code>http://example.com</code>.</td>
+<td>string</td>
+<td><code>&quot;&quot;</code></td>
+</tr>
+<tr>
+<td><code>basePath</code></td>
+<td>Specify in case your website is being served from anywhere different than <code>/</code>.</td>
+<td>string</td>
+<td><code>&quot;&quot;</code></td>
+</tr>
+<tr>
+<td><code>assetPath</code></td>
+<td>If assets are served from a different location/domain than <code>/</code>.</td>
+<td>string</td>
+<td><code>&quot;&quot;</code></td>
+</tr>
+<tr>
+<td><code>sitemap</code></td>
+<td>Generates sitemap.</td>
+<td>boolean</td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td><code>sitemapName</code></td>
+<td>Sitemap filename.</td>
+<td>string</td>
+<td><code>sitemap.xml</code></td>
+</tr>
+<tr>
+<td><code>server</code></td>
+<td>Starts a webserver, useful for <code>dev</code> environment.</td>
+<td>boolean</td>
+<td><code>false</code></td>
+</tr>
+<tr>
+<td><code>root</code></td>
+<td>Project root folder.</td>
+<td>string</td>
+<td><code>process.cwd()</code></td>
+</tr>
+<tr>
+<td><code>dataExt</code></td>
+<td>Data files extension.</td>
+<td>string</td>
+<td><code>.md</code></td>
+</tr>
+<tr>
+<td><code>templateExt</code></td>
+<td>Template files extension.</td>
+<td>string</td>
+<td><code>.html</code></td>
+</tr>
+<tr>
+<td><code>languages</code></td>
+<td>Languages supported by website.</td>
+<td>array</td>
+<td><code>[]</code></td>
+</tr>
+<tr>
+<td><code>defaultLanguage</code></td>
+<td>Website default language (as ISO two-letter code).</td>
+<td>string</td>
+<td><code>en</code></td>
+</tr>
+<tr>
+<td><code>fallbackLanguage</code></td>
+<td>Language used if document is not present in current language.</td>
+<td>string</td>
+<td><code>en</code></td>
+</tr>
+<tr>
+<td><code>localiseDefault</code></td>
+<td>If <code>true</code>, prepends language slug portion even to default language documents.</td>
+<td>boolean</td>
+<td><code>false</code></td>
+</tr>
+<tr>
+<td><code>uglyUrls</code></td>
+<td>Generates <code>name.html</code> style documents, as opposed to  <code>name/index.html</code>.</td>
+<td>boolean</td>
+<td><code>false</code></td>
+</tr>
+<tr>
+<td><code>outputExt</code></td>
+<td>Output document file extension.</td>
+<td>string</td>
+<td><code>.html</code></td>
+</tr>
+<tr>
+<td><code>displayExt</code></td>
+<td>If &#39;false&#39;, omits file extension (useful when uploading to S3 for instance).</td>
+<td>boolean</td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td><code>dateFormat</code></td>
+<td>Date format used in slugs.</td>
+<td>string</td>
+<td><code>YYYY-MM-DD</code></td>
+</tr>
+<tr>
+<td><code>server</code></td>
+<td>If <code>true</code>, runs a local webserver - useful for development.</td>
+<td>boolean</td>
+<td><code>false</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p>In addition, you can override local server configuration, whose defaults are:</p>
+<pre><code>serverConfig: {
+  port:       1999,
+  path:       &#39;public&#39;,
+  indexPath:  &#39;public/404.html&#39;      
+}
+</code></pre><ul>
+<li><code>port</code> is the TCP port the server listens from;</li>
+<li><code>path</code> is the folder being served (normally is <code>destinationFolder</code>);</li>
+<li><code>indexPath</code> is the document where requests for non existing files are redirected to.</li>
+</ul>
 
 </section>  
 
