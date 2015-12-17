@@ -1,0 +1,8 @@
+{% extends "blog/base.html" %}
+
+{% block title %}Category: {{ page.group | capitalize }} | waffel blog{% endblock %}
+{% block header %}
+<header>
+  <h1>Category: <em>{{ page.group | capitalize }}</em></h1>
+</header>
+{% endblock %}

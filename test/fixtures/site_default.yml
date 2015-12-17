@@ -1,0 +1,47 @@
+config:
+  title:                  Waffel Test
+  description:            This is the Waffel test page.
+  google_analytics:       UA-XXXXXXX-Y
+  google_webmaster_tools: ac5d3ec3df3f2ed12c5995901b561613
+structure:
+  home:
+    template: home
+    url:      /
+  blog:
+    collection: posts
+    pages:
+      index:
+        template: blog/index
+        url:      /blog
+        priority: 0.5
+        sort:
+          field: date
+          order: desc
+      categories:
+        template: blog/category
+        url:      /blog/category/:category
+        groupBy:  category
+        priority: 0.5
+        sort:
+          field: date
+          order: desc
+      tags:
+        template: blog/tag
+        url:      /blog/tag/:tag
+        groupBy:  tags
+        changefreq: weekly
+        priority: 0.7
+        sort:
+          field: date
+          order: desc
+      single:
+        template: blog/post
+        url:      /blog/posts/:slug
+        priority: 0.8
+  about:
+    template: about
+    url:      /about
+  404:
+    template: '404'
+    url:      /404
+    sitemap:  false

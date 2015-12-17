@@ -1,4 +1,4 @@
-Waffel = require 'waffel'
+Waffel = require '../../src/index'
 
 exports.config =
   files:
@@ -12,34 +12,34 @@ exports.config =
         'css/app.css': /^(vendor|bower_components|app)/
 
     templates:
-      joinTo: 'js/app.js'        
-        
+      joinTo: 'js/app.js'
+
   server:
     path: 'server.coffee'
-          
+
   conventions:
     assets: /(assets|vendor\/assets|font)/
-    
+
   plugins:
     assetsmanager:
       minTimeSpanSeconds: 10
       copyTo:
-        '' : ['data/images']   
+        '' : ['data/images']
     autoReload:
       enabled:
         js: on
         css: on
         assets: off
-        
+
   overrides:
     gh_pages:
       optimize: true
       sourcemaps: false
       paths:
         public: 'dist'
-        
+
       onCompile: (generatedFiles) ->
-        wfl = new Waffel     
+        wfl = new Waffel
           domain:             'http://moonwave99.github.io/waffel'
           destinationFolder:  'dist'
 

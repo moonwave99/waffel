@@ -1,8 +1,11 @@
+filters       = require './filters'
+helpers       = require './helpers'
+
 _             = require 'lodash'
 colors        = require 'colors'
 Promise       = require 'bluebird'
 path          = require 'path'
-md5           = require 'MD5'
+md5           = require 'md5'
 EventEmitter  = require('events').EventEmitter
 util          = require 'util'
 async         = require 'async'
@@ -20,6 +23,7 @@ glob          = Promise.promisifyAll require 'globby'
 
 module.exports = class Waffel extends EventEmitter
   defaults:
+    silent:             false
     verbose:            false
     defaultPagination:  10
     defaultSortField:   'slug'
@@ -34,20 +38,19 @@ module.exports = class Waffel extends EventEmitter
     basePath:           ''
     assetPath:          ''
     root:               process.cwd()
-    ext:                '.md'
+    dataExt:            '.md'
     templateExt:        '.html'
     languages:          []
     defaultLanguage:    'en'
     fallbackLanguage:   'en'
     localiseDefault:    false
     sitemap:            true
+    sitemapName:        'sitemap.xml'
     uglyUrls:           false
     outputExt:          '.html'
     displayExt:         true
     dateFormat:         'YYYY-MM-DD'
     markdownOptions:    {}
-    helpers:            {}
-    filters:            {}
     server:             false
     frontmatter:
       delims: ['---', '---']
@@ -56,110 +59,20 @@ module.exports = class Waffel extends EventEmitter
       path:       'public'
       indexPath:  'public/404.html'
 
-  helpers:
-    url: (name, data = {}, options = {}) ->
-      page = @_getPageByName name
-      if options.page
-        page.pagination =
-          page: options.page
-      if @options.uglyUrls
-        relativeUrl = @_url page, data, options
-        if @options.displayExt
-          (_.compact( [@options.domain, @options.basePath, (relativeUrl || 'index')] ).join '/') + @options.outputExt
-        else
-          _.compact( [@options.domain, @options.basePath, relativeUrl] ).join '/'
-      else
-        _.compact( [@options.domain, @options.basePath, (@_url page, data, options), 'index.html'] ).join '/'
+  log: ->
+    console.log.apply null, arguments if not @options.silent
 
-    asset: (_path = '') ->
-      _.compact( [@options.domain, @options.basePath, @options.assetPath, _path] ).join '/'
-
-    absoluteURL: (url) ->
-      _.compact( [@options.domain, @options.basePath, url] ).join '/'
-
-    t: (key, page) ->
-      i18n.translate key, lng: page.language
-
-    loc: (data = {}, language = @options.defaultLanguage) ->
-      if _.isArray data
-        data.map (item) =>
-          if item._localised then item[language] or item[@options.fallbackLanguage] else item
-      else if not data._localised
-        data
-      else
-        data[language] or data[@options.fallbackLanguage]
-
-  filters:
-    toArray: (object) ->
-      _.toArray object
-
-    pluck: (object = {}, key) ->
-      _.pluck object, key
-
-    flatten: (array = []) ->
-      _.flatten array
-
-    uniq: (array = []) ->
-      _.uniq array
-
-    where: (array = [], search = {}) ->
-      _.where array, search
-
-    findWhere: (array = [], search = {}) ->
-      _.findWhere array, search
-
-    limit: (array = [], count = 10) ->
-      array.slice 0, count
-
-    format: (date, format = @options.dateFormat) ->
-      moment(date).format format
-
-    excerpt: (text, size = 200) ->
-      $ = cheerio.load marked text
-      text = $('p').filter (index, element) ->
-          (element.children[0].type == 'text') || _.contains ['em', 'strong'], element.children[0].name
-        .first().text().trim()
-      if text.length > size
-        words = text.substring(0,size).split(' ')
-        words.pop()
-        "#{words.join ' '}…"
-      else
-        text
-
-    toJSON: (data) ->
-      JSON.stringify data
-
-    inspect: (object) ->
-      console.log util.inspect(object, false, 2, true)
-      object
-
-    top: (data, thresh = 3) ->
-      data = _.flatten data
-      data = _.reduce data,
-        (memo, x) ->
-          if memo[x] then memo[x] = memo[x]+1 else memo[x] = 1
-          memo
-        , {}
-      data = _.reduce data,
-        (memo, freq, key) ->
-          memo.push { key: key, freq: freq }
-          memo
-        , []
-      data = _.sortBy data, (bin) ->
-        -bin.freq
-      data.slice(0, thresh).map (x) -> x.key
+  error: (what, e) ->
+    console.log util.inspect(what, false, 2, true) if @options.verbose
+    console.error e.stack
 
   constructor: (opts) ->
-    @options = _.extend @defaults, opts
-    @options.dataFolder         = path.join @options.root, @options.dataFolder
-    @options.viewFolder         = path.join @options.root, @options.viewFolder
-    @options.staticFolder       = path.join @options.root, @options.staticFolder
-    @options.localesFolder      = path.join @options.root, @options.localesFolder
-    @options.destinationFolder  = path.join @options.root, @options.destinationFolder
-    @options.structureFile      = path.join @options.root, @options.structureFile
+    @options = _.extend {}, @defaults, opts
+    ['dataFolder', 'viewFolder', 'staticFolder', 'localesFolder', 'destinationFolder', 'structureFile'].forEach (f) =>
+      @options[f] = path.join @options.root, @options[f]
 
-    @helpers = _.extend @helpers, @options.helpers
-    @filters = _.extend @filters, @options.filters
+    @helpers = _.extend {}, helpers, @options.helpers
+    @filters = _.extend {}, filters, @options.filters
 
     for name, helper of @helpers
       @helpers[name] = _.bind helper, @
@@ -175,7 +88,9 @@ module.exports = class Waffel extends EventEmitter
 
     @data = {}
 
-    site = yaml.safeLoad fs.readFileSync(@options.structureFile, 'utf8')
+    try structureFileContents = fs.readFileSync @options.structureFile, 'utf8'
+    catch e then @error "Could not locate structureFile: #{@options.structureFile}", e
+    site = yaml.safeLoad structureFileContents
 
     @config = site.config
     @structure = site.structure
@@ -191,8 +106,8 @@ module.exports = class Waffel extends EventEmitter
     nunjucks.precompile @options.viewFolder, { env: @env }
 
   init: ->
-    _path = path.join(@options.dataFolder, "**/*#{@options.ext}")
-    console.log "--> Globbing #{_path.cyan}:"
+    _path = path.join @options.dataFolder, "**/*#{@options.dataExt}"
+    @log "--> Globbing #{_path.cyan}:"
     i18n.init
       preload: @options.languages.concat ['dev']
       lng: @options.defaultLanguage
@@ -205,9 +120,9 @@ module.exports = class Waffel extends EventEmitter
 
   generate: (options = {}) ->
     @start = process.hrtime()
-    console.log "--> Start generation process...\n---"
+    @log "--> Start generation process...\n---"
     if options.data then _.merge @data, options.data
-    @emit 'startGeneration'
+    @emit 'generation:start'
     fs.ensureDirAsync( @options.destinationFolder ).then =>
       tasks = []
       languages = if @options.localiseDefault then @options.languages else @options.languages.filter (l) => l != @options.defaultLanguage
@@ -219,7 +134,7 @@ module.exports = class Waffel extends EventEmitter
   postGenerate: (err, pages) =>
     elapsed = process.hrtime @start
     millis = elapsed[1] / 1000000
-    console.log "--> Generated #{(pages.length + '').cyan} pages in #{elapsed[0]}.#{millis.toFixed(0)}s."
+    @log "--> Generated #{(pages.length + '').cyan} pages in #{elapsed[0]}.#{millis.toFixed(0)}s."
     @_createSitemap pages if @options.sitemap
     @emit 'generation:complete'
     @_launchServer() if @options.server
@@ -228,7 +143,7 @@ module.exports = class Waffel extends EventEmitter
     tasks = []
     for name, page of @structure
       if page.languages and language not in page.languages
-        console.log "#{"Notice:".magenta} #{name.green} won't be rendered in #{language.yellow}" if @options.verbose
+        @log "#{"Notice:".magenta} #{name.green} won't be rendered in #{language.yellow}" if @options.verbose
       else if page.template
         page.name = name
         url = @_url page, {}, { language: language, localised: localised }
@@ -250,7 +165,7 @@ module.exports = class Waffel extends EventEmitter
     loadedData = matter.read file, delims: @options.frontmatter.delims
     data = loadedData.data
     data.__content = loadedData.content
-    data.slug = data.slug || path.basename relativePath, @options.ext
+    data.slug = data.slug || path.basename relativePath, @options.dataExt
     if tokens[1] in @options.languages
       language = tokens[1]
       @data[collection][data.slug] || = { _localised: true }
@@ -301,12 +216,36 @@ module.exports = class Waffel extends EventEmitter
   _renderPage: (page, _data) ->
     tmpData = {}
     tmpData[page.export || 'item'] = _data
-    nunjucks.render "#{page.template}#{@options.templateExt}",
-      _.extend @helpers, tmpData,
-        options : @options
-        config  : @config
-        data    : @data
-        page    : page
+    helpers = _.transform @helpers, (help, func, key) =>
+      help[key] = =>
+        [].push.call arguments, page
+        func.apply @, arguments
+
+    try
+      nunjucks.render "#{page.template}#{@options.templateExt}",
+        _.extend {}, helpers, tmpData,
+          options : @options
+          config  : @config
+          data    : @data
+          page    : page
+    catch error
+      switch error.name
+        when 'Template render error' then @_printTemplateError error, page, _data
+        else @error page, error
+
+  _printTemplateError: (error, page, data) ->
+    if errorInfo = error.message.match /template not found: (.*)/i
+      message = "#{"Template not found: ".red} #{errorInfo[1].green}"
+      info = error.message.split("\n")[0]
+    else if errorInfo = error.message.match /Template render error: (.*) \[Line (\d+), Column (\d+)\]/
+      message = "#{"Syntax Error:".red} #{error.message.split("\n").pop().trim().green}"
+      info = "#{errorInfo[1]} [Line #{errorInfo[2]}, Column #{errorInfo[3]}]"
+    else
+      errorInfo = error.message.split("\n").map (x) -> x.trim()
+      info = errorInfo[0]
+      message = "#{"Syntax Error:".red} #{errorInfo[1].green}"
+
+    console.log "#{message}\n#{info.yellow}\n"
 
   _createCollectionPage: (page, name, set, language, localised) ->
     sort = if page.sort and page.sort.field then page.sort.field else @options.defaultSortField
@@ -364,24 +303,24 @@ module.exports = class Waffel extends EventEmitter
       paginationInfo = if page.pagination then " #{page.pagination.page}/#{page.pagination.total}" else ''
       pageInfo = data.slug || data.group || page.group || ''
       pageInfo = if pageInfo then " [#{pageInfo}]" else ''
-      console.log "#{languageInfo.red}Generating #{name.green}#{pageInfo.yellow}#{paginationInfo.magenta} at: #{target.cyan}" if @options.verbose
+      @log "#{languageInfo.red}Generating #{name.green}#{pageInfo.yellow}#{paginationInfo.magenta} at: #{target.cyan}" if @options.verbose
       fs.outputFile target, output, (err) =>
         callback err, page: _page, data: data, url: url
 
   _createSitemap: (pages) ->
-    target = path.join @options.destinationFolder, 'sitemap.xml'
-    output = nunjucks.render 'sitemap.xml',
-      _.extend @helpers,
+    target = path.join @options.destinationFolder, @options.sitemapName
+    output = nunjucks.render @options.sitemapName,
+      _.extend {}, @helpers,
         options : @options
         config  : @config
         data    : @data
         pages   : pages.filter (p) -> !_.isBoolean p.page.sitemap and p.page.sitemap is not false
         now     : new Date
     fs.outputFile target, output, (err) =>
-      console.log "--> Created #{'sitemap.xml'.cyan}"
+      @log "--> Created #{@options.sitemapName.cyan}"
 
   _launchServer: ->
-    opts = _.extend @options.serverConfig, @options.server
+    opts = _.extend {}, @options.serverConfig, @options.server
     server = pushserve opts, =>
-      console.log "--> waffel server waiting for you at " + "http://localhost:#{opts.port}".green
+      @log "--> waffel server waiting for you at " + "http://localhost:#{opts.port}".green
       @emit 'server:start', server

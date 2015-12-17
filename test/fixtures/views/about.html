@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}{{ data.pages.about.title }}{% endblock %}
+{% block content %}
+<header>
+  <h1>{{ data.pages.about.title }}</h1>
+</header>
+<main>
+  {% markdown %}{{ data.pages.about.__content }}{% endmarkdown %}
+</main>
+{% endblock %}

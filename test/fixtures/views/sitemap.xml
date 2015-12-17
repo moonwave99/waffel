@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  {% for page in pages %}
+  <url>
+    <loc>{{ absoluteURL(page.url) }}</loc>
+    <lastmod>{{ page.data.date | format('YYYY-MM-DD') }}</lastmod>
+    {% if page.page.changefreq %}<changefreq>{{ page.page.changefreq }}</changefreq>{% endif %}
+    {% if page.page.changefreq %}<priority>{{ page.page.priority }}</priority>{% endif %}
+  </url>
+  {% endfor %}
+</urlset>

@@ -6,16 +6,16 @@ body
   padding-top 50px
   color $mainColor
   background-color $contentBgColor
-  
+
 a
   color $linkColor
   &:hover
     background-color $linkColor
     color white
     text-decoration none
-    
+
 p, ul, ol, blockquote, pre
-  margin 0 auto 2rem auto    
+  margin 0 auto 2rem auto
 
 blockquote
   border-left-color lighten($mainColor, 30%)
@@ -44,7 +44,7 @@ blockquote
   position relative
   background-color $coverBgColor
   background-image repeating-linear-gradient(120deg, transparent, transparent 3rem, rgba(255,255,255,.5) 3rem, rgba(255,255,255,.5) 6rem)
-    
+
   header
     padding 0 1rem
   h1
@@ -59,7 +59,7 @@ blockquote
     height $logoSize
     @media screen and (min-width: 1700px)
       height 2 * $logoSize
-      
+
   .tiles
     margin-top 5vh
     padding-bottom 5vh
@@ -88,6 +88,26 @@ section
   > h3
     margin 3rem 0
 
+.documentation
+  section.container
+    @media (min-width: 992px)
+      width 1.5 * $bodyWidth
+  table
+    font-size .9rem
+    thead
+      tr
+        th
+          &:nth-child(1)
+          &:nth-child(2)
+          &:nth-child(3)
+            padding-right 2rem
+          &:last-child
+            width 1%
+    tbody
+      tr
+        td
+          padding .25rem 0
+
 hr
     margin 2rem auto
     width 15vw
@@ -104,4 +124,4 @@ article
   > hr
     margin 2rem auto
     width unit(100/3, '%')
-    border-color $mainColor  
+    border-color $mainColor

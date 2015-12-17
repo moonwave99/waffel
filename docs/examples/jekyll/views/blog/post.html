@@ -1,10 +1,22 @@
 {% extends "layout.html" %}
 {% block title %}{{ item.title }} | waffel blog{% endblock %}
+{% block meta %}
+  <meta name="description" content="{{ item.__content | excerpt(150) }}">
+  <meta name="keywords" content="{{ item.tags | join(',') }}">
+
+  <meta property="og:type" content="article">
+  <meta property="og:description" content="{{ item.__content | excerpt(350) }}">
+  <meta property="article:published_time" content="{{ item.date | format('YYYY-MM-DDTHH:mm:ss.SSSZZ') }}">
+  {% for tag in item.tags %}
+  <meta property="article:tag" content="{{ tag }}">
+  {% endfor %}
+  <meta name="twitter:description" content="{{ item.__content | excerpt(350) }}">
+{% endblock %}
 {% block body %}
 <header>
   <h1>{{ item.title }}</h1>
   <p><img src="{{ item.cover }}" class="img-responsive" alt="{{ item.title }}"></p>
-  <p class="info">Written on <strong>{{ item.date | format('MMM DD YYYY') }}</strong> in <a href="{{ url('blog.categories', item, page) }}">{{ item.category | capitalize }}</a></p>
+  <p class="info">Written on <strong>{{ item.date | format('MMM DD YYYY') }}</strong> in <a href="{{ url('blog.categories', item) }}">{{ item.category | capitalize }}</a></p>
 </header>
 <hr>
 <section class="content">{% markdown %}{{ item.__content }}{% endmarkdown %}</section>

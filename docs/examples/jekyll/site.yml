@@ -1,6 +1,5 @@
 config:
   google_analytics: UA-XXXXXXXX-Y
-  sitemap:          true
   title:            This is a beautiful blog about movies made in Waffel.
 structure:
   blog:
@@ -20,7 +19,7 @@ structure:
         priority: 0.5
         sort:
           field: date
-          order: desc        
+          order: desc
       tags:
         template: blog/tag
         url:      /tag/:tag

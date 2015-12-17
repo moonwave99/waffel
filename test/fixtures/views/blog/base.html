@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+{% for post in item %}
+  {% include '_includes/post_preview.html' %}
+  <hr>
+{% endfor %}
+<div class="container text-center">
+{% if page.pagination.page > 1 %}
+  {% include '_includes/prev_page.html' %}
+{% endif %}
+{% if page.pagination.page < page.pagination.total %}
+  {% include '_includes/next_page.html' %}
+{% endif %}
+</div>
+{% endblock %}
