@@ -6,8 +6,8 @@
   "description": "Example of static blog generation [like Jekyll]",
   "main": "index.js",
   "scripts": {
-    "clean": "rm -rf public/ dist/",
-    "start": "node ./index.js"
+    "clean": "rm -rf ./public/ ./dist/ ./data/posts",
+    "start": "coffee ./index.coffee"
   },
   "private": true,
   "keywords": [
@@ -21,6 +21,7 @@
     "faker": "git://github.com/FotoVerite/Faker.js#e47f38e811d1f487c460d65ca59d7ef6dc034819",
     "fs-extra": "^0.18.2",
     "lodash": "^3.7.0",
+    "shelljs": "^0.5.3",
     "yaml-front-matter": "^3.2.3"
   }
 }

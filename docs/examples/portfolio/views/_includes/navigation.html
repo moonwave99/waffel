@@ -14,9 +14,9 @@
       <ul class="nav navbar-nav">
         {% for cat in categories %}
         <li{% if page.group == cat%} class="active"{% endif %}><a href="{{ url('pictures.categories', { 'category' : cat }) }}">{{ t('nav.categories.' + cat) }}</a></li>
-        {% endfor %}        
+        {% endfor %}
         <li{% if page.name == 'about'%} class="active"{% endif %}><a href="{{ url('about') }}">{{ t('nav.about') }}</a></li>
       </ul>
-    </div>  
+    </div>
   </div>
 </nav>

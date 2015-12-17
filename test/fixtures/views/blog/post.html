@@ -19,7 +19,9 @@
   <p class="info">Written on <strong>{{ item.date | format('MMM DD YYYY') }}</strong> in <a href="{{ url('blog.categories', item) }}">{{ item.category | capitalize }}</a></p>
 </header>
 <hr>
-<section class="content">{% markdown %}{{ item.__content }}{% endmarkdown %}</section>
+<section class="content">
+{% markdown %}{{ item.__content }}{% endmarkdown %}
+</section>
 <hr>
 <footer>
   {% if item.tags %}

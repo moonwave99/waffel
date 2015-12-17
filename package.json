@@ -11,11 +11,11 @@
   },
   "scripts": {
     "test": "node_modules/.bin/mocha --recursive --reporter spec --timeout 15000 --compilers coffee:coffee-script/register",
+    "deployDocs": "node ./docs/homepage/bin/deploy.js",
     "prepublish": "coffee --bare -o lib -c src/*.coffee"
   },
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
-    "md5": "^2.0.0",
     "async": "^0.9.0",
     "bluebird": "2.9.27",
     "cheerio": "^0.19.0",
@@ -23,13 +23,15 @@
     "fs-extra": "^0.18.0",
     "globby": "^1.2.0",
     "gray-matter": "^2.0.0",
-    "i18next": "^1.7.10",
+    "i18next": "^2.0.4",
+    "i18next-node-fs-backend": "0.0.6",
     "js-yaml": "^3.3.0",
     "lodash": "^3.6.0",
     "marked": "^0.3.3",
+    "md5": "^2.0.0",
     "moment": "^2.9.0",
-    "nunjucks": "^1.2.0",
-    "nunjucks-markdown": "1.0.0",
+    "nunjucks": "^2.2.0",
+    "nunjucks-markdown": "1.1.0",
     "pushserve": "^0.1.6"
   },
   "devDependencies": {

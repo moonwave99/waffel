@@ -1,4 +1,4 @@
-Waffel    = require '../../../lib/index'
+Waffel    = require '../../../src/index'
 filters   = require './lib/filters'
 helpers   = require './lib/helpers'
 thumbs    = require './lib/thumbs'

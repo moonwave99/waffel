@@ -4,7 +4,7 @@ moment        = require 'moment'
 marked        = require 'marked'
 cheerio       = require 'cheerio'
 
-lodash_filters = ['toArray', 'pluck', 'flatten', 'uniq', 'where', 'findWhere']
+lodash_filters = ['toArray', 'pluck', 'flatten', 'uniq', 'where', 'findWhere', 'compact']
 
 filters =
   limit: (array = [], count = 10) ->

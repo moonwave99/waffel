@@ -5,7 +5,7 @@
       <a href="{{ url('blog.single', post) }}"><img src="{{ post.cover }}" class="img-responsive" alt="{{ post.title }}"></a>
     </p>
     <p class="info">
-      <strong>{{ post.date | format('MMM DD YYYY') }}</strong> - posted in <a href="{{ url('blog.categories', post) }}">{{ post.category | capitalize }}</a>
+      <strong>{{ post.date | format('MMM DD YYYY') }}</strong> - posted in <a href="{{ url('blog.categories', { 'category': post.category }) }}">{{ post.category | capitalize }}</a>
     </p>
   </header>
   <p>{{ post.__content | excerpt(300) | capitalize }}</p>

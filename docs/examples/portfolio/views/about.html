@@ -4,6 +4,6 @@
 {% block body %}
 <article class="about">
   <h1>{{ data.pages.about.title }}</h1>
-  {% markdown %}{{ data.pages.about.__content }}{% endmarkdown %}
+{% markdown %}{{ data.pages.about.__content }}{% endmarkdown %}
 </article>
 {% endblock %}

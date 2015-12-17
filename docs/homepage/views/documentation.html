@@ -5,6 +5,6 @@
 {% block body %}
 <section class="container">
   <h1>{{ t('documentation.title') }}</h1>
-  {% markdown %}{{ data.pages.documentation.__content }}{% endmarkdown %}
-</section>  
+{% markdown %}{{ data.pages.documentation.__content }}{% endmarkdown %}
+</section>
 {% endblock %}

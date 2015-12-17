@@ -10,12 +10,12 @@
     <p>
       <img src="{{ asset('images/waffel.svg') }}" alt="Waffel">
     </p>
-    <p>{{ t('cover.description') }}</p>
+    <p>{{ t('cover.description') | safe }}</p>
   </header>
   <div class="tiles clearfix">
     <div class="container">
       <div class="row">
-        
+
       {% for key, tile in config.tiles %}
         <div class="col-sm-4">
           <h3><i class="fa fa-fw {{tile.icon}}"></i> {{ t('cover.tiles.' + key + '.title') }}</h3>
@@ -30,9 +30,15 @@
     </div>
   </div>
 </section>
-<section class="container">{% markdown %}{{ data.pages.getting_started.__content }}{% endmarkdown %}</section>  
+<section class="container">
+{% markdown %}{{ data.pages.getting_started.__content }}{% endmarkdown %}
+</section>
 <hr>
-<section class="container">{% markdown %}{{ data.pages.philosophy.__content }}{% endmarkdown %}</section>  
+<section class="container">
+{% markdown %}{{ data.pages.philosophy.__content }}{% endmarkdown %}
+</section>
 <hr>
-<section class="container">{% markdown %}{{ data.pages.faq.__content }}{% endmarkdown %}</section>  
+<section class="container">
+{% markdown %}{{ data.pages.faq.__content }}{% endmarkdown %}
+</section>
 {% endblock %}

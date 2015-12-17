@@ -2,7 +2,7 @@
 {% block title %}{{ item.title }} | waffel blog{% endblock %}
 {% block meta %}
   <meta name="description" content="{{ item.__content | excerpt(150) }}">
-  <meta name="keywords" content="{{ item.tags | join(',') }}">
+
 
   <meta property="og:type" content="article">
   <meta property="og:description" content="{{ item.__content | excerpt(350) }}">
@@ -19,7 +19,9 @@
   <p class="info">Written on <strong>{{ item.date | format('MMM DD YYYY') }}</strong> in <a href="{{ url('blog.categories', item) }}">{{ item.category | capitalize }}</a></p>
 </header>
 <hr>
-<section class="content">{% markdown %}{{ item.__content }}{% endmarkdown %}</section>
+<section class="content">
+{% markdown %}{{ item.__content }}{% endmarkdown %}
+</section>
 <hr>
 <footer>
   {% if item.tags %}

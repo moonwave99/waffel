@@ -1,4 +1,4 @@
-{% set categories = data.posts | pluck('category') | uniq %}
+{% set categories = data.posts | toArray | pluck('category') | uniq %}
 <nav class="navbar navbar-default navbar-static-top">
   <div class="container-fluid">
     <div class="collapse navbar-collapse">

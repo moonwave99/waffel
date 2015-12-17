@@ -1,5 +1,6 @@
 _ = require 'lodash'
 
-module.exports = 
+module.exports =
   imgInfo: (img) ->
-    @data.imgInfo[img] or {}  
+    wfl = _.last arguments
+    wfl.data.imgInfo[img] or {}

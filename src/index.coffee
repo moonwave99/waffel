@@ -12,6 +12,7 @@ async         = require 'async'
 yaml          = require 'js-yaml'
 matter        = require 'gray-matter'
 i18n          = require 'i18next'
+Backend       = require 'i18next-node-fs-backend'
 moment        = require 'moment'
 nunjucks      = require 'nunjucks'
 markdown      = require 'nunjucks-markdown'
@@ -50,8 +51,12 @@ module.exports = class Waffel extends EventEmitter
     outputExt:          '.html'
     displayExt:         true
     dateFormat:         'YYYY-MM-DD'
-    markdownOptions:    {}
     server:             false
+    markdownOptions:
+      gfm:          true
+      tables:       true
+      smartLists:   true
+      smartypants:  false
     frontmatter:
       delims: ['---', '---']
     serverConfig:
@@ -59,10 +64,10 @@ module.exports = class Waffel extends EventEmitter
       path:       'public'
       indexPath:  'public/404.html'
 
-  log: ->
+  log: =>
     console.log.apply null, arguments if not @options.silent
 
-  error: (what, e) ->
+  error: (what, e) =>
     console.log util.inspect(what, false, 2, true) if @options.verbose
     console.error e.stack
 
@@ -73,12 +78,6 @@ module.exports = class Waffel extends EventEmitter
 
     @helpers = _.extend {}, helpers, @options.helpers
     @filters = _.extend {}, filters, @options.filters
-
-    for name, helper of @helpers
-      @helpers[name] = _.bind helper, @
-
-    for name, filter of @filters
-      @filters[name] = _.bind filter, @
 
     @filters.excerpt = _.memoize @filters.excerpt, (text, size) ->
       "#{md5(text)}.#{size}"
@@ -96,8 +95,11 @@ module.exports = class Waffel extends EventEmitter
     @structure = site.structure
     @registerTemplates()
 
-  registerTemplates: ->
-    @env = nunjucks.configure @options.viewFolder, watch: false, express: null
+  registerTemplates: =>
+    @env = nunjucks.configure @options.viewFolder,
+      watch: false
+      express: null
+      autoescape: false
     for name, filter of @filters
       @env.addFilter name, filter.bind @
 
@@ -105,20 +107,27 @@ module.exports = class Waffel extends EventEmitter
     markdown.register @env, marked
     nunjucks.precompile @options.viewFolder, { env: @env }
 
-  init: ->
+  init: =>
     _path = path.join @options.dataFolder, "**/*#{@options.dataExt}"
     @log "--> Globbing #{_path.cyan}:"
-    i18n.init
-      preload: @options.languages.concat ['dev']
-      lng: @options.defaultLanguage
-      fallbackLng: 'dev'
-      resGetPath: path.join @options.localesFolder, '__lng__.json'
+    new Promise (resolve, reject) =>
+      _i18n = i18n.createInstance()
+      .use(Backend)
+      .init
+        debug: @options.verbose
+        preload: @options.languages.concat ['dev']
+        lng: @options.defaultLanguage
+        backend:
+          loadPath: path.join @options.localesFolder, '{{lng}}.json'
+      , (err, t) ->
+        if err then reject err else resolve t
+    .then (t)=>
+      @i18n = t
+      glob.callAsync( @, _path).then (files) =>
+        files.forEach @_parseFile, @
+        @data
 
-    glob.callAsync( @, _path).then (files) =>
-      files.forEach @_parseFile, @
-      @data
-
-  generate: (options = {}) ->
+  generate: (options = {}) =>
     @start = process.hrtime()
     @log "--> Start generation process...\n---"
     if options.data then _.merge @data, options.data
@@ -135,11 +144,13 @@ module.exports = class Waffel extends EventEmitter
     elapsed = process.hrtime @start
     millis = elapsed[1] / 1000000
     @log "--> Generated #{(pages.length + '').cyan} pages in #{elapsed[0]}.#{millis.toFixed(0)}s."
-    @_createSitemap pages if @options.sitemap
-    @emit 'generation:complete'
+    if @options.sitemap
+      @_createSitemap(pages).then => @emit 'generation:complete'
+    else
+      @emit 'generation:complete'
     @_launchServer() if @options.server
 
-  _generateForLanguage: (language, localised) ->
+  _generateForLanguage: (language, localised) =>
     tasks = []
     for name, page of @structure
       if page.languages and language not in page.languages
@@ -157,7 +168,7 @@ module.exports = class Waffel extends EventEmitter
             tasks = tasks.concat _.compact @_createCollectionPage _page, "#{name}.#{_name}", @data[page.collection], language, localised
     tasks
 
-  _parseFile: (file) ->
+  _parseFile: (file) =>
     relativePath = file.replace @options.dataFolder, ''
     tokens = relativePath.split(path.sep).slice 1
     collection = tokens[0]
@@ -173,7 +184,7 @@ module.exports = class Waffel extends EventEmitter
     else
       @data[collection][data.slug] = data
 
-  _getPageByName: (name) ->
+  _getPageByName: (name) =>
     tokens = name.split '.'
     if tokens.length == 1
       @structure[name]
@@ -186,7 +197,7 @@ module.exports = class Waffel extends EventEmitter
       .replace /\s+/g, '-'
       .replace /[^-\w]/g, ''
 
-  _formatToken: (value) ->
+  _formatToken: (value = '') =>
     if value instanceof Date
       value = moment(value).format @options.dateFormat
     @_slugify value
@@ -195,7 +206,7 @@ module.exports = class Waffel extends EventEmitter
     tokens = page.url.split '/'
     tokens.unshift opts.language if opts.localised
     tokens = tokens.map (token) =>
-      if token[0] is ':'then @_formatToken data.group or data[token.slice 1] else token
+      if token[0] is ':'then (@_formatToken data.group) or data[token.slice 1] else token
 
     if page.pagination and page.pagination.page > 1
       tokens.push 'page'
@@ -204,7 +215,7 @@ module.exports = class Waffel extends EventEmitter
     _.compact tokens
       .join '/'
 
-  _target: (url) ->
+  _target: (url) =>
     ext = path.extname url
     if ext
       path.join @options.destinationFolder, url
@@ -213,17 +224,12 @@ module.exports = class Waffel extends EventEmitter
     else
       path.join @options.destinationFolder, url, 'index.html'
 
-  _renderPage: (page, _data) ->
+  _renderPage: (page, _data) =>
     tmpData = {}
     tmpData[page.export || 'item'] = _data
-    helpers = _.transform @helpers, (help, func, key) =>
-      help[key] = =>
-        [].push.call arguments, page
-        func.apply @, arguments
-
     try
       nunjucks.render "#{page.template}#{@options.templateExt}",
-        _.extend {}, helpers, tmpData,
+        _.extend {}, @_getHelpers(page), tmpData,
           options : @options
           config  : @config
           data    : @data
@@ -247,7 +253,7 @@ module.exports = class Waffel extends EventEmitter
 
     console.log "#{message}\n#{info.yellow}\n"
 
-  _createCollectionPage: (page, name, set, language, localised) ->
+  _createCollectionPage: (page, name, set, language, localised) =>
     sort = if page.sort and page.sort.field then page.sort.field else @options.defaultSortField
     order = if page.sort and page.sort.order then page.sort.order else @options.defaultSortOrder
 
@@ -284,14 +290,14 @@ module.exports = class Waffel extends EventEmitter
 
     _.flatten tasks
 
-  _createSinglePages: (page, name, set, language, localised) ->
+  _createSinglePages: (page, name, set, language, localised) =>
     _.map set, (item, slug) =>
       data = if item._localised then item[language] or item[@options.fallbackLanguage] else item
       if page.filter and not _.where([data], page.filter).length then return false
       url = @_url page, data, { language: language, localised: localised }
       @_createPage page, name, url, data, language, localised
 
-  _createPage: (page, name, url, data = {}, language, localised) ->
+  _createPage: (page, name, url, data = {}, language, localised) =>
     (callback) =>
       target = @_target url
       _page = _.clone page
@@ -307,19 +313,28 @@ module.exports = class Waffel extends EventEmitter
       fs.outputFile target, output, (err) =>
         callback err, page: _page, data: data, url: url
 
-  _createSitemap: (pages) ->
+  _createSitemap: (pages) =>
     target = path.join @options.destinationFolder, @options.sitemapName
     output = nunjucks.render @options.sitemapName,
-      _.extend {}, @helpers,
+      _.extend {}, @_getHelpers(),
         options : @options
         config  : @config
         data    : @data
         pages   : pages.filter (p) -> !_.isBoolean p.page.sitemap and p.page.sitemap is not false
         now     : new Date
-    fs.outputFile target, output, (err) =>
-      @log "--> Created #{@options.sitemapName.cyan}"
+    fs.outputFileAsync target, output
+      .then =>
+        @log "--> Created #{@options.sitemapName.cyan}"
+        true
 
-  _launchServer: ->
+  _getHelpers: (context = {})=>
+    _.transform @helpers, (help, func, key) =>
+      help[key] = =>
+        [].push.call arguments, context
+        [].push.call arguments, @
+        func.apply null, arguments
+
+  _launchServer: =>
     opts = _.extend {}, @options.serverConfig, @options.server
     server = pushserve opts, =>
       @log "--> waffel server waiting for you at " + "http://localhost:#{opts.port}".green
