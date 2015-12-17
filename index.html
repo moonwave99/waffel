@@ -78,11 +78,11 @@
 <section class="text-center cover">
   <header>
     <h1>Waffel</h1>
-    <h2>Static site generation done <strike>right</strike> <em>tasty</em>.</h2>
+    <h2>Static site generation done &lt;strike&gt;right&lt;/strike&gt; &lt;em&gt;tasty&lt;/em&gt;.</h2>
     <p>
       <img src="http://moonwave99.github.io/waffel/images/waffel.svg" alt="Waffel">
     </p>
-    <p>Yet <a href='https://staticsitegenerators.net/' target='_blank'>another static generator</a>, here to help you with more concrete use cases than just <em>your personal blog</em>.</p>
+    <p>Yet &lt;a href=&#39;https://staticsitegenerators.net/&#39; target=&#39;_blank&#39;&gt;another static generator&lt;/a&gt;, here to help you with more concrete use cases than just &lt;em&gt;your personal blog&lt;/em&gt;.</p>
   </header>
   <div class="tiles clearfix">
     <div class="container">
@@ -103,7 +103,7 @@
       
         <div class="col-sm-4">
           <h3><i class="fa fa-fw fa-expand"></i> Extensible.</h3>
-          <p>Write your own <strong>filters</strong> and <strong>helpers</strong>.</p>
+          <p>Write your own &lt;strong&gt;filters&lt;/strong&gt; and &lt;strong&gt;helpers&lt;/strong&gt;.</p>
         </div>
       
       </div>
@@ -112,7 +112,7 @@
       
         <div class="col-sm-4">
           <h3><i class="fa fa-fw fa-bars"></i> Group by any property.</h3>
-          <p>You want sections for <strong>categories</strong>, groups by <strong>tag</strong>, archives by <strong>date</strong>. You want it bad.</p>
+          <p>You want sections for &lt;strong&gt;categories&lt;/strong&gt;, groups by &lt;strong&gt;tag&lt;/strong&gt;, archives by &lt;strong&gt;date&lt;/strong&gt;. You want it bad.</p>
         </div>
       
       
@@ -132,75 +132,53 @@
     </div>
   </div>
 </section>
-<section class="container"><h2 id="getting-started">Getting Started</h2>
-<p>I strongly recommend you to use Waffel with <a href="http://brunch.io/">Brunch</a>, starting with the <a href="https://github.com/moonwave99/brunch-with-waffel">brunch-with-waffel</a> skeleton:</p>
-<pre><code># in case you do not have Brunch installed yet
-$ npm install brunch -g
-
-$ brunch new gh:moonwave99/brunch-with-waffel path/to/project
-$ cd path/to/project
-$ npm start
-</code></pre><p>Visit <a href="http://localhost:3333"><code>http://localhost:3333</code></a> and you ready to go!</p>
-<p>Please have a look at the examples here above or at <a href="/docs">the doc</a>, in order to get a better grasp on how can Waffel be useful to you.</p>
+<section class="container"><p> use Waffel with <a href="http://brunch.io/">Brunch</a>, starting with the <a href="https://github.com/moonwave99/brunch-with-waffel">brunch-with-waffel</a> skeleton:</p>
+<p>ve Brunch installed yet</p>
+<p>e99/brunch-with-waffel path/to/project</p>
+<p>33`](<a href="http://localhost:3333">http://localhost:3333</a>) and you ready to go!</p>
+<p>xamples here above or at <a href="/docs">the doc</a>, in order to get a better grasp on how can Waffel be useful to you.</p>
 </section>  
 <hr>
-<section class="container"><h2 id="philosophy">Philosophy</h2>
-<p><strong>Waffel</strong> was born as a simple script to generate <a href="http://www.diegocaponera.com/">my website</a> and <a href="http://www.shoegaze.it/">another project of mine</a>, and eventually <a href="https://kreuzwerker.de">my company&#39;s homepage</a>. I thought it was worth releasing, basically because I plan to reuse it a lot in the close future, best as a companion to a content management tool I hope to release very soon.</p>
-<p>I think that having a full web stack for a blog/portfolio/small business showcase site is really an overkill today: you need a lot of services running in order to serve content, you will be the very only one to change in a deterministic way.
-Now that all our pathetic <code>comments.php</code> efforts have been teared apart by Disqus/social commenting facilities, why should we store our thoughts in a database, instead of on good ol&#39; text files, editable in the way we find more comfortable?</p>
-<h3 id="why-static-at-all">Why static at all</h3>
-<p>Since the early Nineties, when Internet (slowly) began becoming a common cultural phenomenon, experience was limited to navigate through <a href="http://en.wikipedia.org/wiki/Hypertext"><em>hypertexts</em></a> and see pictures (after several minutes, often) - no CSS, no buttons, almost no forms, no AJAX, no fancy interaction at all.</p>
-<p>An hypertext was, is and will always be just <strong>a graph of connected pages</strong>, linked to other hypertexts on the web, all reachable via a browser.</p>
-<p>After two decades of development and progress, we can build a business on top of geo-localisation and images taken via devices <a href="http://www.phonearena.com/news/A-modern-smartphone-or-a-vintage-supercomputer-which-is-more-powerful_id57149">more powerful that the NASA mainframe that routed the man on the Moon</a>.</p>
-<p>But the Internet should stay a (huge) compendium of hypertexts, and the focus should stay on the content. Not on the comments, not on the &quot;social&quot; interaction, not in the twenty sidebars that clutter now your page.</p>
-<p>Let&#39;s face it: if your website is content oriented, you don&#39;t care about how fancy the transition effect between pages may be - rather you want fast page loads and full control on the HTML response you deliver, no matter the way you access the page.</p>
-<p>Write <em>good and accessible content</em>, and numbers will follow.</p>
-<p>Development side note: you don&#39;t need a plugin for <em>everything</em>, I am really confident that you can set proper <code>&lt;meta&gt;</code>tags for your blogposts, or create thumbnails, or generate a sitemap. Some tasks are really easy to achieve on top of the existing (<em>cough</em> npm <em>cough</em>) library ecosystem, yet require different fine tuning on project basis; consider wrapping it up yourself if you plan to reuse the feature a lot, but sometimes even a brief blogpost or a <a href="https://gist.github.com/">gist</a> would do. Two lines of effectiveness are worth 50 lines of configurable options, if you know what I mean : ))</p>
-<p>AND YOU CAN SYNC EASIER TO THE CLOUD IF YOU ARE STATIC, AND YOUR BOSS WILL BE HAPPY</p>
-<h3 id="markdown-and-git-github-cover-99-of-your-needs-">Markdown and Git/Github cover 99% of your needs.</h3>
-<p>On the sixth day God created <a href="http://en.wikipedia.org/wiki/Microsoft_FrontPage">Frontpage</a>, and that was bad. I don&#39;t know how many of you had their first contact with content management via the aforementioned program, still you can have a clue of the outcome by looking at the interface screenshots and the vendor name. You had to write raw HTML, and upload the outcome to your website via FTP. And the only way of using &quot;templates&quot; (i.e. reused chunks of code) was delegated to <a href="http://en.wikipedia.org/wiki/Framing_%28World_Wide_Web%29"><code>&lt;framesets&gt;</code></a>.</p>
-<p>Then the online <strong>CMS</strong>s came: a jungle of dropdowns and buttons, that allowed secretaries to paste documents written in Word into a TinyMCE WYSIWIG textarea, that wrecked your valid HTML delivery intentions.</p>
-<p>(<em>disclaimer</em>: nothing against mighty TinyMCE, I even <a href="http://moonwave99.github.io/TinyMCELatexPlugin/">wrote a plugin for that</a> back then!)</p>
-<p>That was the only way to publish content to the web - some attempts were good, and after many years of refinement we can now use dream platforms like <a href="https://medium.com/">Medium</a> or <a href="https://ghost.org/">Ghost</a>.</p>
-<hr>
-<p>But in a flow content context (like most of the content you deliver should be), do you really need WYSIWIG? Paragraphs are paragraphs, headers are headers, roses are red, violets are blue. Focus on the <em>hierarchy</em> and <em>meaning</em> of your content, and not on the alignment of your text (hint: should be left, at least in most western countries).</p>
-<p>Markdown covers all your formatting needs, it is readable on its own, and it is the <em>de facto</em> standard of the Good Web publishing. And in those corner cases that may not be covered by its syntax, you can place a couple of lines of raw HTML, or consider storing a property in the <a href="http://jekyllrb.com/docs/frontmatter/">YAML frontmatter</a> in order to be used in a template.</p>
-<p>Coming to Git/Github: pushing to a remote + using <em>post-receive</em>/<em>web</em> hooks cover all publishing needs you would face. It is like hitting the Save button, with 5/10 seconds of delay, that would be widely saved among all future requests by the clients. Plus it is easier to revert, to keep track of the changes, to review work from other people.</p>
-<p>I mean I would put my life under version control if I could: </p>
-<pre><code>$ git co that-day-that-i-didnt-kiss-her-now-i-know-that-she-liked-me-but-lives-now-in-australia-with-mike-tyson --hard
-</code></pre><p>Why shouldn&#39;t I wait doing it for the content of my website!</p>
-<h3 id="ok-so-why-then-not-_x-io_-or-_y-js_-">Ok, so why then not <em>X.io</em> or <em>Y.js</em> ?</h3>
-<p>Believe me, I tried almost all generators out there: many of them are nice pieces of software, from whom I gathered a lot of useful ideas and inspiration, but they all either lacked some crucial featured that I needed, or were written in a language I am not really skilled in.</p>
-<p>Moreover, I think that generating a set of <code>.html</code> files from a bunch of Markdown ones should be a task that any <em>full stack developer</em> should be able to accomplish in a couple of hours. So I stopped wandering on Github and wrote the <code>0.0.1</code> of Waffel.</p>
+<section class="container"><p>mple script to generate <a href="http://www.diegocaponera.com/">my website</a> and <a href="http://www.shoegaze.it/">another project of mine</a>, and eventually <a href="https://kreuzwerker.de">my company&#39;s homepage</a>. I thought it was worth releasing, basically because I plan to reuse it a lot in the close future, best as a companion to a content management tool I hope to release very soon.</p>
+<p>web stack for a blog/portfolio/small business showcase site is really an overkill today: you need a lot of services running in order to serve content, you will be the very only one to change in a deterministic way.
+comments.php` efforts have been teared apart by Disqus/social commenting facilities, why should we store our thoughts in a database, instead of on good ol&#39; text files, editable in the way we find more comfortable?</p>
+<p>hen Internet (slowly) began becoming a common cultural phenomenon, experience was limited to navigate through <a href="http://en.wikipedia.org/wiki/Hypertext"><em>hypertexts</em></a> and see pictures (after several minutes, often) - no CSS, no buttons, almost no forms, no AJAX, no fancy interaction at all.</p>
+<p>ll always be just <strong>a graph of connected pages</strong>, linked to other hypertexts on the web, all reachable via a browser.</p>
+<p>pment and progress, we can build a business on top of geo-localisation and images taken via devices <a href="http://www.phonearena.com/news/A-modern-smartphone-or-a-vintage-supercomputer-which-is-more-powerful_id57149">more powerful that the NASA mainframe that routed the man on the Moon</a>.</p>
+<p>y a (huge) compendium of hypertexts, and the focus should stay on the content. Not on the comments, not on the &quot;social&quot; interaction, not in the twenty sidebars that clutter now your page.</p>
+<p>website is content oriented, you don&#39;t care about how fancy the transition effect between pages may be - rather you want fast page loads and full control on the HTML response you deliver, no matter the way you access the page.</p>
+<p>content_, and numbers will follow.</p>
+<p>don&#39;t need a plugin for <em>everything</em>, I am really confident that you can set proper <code>&amp;lt;meta&amp;gt;</code>tags for your blogposts, or create thumbnails, or generate a sitemap. Some tasks are really easy to achieve on top of the existing (<em>cough</em> npm <em>cough</em>) library ecosystem, yet require different fine tuning on project basis; consider wrapping it up yourself if you plan to reuse the feature a lot, but sometimes even a brief blogpost or a <a href="https://gist.github.com/">gist</a> would do. Two lines of effectiveness are worth 50 lines of configurable options, if you know what I mean : ))</p>
+<p>THE CLOUD IF YOU ARE STATIC, AND YOUR BOSS WILL BE HAPPY</p>
+<p> cover 99% of your needs.</p>
+<p>d <a href="http://en.wikipedia.org/wiki/Microsoft_FrontPage">Frontpage</a>, and that was bad. I don&#39;t know how many of you had their first contact with content management via the aforementioned program, still you can have a clue of the outcome by looking at the interface screenshots and the vendor name. You had to write raw HTML, and upload the outcome to your website via FTP. And the only way of using &quot;templates&quot; (i.e. reused chunks of code) was delegated to <a href="http://en.wikipedia.org/wiki/Framing_%28World_Wide_Web%29"><code>&amp;lt;framesets&amp;gt;</code></a>.</p>
+<p>me: a jungle of dropdowns and buttons, that allowed secretaries to paste documents written in Word into a TinyMCE WYSIWIG textarea, that wrecked your valid HTML delivery intentions.</p>
+<p>nst mighty TinyMCE, I even <a href="http://moonwave99.github.io/TinyMCELatexPlugin/">wrote a plugin for that</a> back then!)</p>
+<p>blish content to the web - some attempts were good, and after many years of refinement we can now use dream platforms like <a href="https://medium.com/">Medium</a> or <a href="https://ghost.org/">Ghost</a>.</p>
+<p>xt (like most of the content you deliver should be), do you really need WYSIWIG? Paragraphs are paragraphs, headers are headers, roses are red, violets are blue. Focus on the <em>hierarchy</em> and <em>meaning</em> of your content, and not on the alignment of your text (hint: should be left, at least in most western countries).</p>
+<p>rmatting needs, it is readable on its own, and it is the <em>de facto</em> standard of the Good Web publishing. And in those corner cases that may not be covered by its syntax, you can place a couple of lines of raw HTML, or consider storing a property in the <a href="http://jekyllrb.com/docs/frontmatter/">YAML frontmatter</a> in order to be used in a template.</p>
+<p>ng to a remote + using <em>post-receive</em>/<em>web</em> hooks cover all publishing needs you would face. It is like hitting the Save button, with 5/10 seconds of delay, that would be widely saved among all future requests by the clients. Plus it is easier to revert, to keep track of the changes, to review work from other people.</p>
+<p>under version control if I could: </p>
+<p>i-didnt-kiss-her-now-i-know-that-she-liked-me-but-lives-now-in-australia-with-mike-tyson --hard</p>
+<p>ing it for the content of my website!</p>
+<p>io_ or <em>Y.js</em> ?</p>
+<p>all generators out there: many of them are nice pieces of software, from whom I gathered a lot of useful ideas and inspiration, but they all either lacked some crucial featured that I needed, or were written in a language I am not really skilled in.</p>
+<p>rating a set of <code>.html</code> files from a bunch of Markdown ones should be a task that any <em>full stack developer</em> should be able to accomplish in a couple of hours. So I stopped wandering on Github and wrote the <code>0.0.1</code> of Waffel.</p>
 </section>  
 <hr>
-<section class="container"><h2 id="faq">FAQ</h2>
-<blockquote>
-<p>Does Waffel work with different front matter formats (e.g. JSON, TOML,…) rather than YAML?</p>
-</blockquote>
-<p>Not at the moment, though I would be glad to <a href="https://github.com/moonwave99/waffel">receive a PR</a> in order to make front matter format configurable!</p>
-<blockquote>
-<p>Is there any CLI tool?</p>
-</blockquote>
-<p>No, because <a href="http://brunch.io/">brunch</a>, <a href="http://gulpjs.com/">gulp</a> and <a href="http://gruntjs.com/">grunt</a> all make a wonderful job at that.</p>
-<blockquote>
-<p>Does Waffel handle the compilation/concatenation/minification of my CSS/JS code?</p>
-</blockquote>
-<p>No, because <a href="http://brunch.io/">brunch</a>, <a href="http://gulpjs.com/">gulp</a> and <a href="http://gruntjs.com/">grunt</a> all make a wonderful job at that.</p>
-<blockquote>
-<p>Can I change template language?</p>
-</blockquote>
-<p>Not at the moment, because I like <a href="https://mozilla.github.io/nunjucks/">Nunjucks</a>&#39;s expressiveness a lot, and the possibility to <strong>chain filters</strong> (that allows me to use more logic in templates, since there is no controller layer actually).</p>
-<blockquote>
-<p>Does Waffel provide support for a complex relational model?</p>
-</blockquote>
-<p>Waffel doesn&#39;t know anything about your data schema. But as all the loaded data is exposed in the templates via the <code>data</code> property, you can deal with any sort of composition (e.g. <code>data.users[post.author]</code>). It is the price to pay for not having to write a schema, but I don&#39;t find it very expensive : ))</p>
-<p>In case you really need a complex query mechanism, chances are that you need a different stack.</p>
-<blockquote>
-<p>Are there plugins? Is there a way to write any?</p>
-</blockquote>
-<p>Writing a plugin for such a specific tool usually ends up in following a narrow DSL, with no real benefit on top of the hassle.<br>You can include even complicate <strong>filters</strong> and <strong>helpers</strong>, that can be used all over the HTML template codes.</p>
-<p>Nevertheless, have a look at the examples up here, they may help you to achieve your goal!</p>
+<section class="container"><p>different front matter formats (e.g. JSON, TOML,…) rather than YAML?</p>
+<p> would be glad to <a href="https://github.com/moonwave99/waffel">receive a PR</a> in order to make front matter format configurable!</p>
+<p>/brunch.io/), <a href="http://gulpjs.com/">gulp</a> and <a href="http://gruntjs.com/">grunt</a> all make a wonderful job at that.</p>
+<p> compilation/concatenation/minification of my CSS/JS code?</p>
+<p>/brunch.io/), <a href="http://gulpjs.com/">gulp</a> and <a href="http://gruntjs.com/">grunt</a> all make a wonderful job at that.</p>
+<p>language?</p>
+<p>I like <a href="https://mozilla.github.io/nunjucks/">Nunjucks</a>&#39;s expressiveness a lot, and the possibility to <strong>chain filters</strong> (that allows me to use more logic in templates, since there is no controller layer actually).</p>
+<p>pport for a complex relational model?</p>
+<p>thing about your data schema. But as all the loaded data is exposed in the templates via the <code>data</code> property, you can deal with any sort of composition (e.g. <code>data.users[post.author]</code>). It is the price to pay for not having to write a schema, but I don&#39;t find it very expensive : ))</p>
+<p>omplex query mechanism, chances are that you need a different stack.</p>
+<p>there a way to write any?</p>
+<p> specific tool usually ends up in following a narrow DSL, with no real benefit on top of the hassle.<br>cate <strong>filters</strong> and <strong>helpers</strong>, that can be used all over the HTML template codes.</p>
+<p>t the examples up here, they may help you to achieve your goal!</p>
 </section>  
 
   <footer class="footer text-center container">
