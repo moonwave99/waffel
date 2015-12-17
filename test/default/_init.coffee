@@ -21,7 +21,7 @@ before (done) ->
   postsPath = path.join wfl.options.dataFolder, 'posts'
   fs.removeSync path.join config.root, config.destinationFolder
   fs.removeSync postsPath
-  generator { root: postsPath, threshold: 100 }
+  generator { root: postsPath, threshold: 103 }
     .then wfl.init.bind(wfl)
     .then wfl.generate.bind(wfl)
   wfl.on 'generation:complete', done
