@@ -206,7 +206,7 @@ module.exports = class Waffel extends EventEmitter
     tokens = page.url.split '/'
     tokens.unshift opts.language if opts.localised
     tokens = tokens.map (token) =>
-      if token[0] is ':'then (@_formatToken data.group) or data[token.slice 1] else token
+      if token[0] is ':'then (@_formatToken data.group or data[token.slice 1]) else token
 
     if page.pagination and page.pagination.page > 1
       tokens.push 'page'
