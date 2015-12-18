@@ -2,9 +2,8 @@ _       = require 'lodash'
 
 module.exports =
   url: (name, data = {}, options = {}) ->
+    _.merge _.pick(arguments[arguments.length-2], ['language', 'localised', 'page']), options
     wfl = _.last arguments
-    _page = arguments[arguments.length-2]
-    _.merge options, _page
     page = wfl._getPageByName name
     if options.page
       page.pagination =
