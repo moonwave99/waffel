@@ -11,7 +11,7 @@ I strongly recommend you to use Waffel with [Brunch](http://brunch.io/), startin
     # in case you do not have Brunch installed yet
     $ npm install brunch -g
     
-    $ brunch new gh:moonwave99/brunch-with-waffel path/to/project
+    $ brunch new path/to/project --skeleton https://github.com/moonwave99/brunch-with-waffel
     $ cd path/to/project
     $ npm start
 
