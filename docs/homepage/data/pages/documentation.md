@@ -38,6 +38,7 @@ Let's inspect what's available:
 |-----------------------|--------------------------------------------------------------------------------------|---------|-----------------|
 | `silent`              | Suppresses all log outputs.                                                          | boolean | `false`         |
 | `verbose`             | Prints single page generation information.                                           | boolean | `false`         |
+| `versionAssets`       | Enables `{versioned:true}` option to append current commit hash to `asset()` helper. | boolean | `false`         |
 | `defaultPagination`   | Pagination size.                                                                     | number  | `10`            |
 | `defaultSortField`    | Default field for collection sorting.                                                | string  | `slug`          |
 | `defaultSortOrder`    | Default order for collection sorting.                                                | string  | `desc`          |

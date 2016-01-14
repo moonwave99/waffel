@@ -3,6 +3,7 @@ helpers       = require './helpers'
 
 _             = require 'lodash'
 colors        = require 'colors'
+exec          = require('child_process').exec
 Promise       = require 'bluebird'
 path          = require 'path'
 md5           = require 'md5'
@@ -19,6 +20,7 @@ markdown      = require 'nunjucks-markdown'
 marked        = require 'marked'
 cheerio       = require 'cheerio'
 pushserve     = require 'pushserve'
+
 fs            = Promise.promisifyAll require 'fs-extra'
 glob          = Promise.promisifyAll require 'globby'
 
@@ -26,6 +28,7 @@ module.exports = class Waffel extends EventEmitter
   defaults:
     silent:             false
     verbose:            false
+    versionAssets:      false
     defaultPagination:  10
     defaultSortField:   'slug'
     defaultSortOrder:   'desc'
@@ -107,25 +110,36 @@ module.exports = class Waffel extends EventEmitter
     markdown.register @env, marked
     nunjucks.precompile @options.viewFolder, { env: @env }
 
+  getRevision: =>
+    new Promise (resolve, reject) =>
+      exec "git rev-parse HEAD", { cwd: @options.root }, (err, stdout, stderr) =>
+        if err then reject err else resolve stdout.split('\n').join ''
+
   init: =>
     _path = path.join @options.dataFolder, "**/*#{@options.dataExt}"
     @log "--> Globbing #{_path.cyan}:"
-    new Promise (resolve, reject) =>
-      _i18n = i18n.createInstance()
-      .use(Backend)
-      .init
-        debug: @options.verbose
-        preload: @options.languages.concat ['dev']
-        lng: @options.defaultLanguage
-        backend:
-          loadPath: path.join @options.localesFolder, '{{lng}}.json'
-      , (err, t) ->
-        if err then reject err else resolve t
-    .then (t)=>
-      @i18n = t
-      glob.callAsync( @, _path).then (files) =>
-        files.forEach @_parseFile, @
-        @data
+
+    @getRevision().then (commit) =>
+      @config.rev = commit
+    .catch (e) =>
+      @log "--> #{"Could not get commit reference, perhaps not a repo".red}?\n---"
+    .finally =>
+      new Promise (resolve, reject) =>
+        _i18n = i18n.createInstance()
+        .use(Backend)
+        .init
+          debug:    @options.verbose
+          preload:  @options.languages.concat ['dev']
+          lng:      @options.defaultLanguage
+          backend:
+            loadPath: path.join @options.localesFolder, '{{lng}}.json'
+        , (err, t) ->
+          if err then reject err else resolve t
+      .then (t)=>
+        @i18n = t
+        glob.callAsync( @, _path).then (files) =>
+          files.forEach @_parseFile, @
+          @data
 
   generate: (options = {}) =>
     @start = process.hrtime()

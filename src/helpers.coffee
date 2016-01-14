@@ -17,8 +17,11 @@ module.exports =
     else
       _.compact( [wfl.options.domain, wfl.options.basePath, (wfl._url page, data, options), 'index.html'] ).join '/'
 
-  asset: (_path = '') ->
+  asset: (_path = '', options = {}) ->
     wfl = _.last arguments
+    if wfl.options.versionAssets and wfl.config.rev and options.versioned
+      [base, ext] = _path.split('.')
+      _path = "#{base}_#{wfl.config.rev}.#{ext}"
     _.compact( [wfl.options.domain, wfl.options.basePath, wfl.options.assetPath, _path] ).join '/'
 
   absoluteURL: (url) ->
