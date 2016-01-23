@@ -4,6 +4,7 @@ helpers       = require './helpers'
 _             = require 'lodash'
 colors        = require 'colors'
 exec          = require('child_process').exec
+chokidar      = require 'chokidar'
 Promise       = require 'bluebird'
 path          = require 'path'
 md5           = require 'md5'
@@ -55,6 +56,8 @@ module.exports = class Waffel extends EventEmitter
     displayExt:         true
     dateFormat:         'YYYY-MM-DD'
     server:             false
+    watch:              false
+    watchInterval:      5000
     markdownOptions:
       gfm:          true
       tables:       true
@@ -115,10 +118,29 @@ module.exports = class Waffel extends EventEmitter
       exec "git rev-parse HEAD", { cwd: @options.root }, (err, stdout, stderr) =>
         if err then reject err else resolve stdout.split('\n').join ''
 
-  init: =>
-    _path = path.join @options.dataFolder, "**/*#{@options.dataExt}"
+  _getFiles: (_path) =>
     @log "--> Globbing #{_path.cyan}:"
+    glob.callAsync( @, _path).then (files) =>
+      _data = {}
+      files.forEach (file) =>
+        @_parseFile file, _data
+      _data
 
+  _generate: (_path, options) =>
+    @start = process.hrtime()
+    @emit 'generation:start'
+    @_getFiles(_path).then (data) =>
+      @data = data
+      if options.data then _.merge @data, options.data
+      fs.ensureDirAsync( @options.destinationFolder ).then =>
+        tasks = []
+        languages = if @options.localiseDefault then @options.languages else @options.languages.filter (l) => l != @options.defaultLanguage
+        for language in languages
+          tasks = tasks.concat @_generateForLanguage language, true
+        tasks = tasks.concat @_generateForLanguage @options.defaultLanguage, false
+        async.parallel tasks, @postGenerate
+
+  init: =>
     @getRevision().then (commit) =>
       @config.rev = commit
     .catch (e) =>
@@ -137,22 +159,18 @@ module.exports = class Waffel extends EventEmitter
           if err then reject err else resolve t
       .then (t)=>
         @i18n = t
-        glob.callAsync( @, _path).then (files) =>
-          files.forEach @_parseFile, @
-          @data
+        @
 
   generate: (options = {}) =>
-    @start = process.hrtime()
     @log "--> Start generation process...\n---"
-    if options.data then _.merge @data, options.data
-    @emit 'generation:start'
-    fs.ensureDirAsync( @options.destinationFolder ).then =>
-      tasks = []
-      languages = if @options.localiseDefault then @options.languages else @options.languages.filter (l) => l != @options.defaultLanguage
-      for language in languages
-        tasks = tasks.concat @_generateForLanguage language, true
-      tasks = tasks.concat @_generateForLanguage @options.defaultLanguage, false
-      async.parallel tasks, @postGenerate
+    _path = path.join @options.dataFolder, "**/*#{@options.dataExt}"
+    debounced_generate = _.debounce =>
+      @_generate _path, options
+      , @options.watchInterval
+    if @options.watch
+      @watcher = chokidar.watch _path
+      @watcher.on 'change', debounced_generate
+    debounced_generate()
 
   postGenerate: (err, pages) =>
     elapsed = process.hrtime @start
@@ -162,7 +180,7 @@ module.exports = class Waffel extends EventEmitter
       @_createSitemap(pages).then => @emit 'generation:complete'
     else
       @emit 'generation:complete'
-    @_launchServer() if @options.server
+    @_launchServer() if @options.server and !@serverStarted
 
   _generateForLanguage: (language, localised) =>
     tasks = []
@@ -182,21 +200,21 @@ module.exports = class Waffel extends EventEmitter
             tasks = tasks.concat _.compact @_createCollectionPage _page, "#{name}.#{_name}", @data[page.collection], language, localised
     tasks
 
-  _parseFile: (file) =>
+  _parseFile: (file, _data) =>
     relativePath = file.replace @options.dataFolder, ''
     tokens = relativePath.split(path.sep).slice 1
     collection = tokens[0]
-    @data[collection] ||= {}
+    _data[collection] ||= {}
     loadedData = matter.read file, delims: @options.frontmatter.delims
     data = loadedData.data
     data.__content = loadedData.content
     data.slug = data.slug || path.basename relativePath, @options.dataExt
     if tokens[1] in @options.languages
       language = tokens[1]
-      @data[collection][data.slug] || = { _localised: true }
-      @data[collection][data.slug][language] = data
+      _data[collection][data.slug] || = { _localised: true }
+      _data[collection][data.slug][language] = data
     else
-      @data[collection][data.slug] = data
+      _data[collection][data.slug] = data
 
   _getPageByName: (name) =>
     tokens = name.split '.'
@@ -353,3 +371,4 @@ module.exports = class Waffel extends EventEmitter
     server = pushserve opts, =>
       @log "--> waffel server waiting for you at " + "http://localhost:#{opts.port}".green
       @emit 'server:start', server
+      @serverStarted = true

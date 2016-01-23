@@ -66,6 +66,8 @@ Let's inspect what's available:
 | `displayExt`          | If 'false', omits file extension (useful when uploading to S3 for instance).         | boolean | `true`          |
 | `dateFormat`          | Date format used in slugs.                                                           | string  | `YYYY-MM-DD`    |
 | `server`              | If `true`, runs a local webserver - useful for development.                          | boolean | `false`         |
+| `watch`               | If `true`, watches `dataFolder` for changes and regenerates website - dev mode only! | boolean | `false`         |
+| `watchInterval`       | Debounce interval for watching (in milliseconds).                                    | number  | `5000`          |
 
 ---
 
