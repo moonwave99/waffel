@@ -127,6 +127,12 @@ var wfl = new Waffel({
 <td><code>false</code></td>
 </tr>
 <tr>
+<td><code>versionAssets</code></td>
+<td>Enables <code>{versioned:true}</code> option to append current commit hash to <code>asset()</code> helper.</td>
+<td>boolean</td>
+<td><code>false</code></td>
+</tr>
+<tr>
 <td><code>defaultPagination</code></td>
 <td>Pagination size.</td>
 <td>number</td>
@@ -288,6 +294,18 @@ var wfl = new Waffel({
 <td>boolean</td>
 <td><code>false</code></td>
 </tr>
+<tr>
+<td><code>watch</code></td>
+<td>If <code>true</code>, watches <code>dataFolder</code> for changes and regenerates website - dev mode only!</td>
+<td>boolean</td>
+<td><code>false</code></td>
+</tr>
+<tr>
+<td><code>watchInterval</code></td>
+<td>Debounce interval for watching (in milliseconds).</td>
+<td>number</td>
+<td><code>5000</code></td>
+</tr>
 </tbody>
 </table>
 <hr>
@@ -307,7 +325,7 @@ var wfl = new Waffel({
 
   <footer class="footer text-center container">
   <hr>
-  <p class="copyright">&copy; 2015 <a href="http://www.diegocaponera.com" target="_blank">MWLabs</a>, made w/ <a href="http://moonwave99.github.io/waffel/index.html" target="_blank">waffel</a> and love.</p> 
+  <p class="copyright">&copy; 2016 <a href="http://www.diegocaponera.com" target="_blank">MWLabs</a>, made w/ <a href="http://moonwave99.github.io/waffel/index.html" target="_blank">waffel</a> and love.</p> 
 </footer>
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
