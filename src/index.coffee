@@ -170,7 +170,7 @@ module.exports = class Waffel extends EventEmitter
     if @options.watch
       @watcher = chokidar.watch _path
       @watcher.on 'change', debounced_generate
-    debounced_generate()
+    @_generate _path, options
 
   postGenerate: (err, pages) =>
     elapsed = process.hrtime @start
@@ -235,17 +235,16 @@ module.exports = class Waffel extends EventEmitter
     @_slugify value
 
   _url: (page, data, opts = {}) ->
-    tokens = page.url.split '/'
+    tokens = page.url.split('/')
     tokens.unshift opts.language if opts.localised
     tokens = tokens.map (token) =>
-      if token[0] is ':'then (@_formatToken data.group or data[token.slice 1]) else token
+      if token[0] is ':' then (@_formatToken data.group or data[token.slice 1]) else token
 
     if page.pagination and page.pagination.page > 1
       tokens.push 'page'
       tokens.push page.pagination.page
 
-    _.compact tokens
-      .join '/'
+    _.compact(tokens).join('/')
 
   _target: (url) =>
     ext = path.extname url
@@ -303,11 +302,9 @@ module.exports = class Waffel extends EventEmitter
       sets = [set]
 
     tasks = _.map sets, (set, group) =>
-      pages = _ set
-        .sortBy sort
-        .tap (x) ->
+      pages = _(set).sortBy(sort).tap (x) ->
           if order is 'desc' then _ x .reverse() else x
-        .chunk page.paginate or @options.defaultPagination
+        .chunk(page.paginate or @options.defaultPagination)
         .value()
 
       pages.map (p, index) =>
@@ -354,8 +351,7 @@ module.exports = class Waffel extends EventEmitter
         data    : @data
         pages   : pages.filter (p) -> !_.isBoolean p.page.sitemap and p.page.sitemap is not false
         now     : new Date
-    fs.outputFileAsync target, output
-      .then =>
+    fs.outputFileAsync(target, output).then =>
         @log "--> Created #{@options.sitemapName.cyan}"
         true
 
