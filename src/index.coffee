@@ -99,9 +99,58 @@ module.exports = class Waffel extends EventEmitter
 
     @config = site.config
     @structure = site.structure
-    @registerTemplates()
 
-  registerTemplates: =>
+  getRevision: =>
+    new Promise (resolve, reject) =>
+      exec "git rev-parse HEAD", { cwd: @options.root }, (err, stdout, stderr) =>
+        if err then reject err else resolve stdout.split('\n').join ''
+
+  init: =>
+    @getRevision().then (commit) =>
+      @config.rev = commit
+    .catch (e) =>
+      @log "--> #{"Could not get commit reference, perhaps not a repo".red}?\n---"
+
+  generate: (options = {}) =>
+    @log "--> Start generation process...\n---"
+    dataPath = path.join @options.dataFolder, "**/*#{@options.dataExt}"
+    if @options.watch
+      localesPath = path.join @options.localesFolder, "**/*.json"
+      viewPath    = path.join @options.viewFolder, "**/*"
+      debounced_generate = _.debounce =>
+        @_generate dataPath, options
+        , @options.watchInterval
+      @watcher = chokidar.watch [dataPath, localesPath, viewPath]
+      @watcher.on 'change', debounced_generate
+    @_generate dataPath, options
+
+  postGenerate: (err, pages) =>
+    elapsed = process.hrtime @start
+    millis = elapsed[1] / 1000000
+    @log "--> Generated #{(pages.length + '').cyan} pages in #{elapsed[0]}.#{millis.toFixed(0)}s."
+    if @options.sitemap
+      @_createSitemap(pages).then => @emit 'generation:complete'
+    else
+      @emit 'generation:complete'
+    @_launchServer() if @options.server and !@serverStarted
+
+  _loadLocales: =>
+    new Promise (resolve, reject) =>
+      _i18n = i18n.createInstance()
+      .use(Backend)
+      .init
+        debug:    @options.verbose
+        preload:  @options.languages.concat ['dev']
+        lng:      @options.defaultLanguage
+        backend:
+          loadPath: path.join @options.localesFolder, '{{lng}}.json'
+      , (err, t) ->
+        if err then reject err else resolve t
+    .then (t)=>
+      @i18n = t
+      @
+
+  _registerTemplates: =>
     @env = nunjucks.configure @options.viewFolder,
       watch: false
       express: null
@@ -113,11 +162,6 @@ module.exports = class Waffel extends EventEmitter
     markdown.register @env, marked
     nunjucks.precompile @options.viewFolder, { env: @env }
 
-  getRevision: =>
-    new Promise (resolve, reject) =>
-      exec "git rev-parse HEAD", { cwd: @options.root }, (err, stdout, stderr) =>
-        if err then reject err else resolve stdout.split('\n').join ''
-
   _getFiles: (_path) =>
     @log "--> Globbing #{_path.cyan}:"
     glob.callAsync( @, _path).then (files) =>
@@ -127,60 +171,20 @@ module.exports = class Waffel extends EventEmitter
       _data
 
   _generate: (_path, options) =>
-    @start = process.hrtime()
-    @emit 'generation:start'
-    @_getFiles(_path).then (data) =>
-      @data = data
-      if options.data then _.merge @data, options.data
-      fs.ensureDirAsync( @options.destinationFolder ).then =>
-        tasks = []
-        languages = if @options.localiseDefault then @options.languages else @options.languages.filter (l) => l != @options.defaultLanguage
-        for language in languages
-          tasks = tasks.concat @_generateForLanguage language, true
-        tasks = tasks.concat @_generateForLanguage @options.defaultLanguage, false
-        async.parallel tasks, @postGenerate
-
-  init: =>
-    @getRevision().then (commit) =>
-      @config.rev = commit
-    .catch (e) =>
-      @log "--> #{"Could not get commit reference, perhaps not a repo".red}?\n---"
-    .finally =>
-      new Promise (resolve, reject) =>
-        _i18n = i18n.createInstance()
-        .use(Backend)
-        .init
-          debug:    @options.verbose
-          preload:  @options.languages.concat ['dev']
-          lng:      @options.defaultLanguage
-          backend:
-            loadPath: path.join @options.localesFolder, '{{lng}}.json'
-        , (err, t) ->
-          if err then reject err else resolve t
-      .then (t)=>
-        @i18n = t
-        @
-
-  generate: (options = {}) =>
-    @log "--> Start generation process...\n---"
-    _path = path.join @options.dataFolder, "**/*#{@options.dataExt}"
-    debounced_generate = _.debounce =>
-      @_generate _path, options
-      , @options.watchInterval
-    if @options.watch
-      @watcher = chokidar.watch _path
-      @watcher.on 'change', debounced_generate
-    @_generate _path, options
-
-  postGenerate: (err, pages) =>
-    elapsed = process.hrtime @start
-    millis = elapsed[1] / 1000000
-    @log "--> Generated #{(pages.length + '').cyan} pages in #{elapsed[0]}.#{millis.toFixed(0)}s."
-    if @options.sitemap
-      @_createSitemap(pages).then => @emit 'generation:complete'
-    else
-      @emit 'generation:complete'
-    @_launchServer() if @options.server and !@serverStarted
+    @._loadLocales().then =>
+      @_registerTemplates()
+      @start = process.hrtime()
+      @emit 'generation:start'
+      @_getFiles(_path).then (data) =>
+        @data = data
+        if options.data then _.merge @data, options.data
+        fs.ensureDirAsync( @options.destinationFolder ).then =>
+          tasks = []
+          languages = if @options.localiseDefault then @options.languages else @options.languages.filter (l) => l != @options.defaultLanguage
+          for language in languages
+            tasks = tasks.concat @_generateForLanguage language, true
+          tasks = tasks.concat @_generateForLanguage @options.defaultLanguage, false
+          async.parallel tasks, @postGenerate
 
   _generateForLanguage: (language, localised) =>
     tasks = []
