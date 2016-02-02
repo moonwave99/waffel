@@ -36,8 +36,8 @@ Let's inspect what's available:
 
 | Name                  | Description                                                                          | Accepts | Default         |
 |-----------------------|--------------------------------------------------------------------------------------|---------|-----------------|
-| `silent`              | Suppresses all log outputs.                                                          | boolean | `false`         |
-| `verbose`             | Prints single page generation information.                                           | boolean | `false`         |
+| `silent`              | If `true`, suppresses all log outputs.                                               | boolean | `false`         |
+| `verbose`             | If `true`, prints single page generation information.                                | boolean | `false`         |
 | `versionAssets`       | Enables `{versioned:true}` option to append current commit hash to `asset()` helper. | boolean | `false`         |
 | `defaultPagination`   | Pagination size.                                                                     | number  | `10`            |
 | `defaultSortField`    | Default field for collection sorting.                                                | string  | `slug`          |
@@ -51,9 +51,9 @@ Let's inspect what's available:
 | `domain`              | Your website domain, e.g. `http://example.com`.                                      | string  | `""`            |
 | `basePath`            | Specify in case your website is being served from anywhere different than `/`.       | string  | `""`            |
 | `assetPath`           | If assets are served from a different location/domain than `/`.                      | string  | `""`            |
-| `sitemap`             | If true, generates sitemap.                                                          | boolean | `true`          |
+| `sitemap`             | If `true`, generates sitemap.                                                        | boolean | `true`          |
 | `sitemapName`         | Sitemap filename.                                                                    | string  | `sitemap.xml`   |
-| `server`              | Starts a webserver, useful for `dev` environment.                                    | boolean | `false`         |
+| `server`              | If `true`, starts a webserver - useful for `dev` environment.                        | boolean | `false`         |
 | `root`                | Project root folder.                                                                 | string  | `process.cwd()` |
 | `dataExt`             | Data files extension.                                                                | string  | `.md`           |
 | `templateExt`         | Template files extension.                                                            | string  | `.html`         |
@@ -61,9 +61,9 @@ Let's inspect what's available:
 | `defaultLanguage`     | Website default language (as ISO two-letter code).                                   | string  | `en`            |
 | `fallbackLanguage`    | Language used if document is not present in current language.                        | string  | `en`            |
 | `localiseDefault`     | If `true`, prepends language slug portion even to default language documents.        | boolean | `false`         |
-| `uglyUrls`            | Generates `name.html` style documents, as opposed to  `name/index.html`.             | boolean | `false`         |
+| `uglyUrls`            | If `true`, Generates `name.html` style documents, as opposed to `name/index.html`.   | boolean | `false`         |
 | `outputExt`           | Output document file extension.                                                      | string  | `.html`         |
-| `displayExt`          | If 'false', omits file extension (useful when uploading to S3 for instance).         | boolean | `true`          |
+| `displayExt`          | If `false`, omits file extension (useful when uploading to S3 for instance).         | boolean | `true`          |
 | `dateFormat`          | Date format used in slugs.                                                           | string  | `YYYY-MM-DD`    |
 | `server`              | If `true`, runs a local webserver - useful for development.                          | boolean | `false`         |
 | `watch`               | If `true`, watches `dataFolder` for changes and regenerates website - dev mode only! | boolean | `false`         |
