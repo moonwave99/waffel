@@ -11,6 +11,6 @@ debug.log
 .idea
 **/node_modules
 **/bower_components
-**/data/posts
+**/data*/posts
 **/public_*
 **/dist
