@@ -292,6 +292,14 @@ module.exports = class Waffel extends EventEmitter
     sort = if page.sort and page.sort.field then page.sort.field else @options.defaultSortField
     order = if page.sort and page.sort.order then page.sort.order else @options.defaultSortOrder
 
+    set = _.reduce set, (memo, item, key) ->
+      if item._localised and item[language]
+        memo[key] = item[language]
+      else
+        memo[key] = item
+      memo
+    , {}
+
     if page['filter']
       set = _.where set, page['filter']
     if page.groupBy

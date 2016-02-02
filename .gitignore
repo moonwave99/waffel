@@ -12,7 +12,5 @@ debug.log
 **/node_modules
 **/bower_components
 **/data/posts
-**/public
-**/public_default
-**/public_uglyUrls
+**/public_*
 **/dist
