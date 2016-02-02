@@ -51,7 +51,7 @@ Let's inspect what's available:
 | `domain`              | Your website domain, e.g. `http://example.com`.                                      | string  | `""`            |
 | `basePath`            | Specify in case your website is being served from anywhere different than `/`.       | string  | `""`            |
 | `assetPath`           | If assets are served from a different location/domain than `/`.                      | string  | `""`            |
-| `sitemap`             | Generates sitemap.                                                                   | boolean | `true`          |
+| `sitemap`             | If true, generates sitemap.                                                          | boolean | `true`          |
 | `sitemapName`         | Sitemap filename.                                                                    | string  | `sitemap.xml`   |
 | `server`              | Starts a webserver, useful for `dev` environment.                                    | boolean | `false`         |
 | `root`                | Project root folder.                                                                 | string  | `process.cwd()` |
