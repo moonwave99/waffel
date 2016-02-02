@@ -13,6 +13,9 @@ require 'should-promised'
 
 outputFolder = path.join config_localised.root
 
+destinationFolderForLanguage = (page, language = '') ->
+  path.join wfl_localised.options.destinationFolder, language, page.pages.single.url.split('/').filter( (x) -> x.indexOf(':') == -1 ).join('/')
+
 describe 'Localised output structure', ->
   describe 'of blog:', ->
     blogPage    = wfl_localised.structure.blog
@@ -21,7 +24,7 @@ describe 'Localised output structure', ->
     contents    = {}
 
     before (done) ->
-      Promise.all languages.map (l) ->
+      Promise.all wfl_localised.options.languages.map (l) ->
         _path = path.join dataFolder, l
         new Promise (resolve, reject) ->
           glob "*.md", { cwd: _path }, (err, files) ->
@@ -33,9 +36,23 @@ describe 'Localised output structure', ->
       .catch (e) ->
         done()
 
-    it 'should generate content for all languages', ->
+    it 'should generate content for default language', ->
+      destinationFolder = destinationFolderForLanguage blogPage
+      files = glob.sync "**/index.html", cwd: destinationFolder
+      files.length.should.equal contents[wfl_localised.options.defaultLanguage].length
+
+    it 'should not prepend language slug portion to default language', ->
+      destinationFolder = destinationFolderForLanguage blogPage, wfl_localised.options.defaultLanguage
+      dirExists = false
+      try
+        fs.accessSync destinationFolder, fs.F_OK
+        dirExists = true
+      catch e then dirExists = false
+      dirExists.should.equal false
+
+    it 'should generate content for other languages, prepending ISO language slug portion to paths', ->
       Promise.all languages.map (l) ->
-        destinationFolder = path.join wfl_localised.options.destinationFolder, l, blogPage.pages.single.url.split('/').filter( (x) -> x.indexOf(':') == -1 ).join('/')
+        destinationFolder = destinationFolderForLanguage blogPage, l
         files = glob.sync "**/index.html", cwd: destinationFolder
         if files.length == contents[l].length
           Promise.resolve destinationFolder
