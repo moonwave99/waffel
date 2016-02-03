@@ -95,12 +95,19 @@ var wfl = new Waffel({
 wfl.init().then(function(data){ wfl.generate() })
 </code></pre><h2 id="why-wfl-init-then-">Why wfl.init().then( ... )?</h2>
 <p>This way, you have the chance to intercept the <code>data</code> after parsing the files but before generating the actual website.</p>
+<h2 id="events">Events</h2>
+<p>Waffel instances are <a href="https://nodejs.org/api/events.html#events_class_eventemitter"><code>EventEmitters</code></a>, and emit the following events specifically:</p>
+<ul>
+<li><code>generation:start</code>: emitted when the <code>generate()</code> method is called;</li>
+<li><code>generation:complete</code>: emitted after generating all the pages;</li>
+<li><code>server:start</code>: emitted when the built-in webserver is started (if <code>server: true</code> was set in the options), after generation is complete.</li>
+</ul>
 <h2 id="options">Options</h2>
 <p>You can pass an hash of options to Waffel at creation time, like:</p>
 <pre><code>var Waffel = require(&#39;waffel&#39;)
 ...
 var wfl = new Waffel({
-  domain: &#39;http://www.example.com&#39;,
+  domain: &#39;http://example.com&#39;,
   ...
 })
 </code></pre><p>Let&#39;s inspect what&#39;s available:</p>
