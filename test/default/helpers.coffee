@@ -19,7 +19,6 @@ describe 'Helpers', ->
     post = {}
     before (done) ->
       post = _.sample wfl.data.posts
-      # console.log post
       done()
 
     it "should output home URL", ->
