@@ -10,10 +10,8 @@ config  = global.config
 
 require 'should-promised'
 
-outputFolder = path.join config.root
-
 describe 'Filters', ->
-  describe 'Excerpt', ->
+  describe 'excerpt', ->
     excerptFilter = wfl.filters.excerpt
     it 'should trim output after provided threshold', ->
       input = "Sweet thing I watch you, HEY HEY HEY!"
