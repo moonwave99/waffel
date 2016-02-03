@@ -21,6 +21,14 @@ Okay, there is no real _quick_ start, because Waffel generates websites from a w
 
 This way, you have the chance to intercept the `data` after parsing the files but before generating the actual website.
 
+## Events
+
+Waffel instances are [`EventEmitters`](https://nodejs.org/api/events.html#events_class_eventemitter), and emit the following events specifically:
+
+- `generation:start`: emitted when the `generate()` method is called;
+- `generation:complete`: emitted after generating all the pages;
+- `server:start`: emitted when the built-in webserver is started (if `server: true` was set in the options), after generation is complete.
+
 ## Options
 
 You can pass an hash of options to Waffel at creation time, like:
@@ -28,7 +36,7 @@ You can pass an hash of options to Waffel at creation time, like:
     var Waffel = require('waffel')
     ...
     var wfl = new Waffel({
-      domain: 'http://www.example.com',
+      domain: 'http://example.com',
       ...
     })
 
