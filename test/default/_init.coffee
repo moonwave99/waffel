@@ -4,7 +4,8 @@ Promise   = require 'bluebird'
 path      = require 'path'
 fs        = Promise.promisifyAll require 'fs-extra'
 
-postNumber = 103
+postNumber = 51
+languages = global.languages = ['en', 'it']
 
 config = global.config =
   silent:             true
@@ -30,7 +31,7 @@ before (done) ->
   generator { root: postsPath, threshold: postNumber }
     .then ->
       fs.ensureDirSync localisedRoot
-      Promise.all ['en', 'it'].map (x) -> fs.copyAsync postsPath, path.join localisedRoot, x
+      Promise.all languages.map (x) -> fs.copyAsync postsPath, path.join localisedRoot, x
     .then wfl.init.bind(wfl)
     .then wfl.generate.bind(wfl)
   wfl.on 'generation:complete', done

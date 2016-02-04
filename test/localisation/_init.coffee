@@ -5,8 +5,8 @@ fs      = Promise.promisifyAll require 'fs-extra'
 
 config_localised = global.config_localised =
   silent:             true
-  languages:          ['en', 'it']
-  defaultLanguage:    'en'
+  languages:          global.languages
+  defaultLanguage:    global.languages[0]
   root:               path.join __dirname, '..', 'fixtures'
   dataFolder:         'data_localised'
   viewFolder:         'views'
