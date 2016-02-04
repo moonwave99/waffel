@@ -12,8 +12,6 @@ config  = global.config
 
 require 'should-promised'
 
-outputFolder = path.join config.root
-
 describe 'Helpers', ->
   describe 'url', ->
     post = {}

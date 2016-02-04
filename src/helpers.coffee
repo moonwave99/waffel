@@ -5,6 +5,7 @@ module.exports =
     _.merge _.pick(arguments[arguments.length-2], ['language', 'localised', 'page']), options
     wfl = _.last arguments
     page = wfl._getPageByName name
+
     if options.page
       page.pagination =
         page: options.page
