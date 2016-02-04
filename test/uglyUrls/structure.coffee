@@ -9,7 +9,7 @@ require 'should-promised'
 outputFolder = path.join config_uglyUrls.root
 
 describe 'Output structure with uglyUrls', ->
-  it 'should contain pathName', ->
+  it 'should contain home page', ->
     pathName = path.join wfl_uglyUrls.options.destinationFolder, "index#{wfl_uglyUrls.options.outputExt}"
     should( fs.existsSync pathName ).be.exactly true
 
