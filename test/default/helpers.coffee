@@ -13,12 +13,11 @@ config  = global.config
 require 'should-promised'
 
 describe 'Helpers', ->
-  describe 'url', ->
-    post = {}
-    before (done) ->
-      post = _.sample wfl.data.posts
-      done()
-
+  post = {}
+  before (done) ->
+    post = _.sample wfl.data.posts
+    done()
+  describe 'url()', ->
     it "should output home URL", ->
       helpers.url 'home', wfl
         .should.equal "#{config.domain}/index.html"
@@ -34,3 +33,10 @@ describe 'Helpers', ->
     it "should output category further pages URL", ->
       helpers.url 'blog.categories', post, { page: 2 }, wfl
         .should.equal "#{config.domain}/blog/category/#{wfl._slugify post.category}/page/2/index.html"
+
+  describe 'loc()', ->
+    describe 'without localisation', ->
+      lan = wfl.options.defaultLanguage
+      it 'should return entity itself', ->
+        helpers.loc(post, lan)
+          .should.equal post

@@ -13,13 +13,12 @@ config_localised  = global.config_localised
 require 'should-promised'
 
 describe 'Helpers', ->
-  describe 'url', ->
-    post = {}
-    before (done) ->
-      post = _.sample wfl_localised.data.posts
-      done()
-
-    describe 'of default language', ->
+  post = {}
+  before (done) ->
+    post = _.sample wfl_localised.data.posts
+    done()
+  describe 'url()', ->
+    describe 'with default language', ->
       lan = wfl_localised.options.defaultLanguage
       it "should output home URL", ->
         helpers.url 'home', { language: lan }, wfl
@@ -37,7 +36,7 @@ describe 'Helpers', ->
         helpers.url 'blog.categories', post[lan], { page: 2, language: lan }, wfl
           .should.equal "#{config.domain}/blog/category/#{wfl_localised._slugify post[lan].category}/page/2/index.html"
 
-    describe 'of other languages', ->
+    describe 'with other languages', ->
       lan = wfl_localised.options.languages[1]
       it "should output home URL", ->
         helpers.url 'home', {}, { language: lan, localised: true }, wfl
@@ -54,3 +53,15 @@ describe 'Helpers', ->
       it "should output category further pages URL", ->
         helpers.url 'blog.categories', post[lan], { page: 2, language: lan, localised: true }, wfl
           .should.equal "#{config.domain}/#{lan}/blog/category/#{wfl_localised._slugify post[lan].category}/page/2/index.html"
+
+  describe 'loc()', ->
+    describe 'with default language', ->
+      lan = wfl_localised.options.defaultLanguage
+      it 'should return localised version of passed entity', ->
+        helpers.loc(post, lan).title
+          .should.equal post[lan].title
+    describe 'with other language', ->
+      lan = wfl_localised.options.languages[1]
+      it 'should return localised version of passed entity', ->
+        helpers.loc(post, lan).title
+          .should.equal post[lan].title
