@@ -17,21 +17,26 @@ describe 'Sitemap', ->
   sitemapPath = path.join wfl.options.destinationFolder, wfl.options.sitemapName
   sitemapContent = {}
   rx = /\/index.html$/
+  totalPages = 0
   before (done) ->
     fs.readFileAsync sitemapPath, 'utf8'
       .then (content) ->
         sitemapContent = parser(content).root.children.map (x) -> x.children[0].content
         done()
       .catch(done)
+
   it 'should contain home page', ->
     url = helpers.url('home', wfl).replace /\/index.html$/, ''
-    (sitemapContent.indexOf(url) > -1)
-      .should.be.exactly true
+    found = (sitemapContent.indexOf(url) > -1)
+    if found then totalPages+=1
+    found.should.be.exactly true
+
 
   it 'should contain about page', ->
     url = helpers.url('about', wfl).replace /\/index.html$/, ''
-    (sitemapContent.indexOf(url) > -1)
-      .should.be.exactly true
+    found = (sitemapContent.indexOf(url) > -1)
+    if found then totalPages+=1
+    found.should.be.exactly true
 
   it 'should contain blog pages', ->
     pagesCount = Math.ceil _.size(wfl.data.posts) / wfl.options.defaultPagination
@@ -40,12 +45,56 @@ describe 'Sitemap', ->
       url = helpers.url('blog.index', {}, { page: i }, wfl).replace rx, ''
       pagesFound += (sitemapContent.indexOf(url) > -1)
 
+    totalPages+=pagesFound
     pagesFound.should.equal pagesCount
 
   it 'should contain single blog posts pages', ->
+    pagesCount =  _.size wfl.data.posts
     pagesFound = 0
     _.forEach wfl.data.posts, (post) ->
       url = helpers.url('blog.single', post, wfl).replace rx, ''
       pagesFound += (sitemapContent.indexOf(url) > -1)
 
-    pagesFound.should.equal _.size wfl.data.posts
+    totalPages+=pagesFound
+    pagesFound.should.equal pagesCount
+
+  it 'should contain blog category pages', ->
+    pagesFound = 0
+    pagesCount = 0
+    categories = _.reduce wfl.data.posts,
+      (memo, item) ->
+        memo[item.category] = memo[item.category] || 0
+        memo[item.category]++
+        memo
+      , {}
+    _.forEach categories, (count, category) ->
+      pagesCount += Math.ceil count / wfl.options.defaultPagination
+      _.range(1, count+1).forEach (i) ->
+        url = helpers.url('blog.categories', { category: wfl._slugify category }, { page: i }, wfl).replace rx, ''
+        pagesFound += (sitemapContent.indexOf(url) > -1)
+
+    totalPages+=pagesFound
+    pagesFound.should.equal pagesCount
+
+  it 'should contain blog tag pages', ->
+    pagesFound = 0
+    pagesCount = 0
+    tags = _.reduce wfl.data.posts,
+      (memo, item) ->
+        item.tags ||= []
+        item.tags.forEach (tag) ->
+          memo[tag] = memo[tag] || 0
+          memo[tag]++
+        memo
+      , {}
+    _.forEach tags, (count, tag) ->
+      pagesCount += Math.ceil count / wfl.options.defaultPagination
+      _.range(1, count+1).forEach (i) ->
+        url = helpers.url('blog.tags', { tag: wfl._slugify tag }, { page: i }, wfl).replace rx, ''
+        pagesFound += (sitemapContent.indexOf(url) > -1)
+
+    totalPages+=pagesFound
+    pagesFound.should.equal pagesCount
+
+  it 'should contain all generated pages', ->
+    totalPages.should.equal sitemapContent.length
