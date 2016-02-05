@@ -31,7 +31,6 @@ describe 'Sitemap', ->
     if found then totalPages+=1
     found.should.be.exactly true
 
-
   it 'should contain about page', ->
     url = helpers.url('about', wfl).replace /\/index.html$/, ''
     found = (sitemapContent.indexOf(url) > -1)
