@@ -10,9 +10,11 @@ I strongly recommend you to use Waffel with [Brunch](http://brunch.io/), startin
 
     # in case you do not have Brunch installed yet
     $ npm install brunch -g
-    
+
     $ brunch new path/to/project --skeleton https://github.com/moonwave99/brunch-with-waffel
     $ cd path/to/project
+    $ npm install
+    $ bower install
     $ npm start
 
 Visit [`http://localhost:3333`](http://localhost:3333) and you ready to go!
@@ -51,6 +53,14 @@ Writing a plugin for such a specific tool usually ends up in following a narrow 
 You can include even complicate **filters** and **helpers**, that can be used all over the HTML template codes.
 
 Nevertheless, have a look at the examples up here, they may help you to achieve your goal!
+
+---
+
+## Test
+
+Stare at the green fields via:
+
+    $ npm run test
 
 ---
 
