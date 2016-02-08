@@ -9,6 +9,18 @@
     "type": "git",
     "url": "git@github.com:moonwave99/waffel.git"
   },
+  "bugs": {
+    "url": "https://github.com/moonwave99/waffel/issues"
+  },
+  "keywords": [
+    "front-matter",
+    "generate",
+    "generator",
+    "markdown",
+    "static",
+    "static-site",
+    "yaml"
+  ],
   "scripts": {
     "test": "node_modules/.bin/mocha --recursive --reporter spec --timeout 15000 --compilers coffee:coffee-script/register",
     "prepublish": "coffee --bare -o lib -c src/*.coffee"
