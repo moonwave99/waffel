@@ -4,7 +4,7 @@
   "version": "0.0.2",
   "homepage": "http://moonwave99.github.io/waffel/examples/cinema-blog-ala-jekyll/index.html",
   "description": "Example of static blog generation [like Jekyll]",
-  "main": "index.js",
+  "main": "index.coffee",
   "scripts": {
     "clean": "rm -rf ./public/ ./dist/ ./data/posts",
     "start": "coffee ./index.coffee"

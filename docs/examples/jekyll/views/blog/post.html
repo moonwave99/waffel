@@ -2,8 +2,6 @@
 {% block title %}{{ item.title }} | waffel blog{% endblock %}
 {% block meta %}
   <meta name="description" content="{{ item.__content | excerpt(150) }}">
-
-
   <meta property="og:type" content="article">
   <meta property="og:description" content="{{ item.__content | excerpt(350) }}">
   <meta property="article:published_time" content="{{ item.date | format('YYYY-MM-DDTHH:mm:ss.SSSZZ') }}">
