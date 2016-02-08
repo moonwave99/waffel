@@ -17,9 +17,8 @@ Okay, there is no real _quick_ start, because Waffel generates websites from a w
 
     wfl.init().then(function(data){ wfl.generate() })
 
-## Why wfl.init().then( ... )?
-
-This way, you have the chance to intercept the `data` after parsing the files but before generating the actual website.
+**Note:** Why `wfl.init().then( ... )`?
+This way, you have the chance to intercept the `data` after parsing the files but _before_ generating the actual website, in case that you want to process/merge it with other stuff.
 
 ## Events
 
@@ -90,3 +89,11 @@ In addition, you can override local server configuration, whose defaults are:
 - `port` is the TCP port the server listens from;
 - `path` is the folder being served (normally is `destinationFolder`);
 - `indexPath` is the document where requests for non existing files are redirected to.
+
+## Helpers
+
+WIP
+
+## Filters
+
+WIP

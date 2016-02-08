@@ -12,22 +12,29 @@
 
     <div class="collapse navbar-collapse" id="navbar-collapse">
       <ul class="nav navbar-nav">
-        <li><a href="{{ url('home')}}#getting-started">{{ t('navigation.started') }}</a></li>        
-        <li><a href="{{ url('documentation') }}">{{ t('documentation.title') }}</a></li>
+        <li><a href="{{ url('home')}}#getting-started">{{ t('navigation.started') }}</a></li>
+        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ t('documentation.title') }} <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="{{ url('documentation') }}">(Quick) Start</a></li>
+            {% for section in ['events', 'options', 'helpers', 'filters'] %}
+            <li><a href="{{ url('documentation') }}#{{section}}">{{ section | capitalize }}</a></li>
+            {% endfor %}
+          </ul>
+        </li>
         <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ t('navigation.examples') }} <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
           {% for slug, example in data.examples %}
           <li><a href="{{ url('examples.single', example) }}">{{ example.title }}</a></li>
           {% endfor %}
           </ul>
-        </li>        
-        <li><a href="{{ url('home')}}#philosophy">{{ t('navigation.philosophy') }}</a></li>        
+        </li>
+        <li><a href="{{ url('home')}}#philosophy">{{ t('navigation.philosophy') }}</a></li>
         <li><a href="{{ url('home')}}#faq">FAQ</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="{{ config.repoUrl}}"><i class="fa fa-github"></i> {{ t('navigation.github') }}</a></li>
       </ul>
     </div>
-        
+
   </div>
 </nav>

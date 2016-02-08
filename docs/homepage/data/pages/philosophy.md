@@ -27,7 +27,7 @@ AND YOU CAN SYNC EASIER TO THE CLOUD IF YOU ARE STATIC, AND YOUR BOSS WILL BE HA
 
 On the sixth day God created [Frontpage](http://en.wikipedia.org/wiki/Microsoft_FrontPage), and that was bad. I don't know how many of you had their first contact with content management via the aforementioned program, still you can have a clue of the outcome by looking at the interface screenshots and the vendor name. You had to write raw HTML, and upload the outcome to your website via FTP. And the only way of using "templates" (i.e. reused chunks of code) was delegated to [`<framesets>`](http://en.wikipedia.org/wiki/Framing_%28World_Wide_Web%29).
 
-Then the online **CMS**s came: a jungle of dropdowns and buttons, that allowed secretaries to paste documents written in Word into a TinyMCE WYSIWIG textarea, that wrecked your valid HTML delivery intentions.
+Then the online **CMS** came: a jungle of dropdowns and buttons, that allowed secretaries to paste documents written in Word into a TinyMCE WYSIWIG textarea, that wrecked your valid HTML delivery intentions.
 
 (_disclaimer_: nothing against mighty TinyMCE, I even [wrote a plugin for that](http://moonwave99.github.io/TinyMCELatexPlugin/) back then!)
 
@@ -39,17 +39,16 @@ But in a flow content context (like most of the content you deliver should be), 
 
 Markdown covers all your formatting needs, it is readable on its own, and it is the _de facto_ standard of the Good Web publishing. And in those corner cases that may not be covered by its syntax, you can place a couple of lines of raw HTML, or consider storing a property in the [YAML frontmatter](http://jekyllrb.com/docs/frontmatter/) in order to be used in a template.
 
-Coming to Git/Github: pushing to a remote + using _post-receive_/_web_ hooks cover all publishing needs you would face. It is like hitting the Save button, with 5/10 seconds of delay, that would be widely saved among all future requests by the clients. Plus it is easier to revert, to keep track of the changes, to review work from other people.
+Coming to Git/Github: pushing to a remote + using _post-receive_/_web_ hooks cover all publishing needs you would face. It is like **hitting the Save button**, with a couple seconds of delay, that would be widely saved among all future requests by the clients. Plus it is easier to revert, to keep track of the changes, to review work from other people.
 
-I mean I would put my life under version control if I could: 
+I mean I would put my life under version control if I could:
 
-    $ git co that-day-that-i-didnt-kiss-her-now-i-know-that-she-liked-me-but-lives-now-in-australia-with-mike-tyson --hard
- 
+    $ git checkout that-day-that-i-didnt-kiss-her-now-i-know-that-she-liked-me-but-lives-now-in-australia-with-mike-tyson --hard
+
 Why shouldn't I wait doing it for the content of my website!
-
 
 ### Ok, so why then not _X.io_ or _Y.js_ ?
 
 Believe me, I tried almost all generators out there: many of them are nice pieces of software, from whom I gathered a lot of useful ideas and inspiration, but they all either lacked some crucial featured that I needed, or were written in a language I am not really skilled in.
 
-Moreover, I think that generating a set of `.html` files from a bunch of Markdown ones should be a task that any _full stack developer_ should be able to accomplish in a couple of hours. So I stopped wandering on Github and wrote the `0.0.1` of Waffel.
+Moreover, I think that generating a set of `.html` files from a bunch of Markdown ones should be a task that any web developer should be able to accomplish in a couple of hours. So I stopped wandering on Github and wrote the `0.0.1` of Waffel.
