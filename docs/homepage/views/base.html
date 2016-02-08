@@ -1,13 +1,18 @@
 <!doctype html>
-<html class="no-js" lang="{{ page.language }}">
+<html lang="{{ page.language }}">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    
-    <title>{% block title %}waffel blog{% endblock %}</title>
+
+    <title>{% block title %}Waffel{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="waffel">    
-    {% if config.google_webmaster_tools %}<meta name="google-site-verification" content="{{ config.google_webmaster_tools }}">{% endif %}
+    <meta name="generator" content="waffel">
+    {% if config.rev %}
+    <meta name="version" content="{{ config.rev }}">
+    {% endif %}
+    {% if config.google_webmaster_tools %}
+    <meta name="google-site-verification" content="{{ config.google_webmaster_tools }}">
+    {% endif %}
     {% block meta %}{% endblock %}
     <link href='http://fonts.googleapis.com/css?family=Ubuntu:400,700,400italic' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Arvo:400,700,400italic' rel='stylesheet' type='text/css'>

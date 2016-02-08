@@ -1,6 +1,7 @@
 config:
   google_analytics:       UA-5216615-10
   google_webmaster_tools: i8NjOC8rJvuvTJANxL3ZU5lemfbFkovx0ZqSCYwg430
+  twitter:                '@moonwavelabs'
   defaultCover:           images/waffel.jpg
   repoUrl:                https://github.com/moonwave99/waffel
   tiles:
@@ -23,7 +24,7 @@ structure:
     url: /
   documentation:
     template: documentation
-    url: /docs    
+    url: /docs
   examples:
     collection: examples
     pages:
@@ -31,4 +32,3 @@ structure:
         template: example
         url:      /examples/:slug
         priority: 0.8
-        

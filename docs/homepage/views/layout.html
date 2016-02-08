@@ -7,17 +7,17 @@
   {% endblock %}
     <meta property="og:site_name" content="{{ t('title') }}">
     <meta property="og:url" content="{{ absoluteURL(page.path) }}">
-    <meta property="og:title" content="Waffel - {{ title }}">    
+    <meta property="og:title" content="Waffel - {{ title }}">
     <meta property="og:image" content="{{ asset( metaCover ) }}">
   {% block meta_og %}
     <meta property="og:type" content="website">
     <meta property="og:description" content="{{ t('home.description') }}">
-  {% endblock %}    
+  {% endblock %}
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="{{ absoluteURL('') }}">
-    <meta name="twitter:creator" content="@moonwavelabs">
+    <meta name="twitter:creator" content="{{ config.twitter }}">
     <meta name="twitter:url" content="{{ absoluteURL(page.path) }}">
-    <meta name="twitter:title" content="Waffel - {{ title }}">    
+    <meta name="twitter:title" content="Waffel - {{ title }}">
     <meta name="twitter:image:src" content="{{ asset( metaCover ) }}">
   {% block meta_twitter %}
     <meta name="twitter:description" content="{{ t('home.description') }}">
