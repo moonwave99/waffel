@@ -20,19 +20,19 @@ describe 'Helpers', ->
   describe 'url()', ->
     it "should output home URL", ->
       helpers.url 'home', wfl
-        .should.equal "#{config.domain}/index.html"
+        .should.equal "#{config.domain}/index#{wfl.options.outputExt}"
 
     it "should output single blogpost URL", ->
       helpers.url 'blog.single', post, {}, wfl
-        .should.equal "#{config.domain}/blog/posts/#{post.slug}/index.html"
+        .should.equal "#{config.domain}/blog/posts/#{post.slug}/index#{wfl.options.outputExt}"
 
     it "should output category first page URL", ->
       helpers.url 'blog.categories', post, { page: 1 }, wfl
-        .should.equal "#{config.domain}/blog/category/#{wfl._slugify post.category}/index.html"
+        .should.equal "#{config.domain}/blog/category/#{wfl._slugify post.category}/index#{wfl.options.outputExt}"
 
     it "should output category further pages URL", ->
       helpers.url 'blog.categories', post, { page: 2 }, wfl
-        .should.equal "#{config.domain}/blog/category/#{wfl._slugify post.category}/page/2/index.html"
+        .should.equal "#{config.domain}/blog/category/#{wfl._slugify post.category}/page/2/index#{wfl.options.outputExt}"
 
   describe 'loc()', ->
     describe 'without localisation', ->

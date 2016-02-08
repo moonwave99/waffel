@@ -16,7 +16,7 @@ require 'should-promised'
 describe 'Sitemap', ->
   sitemapPath = path.join wfl.options.destinationFolder, wfl.options.sitemapName
   sitemapContent = {}
-  rx = /\/index.html$/
+  rx = ///\/index#{wfl.options.outputExt}$///
   totalPages = 0
   before (done) ->
     fs.readFileAsync sitemapPath, 'utf8'
@@ -26,13 +26,13 @@ describe 'Sitemap', ->
       .catch(done)
 
   it 'should contain home page', ->
-    url = helpers.url('home', wfl).replace /\/index.html$/, ''
+    url = helpers.url('home', wfl).replace rx, ''
     found = (sitemapContent.indexOf(url) > -1)
     if found then totalPages+=1
     found.should.be.exactly true
 
   it 'should contain about page', ->
-    url = helpers.url('about', wfl).replace /\/index.html$/, ''
+    url = helpers.url('about', wfl).replace rx, ''
     found = (sitemapContent.indexOf(url) > -1)
     if found then totalPages+=1
     found.should.be.exactly true

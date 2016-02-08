@@ -38,7 +38,7 @@ describe 'Localised output structure', ->
 
     it 'should generate content for default language', ->
       destinationFolder = destinationFolderForLanguage blogPage
-      files = glob.sync "**/index.html", cwd: destinationFolder
+      files = glob.sync "**/index#{wfl_localised.options.outputExt}", cwd: destinationFolder
       files.length.should.equal contents[wfl_localised.options.defaultLanguage].length
 
     it 'should not prepend language slug portion to default language', ->
@@ -53,7 +53,7 @@ describe 'Localised output structure', ->
     it 'should generate content for other languages, prepending ISO language slug portion to paths', ->
       Promise.all languages.map (l) ->
         destinationFolder = destinationFolderForLanguage blogPage, l
-        files = glob.sync "**/index.html", cwd: destinationFolder
+        files = glob.sync "**/index#{wfl_localised.options.outputExt}", cwd: destinationFolder
         if files.length == contents[l].length
           Promise.resolve destinationFolder
         else

@@ -257,7 +257,7 @@ module.exports = class Waffel extends EventEmitter
     else if @options.uglyUrls and url.length > 0
       path.join @options.destinationFolder, "#{url}#{@options.outputExt}"
     else
-      path.join @options.destinationFolder, url, 'index.html'
+      path.join @options.destinationFolder, url, "index#{@options.outputExt}"
 
   _renderPage: (page, _data) =>
     tmpData = {}

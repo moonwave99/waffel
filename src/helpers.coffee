@@ -16,7 +16,7 @@ module.exports =
       else
         _.compact( [wfl.options.domain, wfl.options.basePath, relativeUrl] ).join '/'
     else
-      _.compact( [wfl.options.domain, wfl.options.basePath, (wfl._url page, data, options), 'index.html'] ).join '/'
+      _.compact( [wfl.options.domain, wfl.options.basePath, (wfl._url page, data, options), "index#{wfl.options.outputExt}"] ).join '/'
 
   asset: (_path = '', options = {}) ->
     wfl = _.last arguments
