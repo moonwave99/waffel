@@ -1,8 +1,10 @@
 _       = require 'lodash'
 
+_propertiesToPick = ['language', 'localised', 'page']
+
 module.exports =
   url: (name, data = {}, options = {}) ->
-    _.merge _.pick(arguments[arguments.length-2], ['language', 'localised', 'page']), options
+    _.merge _.pick(arguments[arguments.length-2], _propertiesToPick), options
     wfl = _.last arguments
     page = wfl._getPageByName name
 
