@@ -1,13 +1,18 @@
 <!doctype html>
-<html class="no-js" lang="en">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    
+
     <title>Waffel - Documentation</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="waffel">    
+    <meta name="generator" content="waffel">
+    
+    <meta name="version" content="bf84db5231d68fcd62c75cb81763ac81f141759d">
+    
+    
     <meta name="google-site-verification" content="i8NjOC8rJvuvTJANxL3ZU5lemfbFkovx0ZqSCYwg430">
+    
     
   
   
@@ -15,17 +20,17 @@
   
     <meta property="og:site_name" content="Static site generation done tasty.">
     <meta property="og:url" content="http://moonwave99.github.io/waffel/docs">
-    <meta property="og:title" content="Waffel - Documentation">    
+    <meta property="og:title" content="Waffel - Documentation">
     <meta property="og:image" content="http://moonwave99.github.io/waffel/images/waffel.jpg">
   
     <meta property="og:type" content="website">
     <meta property="og:description" content="Waffel is a static generator tool written in JavaScript, that covers concrete use cases like localisation, pagination, arbitrary page group generation.">
-      
+  
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="http://moonwave99.github.io/waffel">
     <meta name="twitter:creator" content="@moonwavelabs">
     <meta name="twitter:url" content="http://moonwave99.github.io/waffel/docs">
-    <meta name="twitter:title" content="Waffel - Documentation">    
+    <meta name="twitter:title" content="Waffel - Documentation">
     <meta name="twitter:image:src" content="http://moonwave99.github.io/waffel/images/waffel.jpg">
   
     <meta name="twitter:description" content="Waffel is a static generator tool written in JavaScript, that covers concrete use cases like localisation, pagination, arbitrary page group generation.">
@@ -53,8 +58,21 @@
 
     <div class="collapse navbar-collapse" id="navbar-collapse">
       <ul class="nav navbar-nav">
-        <li><a href="http://moonwave99.github.io/waffel/index.html#getting-started">Getting Started</a></li>        
-        <li><a href="http://moonwave99.github.io/waffel/docs/index.html">Documentation</a></li>
+        <li><a href="http://moonwave99.github.io/waffel/index.html#getting-started">Getting Started</a></li>
+        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Documentation <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="http://moonwave99.github.io/waffel/docs/index.html">(Quick) Start</a></li>
+            
+            <li><a href="http://moonwave99.github.io/waffel/docs/index.html#events">Events</a></li>
+            
+            <li><a href="http://moonwave99.github.io/waffel/docs/index.html#options">Options</a></li>
+            
+            <li><a href="http://moonwave99.github.io/waffel/docs/index.html#helpers">Helpers</a></li>
+            
+            <li><a href="http://moonwave99.github.io/waffel/docs/index.html#filters">Filters</a></li>
+            
+          </ul>
+        </li>
         <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Examples <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
           
@@ -63,17 +81,18 @@
           <li><a href="http://moonwave99.github.io/waffel/examples/portfolio/index.html">A Photo portfolio</a></li>
           
           </ul>
-        </li>        
-        <li><a href="http://moonwave99.github.io/waffel/index.html#philosophy">Philosophy</a></li>        
+        </li>
+        <li><a href="http://moonwave99.github.io/waffel/index.html#philosophy">Philosophy</a></li>
         <li><a href="http://moonwave99.github.io/waffel/index.html#faq">FAQ</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="https://github.com/moonwave99/waffel"><i class="fa fa-github"></i> See on Github</a></li>
       </ul>
     </div>
-        
+
   </div>
 </nav>
+
   
 <section class="container">
   <h1>Documentation</h1>
@@ -93,8 +112,8 @@ var wfl = new Waffel({
 })
 
 wfl.init().then(function(data){ wfl.generate() })
-</code></pre><h2 id="why-wfl-init-then-">Why wfl.init().then( ... )?</h2>
-<p>This way, you have the chance to intercept the <code>data</code> after parsing the files but before generating the actual website.</p>
+</code></pre><p><strong>Note:</strong> Why <code>wfl.init().then( ... )</code>?
+This way, you have the chance to intercept the <code>data</code> after parsing the files but <em>before</em> generating the actual website, in case that you want to process/merge it with other stuff.</p>
 <h2 id="events">Events</h2>
 <p>Waffel instances are <a href="https://nodejs.org/api/events.html#events_class_eventemitter"><code>EventEmitters</code></a>, and emit the following events specifically:</p>
 <ul>
@@ -327,6 +346,77 @@ var wfl = new Waffel({
 <li><code>path</code> is the folder being served (normally is <code>destinationFolder</code>);</li>
 <li><code>indexPath</code> is the document where requests for non existing files are redirected to.</li>
 </ul>
+<h2 id="helpers">Helpers</h2>
+<p>Waffel provides you with some helper methods, to be used in the templates.</p>
+<h3 id="-url-name-data-options-"><code>url(name, data={}, options={})</code></h3>
+<p>Generates a page URL from its name (e.g. <code>blog.categories</code>). Accepts a <code>data</code> object for passing slug generation parameters (e.g. <code>{ &#39;category&#39;: item.category }</code>); in single pages context, it can usually be the <code>item</code> itself.</p>
+<p>The allowed <code>options</code> are:</p>
+<ul>
+<li><code>localised</code>, to generate localised URLs like <code>/en/category/avantgarde</code>;</li>
+<li><code>language</code>, the language token to be prepended if <code>localised</code> is true;</li>
+<li><code>page</code>, for paginated collections of course, e.g. <code>/category/avantgarde/page/2</code>.</li>
+</ul>
+<p><strong>Examples</strong> (given the <a href="https://github.com/moonwave99/waffel/blob/master/docs/examples/jekyll/site.yml">jekyll example structure</a>):</p>
+<pre><code>{{ url(&#39;about&#39;) }}
+</code></pre><p>Output: <code>http://localhost:3333/about/index.html</code>.</p>
+<pre><code>{{ url(&#39;blog.index&#39;, {}, { &#39;page&#39;: 2 }) }}
+</code></pre><p>Output: <code>http://localhost:3333/blog/page/2/index.html</code>.</p>
+<pre><code>{{ url(&#39;blog.categories&#39;, { &#39;category&#39;: &#39;avantgarde&#39; }, { &#39;page&#39;: 3 }) }}
+</code></pre><p>Output: <code>http://localhost:3333/blog/category/avantgarde/page/2/index.html</code>.</p>
+<pre><code>{{ url(&#39;blog.tags&#39;, { &#39;tag&#39;: &#39;new&#39; }, { &#39;localised&#39;: true, &#39;language&#39;: &#39;it&#39; }) }}
+</code></pre><p>Output: <code>http://localhost:3333/it/blog/tag/new/index.html</code>.</p>
+<hr>
+<p><strong>Note:</strong> output assumes default Waffel configuration, i.e. <code>uglyUrls</code> set to <code>false</code>.</p>
+<h3 id="-asset-_path-options-"><code>asset(_path = &#39;&#39;, options = {})</code></h3>
+<p>Generates an asset URL from its relative <code>_path</code>, e.g. <code>/images/background_image.jpg</code>. If <code>options.versioned</code> is <code>true</code>, it appends <code>_#{rev}</code> to <code>_path</code> basename, where <code>rev</code> is latest commit hash of current repository (if any).</p>
+<p><strong>Note:</strong> Waffel does not rename your files, you should do on your own before or after generating the website!</p>
+<p><strong>Examples</strong>:</p>
+<pre><code>{{ asset(&#39;js/app.js&#39;) }}
+</code></pre><p>Output: <code>http://localhost:3333/js/app.js</code>.</p>
+<pre><code>{{ asset(&#39;css/app.css&#39;, { &#39;versioned&#39;: true }) }}
+</code></pre><p>Output: <code>http://localhost:3333/css/app_be6cb96bd8d3147b571d8452ab4a933df9249618.css</code>.</p>
+<h3 id="-t-key-"><code>t(key)</code></h3>
+<p>Exposes <code>i18next</code> localisation feature.</p>
+<h3 id="-loc-data-language-"><code>loc(data={}, language)</code></h3>
+<p>If current page <code>item</code> is localised (i.e. holds data stored in different languages), it returns data for required language.</p>
+<p>Why not just <code>item[language]</code>? Because <code>loc()</code> holds logic for fallbacking to default or fallback language, and for dealing with entire collections of items.</p>
+<p>So if <code>item</code> is:</p>
+<pre><code>{
+  &quot;_localised&quot; : true,
+  &quot;en&quot;: {
+    &quot;title&quot; : &quot;The  Title&quot;,
+    &quot;category&quot;: &quot;the-category&quot;
+  },
+  &quot;it&quot;: {
+    &quot;title&quot; : &quot;Il Titolo&quot;,
+    &quot;category&quot;: &quot;la-categoria&quot;
+  }  
+}
+</code></pre><p><code>loc(item, &#39;it&#39;)</code> will return:</p>
+<pre><code>{
+  &quot;title&quot; : &quot;Il Titolo&quot;,
+  &quot;category&quot;: &quot;la-categoria&quot;
+}
+</code></pre><p>And <code>loc(item, &#39;de&#39;)</code> will return:</p>
+<pre><code>{
+  &quot;title&quot; : &quot;The  Title&quot;,
+  &quot;category&quot;: &quot;the-category&quot;
+}
+</code></pre><p>Because <code>options.fallbackLanguage</code> defaults to <code>en</code>.</p>
+<h2 id="filters">Filters</h2>
+<p>Amoung <a href="https://mozilla.github.io/nunjucks/templating.html#builtin-filters">Nunjucks built-in filters</a>, Waffel exposes a bunch of useful ones.</p>
+<h3 id="-array-limit-count-10-"><code>Array | limit(count=10)</code></h3>
+<p>Slices array to <code>count elements</code>, e.g. <code>{{ [1,2,3] | limit(2) }}</code> outputs <code>[1,2]</code>.</p>
+<h3 id="-date-format-format-"><code>Date | format(format)</code></h3>
+<p>Formats filtered <code>Date</code> against provided format, via <a href="http://momentjs.com/">moment.js</a>.</p>
+<h3 id="-string-excerpt-size-200-"><code>String | excerpt(size=200)</code></h3>
+<p>Returns a plain text excerpt of max <code>size</code> characters. Memoized for performance.</p>
+<h3 id="-object-tojson-"><code>Object | toJSON()</code></h3>
+<p>Exposes <code>JSON.stringify</code>. Static API ftw!</p>
+<h3 id="-object-inspect-"><code>Object | inspect()</code></h3>
+<p>Taps filtered object, and inspects it in the console. Use like <code>item | inspect | someOtherFilter</code>, for debugging purposes.</p>
+<hr>
+<p>Following <a href="https://lodash.com/docs">lodash functions</a> are exposed as well: <code>toArray</code>, <code>pluck</code>, <code>flatten</code>, <code>uniq</code>, <code>where</code>, <code>findWhere</code>, <code>compact</code>.</p>
 
 </section>
 

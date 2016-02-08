@@ -1,13 +1,18 @@
 <!doctype html>
-<html class="no-js" lang="en">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    
+
     <title>Waffel - Static site generation done tasty.</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="waffel">    
+    <meta name="generator" content="waffel">
+    
+    <meta name="version" content="bf84db5231d68fcd62c75cb81763ac81f141759d">
+    
+    
     <meta name="google-site-verification" content="i8NjOC8rJvuvTJANxL3ZU5lemfbFkovx0ZqSCYwg430">
+    
     
   
   
@@ -15,17 +20,17 @@
   
     <meta property="og:site_name" content="Static site generation done tasty.">
     <meta property="og:url" content="http://moonwave99.github.io/waffel">
-    <meta property="og:title" content="Waffel - Static site generation done tasty.">    
+    <meta property="og:title" content="Waffel - Static site generation done tasty.">
     <meta property="og:image" content="http://moonwave99.github.io/waffel/images/waffel.jpg">
   
     <meta property="og:type" content="website">
     <meta property="og:description" content="Waffel is a static generator tool written in JavaScript, that covers concrete use cases like localisation, pagination, arbitrary page group generation.">
-      
+  
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="http://moonwave99.github.io/waffel">
     <meta name="twitter:creator" content="@moonwavelabs">
     <meta name="twitter:url" content="http://moonwave99.github.io/waffel">
-    <meta name="twitter:title" content="Waffel - Static site generation done tasty.">    
+    <meta name="twitter:title" content="Waffel - Static site generation done tasty.">
     <meta name="twitter:image:src" content="http://moonwave99.github.io/waffel/images/waffel.jpg">
   
     <meta name="twitter:description" content="Waffel is a static generator tool written in JavaScript, that covers concrete use cases like localisation, pagination, arbitrary page group generation.">
@@ -53,8 +58,21 @@
 
     <div class="collapse navbar-collapse" id="navbar-collapse">
       <ul class="nav navbar-nav">
-        <li><a href="http://moonwave99.github.io/waffel/index.html#getting-started">Getting Started</a></li>        
-        <li><a href="http://moonwave99.github.io/waffel/docs/index.html">Documentation</a></li>
+        <li><a href="http://moonwave99.github.io/waffel/index.html#getting-started">Getting Started</a></li>
+        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Documentation <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="http://moonwave99.github.io/waffel/docs/index.html">(Quick) Start</a></li>
+            
+            <li><a href="http://moonwave99.github.io/waffel/docs/index.html#events">Events</a></li>
+            
+            <li><a href="http://moonwave99.github.io/waffel/docs/index.html#options">Options</a></li>
+            
+            <li><a href="http://moonwave99.github.io/waffel/docs/index.html#helpers">Helpers</a></li>
+            
+            <li><a href="http://moonwave99.github.io/waffel/docs/index.html#filters">Filters</a></li>
+            
+          </ul>
+        </li>
         <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Examples <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
           
@@ -63,17 +81,18 @@
           <li><a href="http://moonwave99.github.io/waffel/examples/portfolio/index.html">A Photo portfolio</a></li>
           
           </ul>
-        </li>        
-        <li><a href="http://moonwave99.github.io/waffel/index.html#philosophy">Philosophy</a></li>        
+        </li>
+        <li><a href="http://moonwave99.github.io/waffel/index.html#philosophy">Philosophy</a></li>
         <li><a href="http://moonwave99.github.io/waffel/index.html#faq">FAQ</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="https://github.com/moonwave99/waffel"><i class="fa fa-github"></i> See on Github</a></li>
       </ul>
     </div>
-        
+
   </div>
 </nav>
+
   
 <section class="text-center cover">
   <header>
@@ -164,19 +183,19 @@ Now that all our pathetic <code>comments.php</code> efforts have been teared apa
 <p>AND YOU CAN SYNC EASIER TO THE CLOUD IF YOU ARE STATIC, AND YOUR BOSS WILL BE HAPPY</p>
 <h3 id="markdown-and-git-github-cover-99-of-your-needs-">Markdown and Git/Github cover 99% of your needs.</h3>
 <p>On the sixth day God created <a href="http://en.wikipedia.org/wiki/Microsoft_FrontPage">Frontpage</a>, and that was bad. I don&#39;t know how many of you had their first contact with content management via the aforementioned program, still you can have a clue of the outcome by looking at the interface screenshots and the vendor name. You had to write raw HTML, and upload the outcome to your website via FTP. And the only way of using &quot;templates&quot; (i.e. reused chunks of code) was delegated to <a href="http://en.wikipedia.org/wiki/Framing_%28World_Wide_Web%29"><code>&lt;framesets&gt;</code></a>.</p>
-<p>Then the online <strong>CMS</strong>s came: a jungle of dropdowns and buttons, that allowed secretaries to paste documents written in Word into a TinyMCE WYSIWIG textarea, that wrecked your valid HTML delivery intentions.</p>
+<p>Then the online <strong>CMS</strong> came: a jungle of dropdowns and buttons, that allowed secretaries to paste documents written in Word into a TinyMCE WYSIWIG textarea, that wrecked your valid HTML delivery intentions.</p>
 <p>(<em>disclaimer</em>: nothing against mighty TinyMCE, I even <a href="http://moonwave99.github.io/TinyMCELatexPlugin/">wrote a plugin for that</a> back then!)</p>
 <p>That was the only way to publish content to the web - some attempts were good, and after many years of refinement we can now use dream platforms like <a href="https://medium.com/">Medium</a> or <a href="https://ghost.org/">Ghost</a>.</p>
 <hr>
 <p>But in a flow content context (like most of the content you deliver should be), do you really need WYSIWIG? Paragraphs are paragraphs, headers are headers, roses are red, violets are blue. Focus on the <em>hierarchy</em> and <em>meaning</em> of your content, and not on the alignment of your text (hint: should be left, at least in most western countries).</p>
 <p>Markdown covers all your formatting needs, it is readable on its own, and it is the <em>de facto</em> standard of the Good Web publishing. And in those corner cases that may not be covered by its syntax, you can place a couple of lines of raw HTML, or consider storing a property in the <a href="http://jekyllrb.com/docs/frontmatter/">YAML frontmatter</a> in order to be used in a template.</p>
-<p>Coming to Git/Github: pushing to a remote + using <em>post-receive</em>/<em>web</em> hooks cover all publishing needs you would face. It is like hitting the Save button, with 5/10 seconds of delay, that would be widely saved among all future requests by the clients. Plus it is easier to revert, to keep track of the changes, to review work from other people.</p>
-<p>I mean I would put my life under version control if I could: </p>
-<pre><code>$ git co that-day-that-i-didnt-kiss-her-now-i-know-that-she-liked-me-but-lives-now-in-australia-with-mike-tyson --hard
+<p>Coming to Git/Github: pushing to a remote + using <em>post-receive</em>/<em>web</em> hooks cover all publishing needs you would face. It is like <strong>hitting the Save button</strong>, with a couple seconds of delay, that would be widely saved among all future requests by the clients. Plus it is easier to revert, to keep track of the changes, to review work from other people.</p>
+<p>I mean I would put my life under version control if I could:</p>
+<pre><code>$ git checkout that-day-that-i-didnt-kiss-her-now-i-know-that-she-liked-me-but-lives-now-in-australia-with-mike-tyson --hard
 </code></pre><p>Why shouldn&#39;t I wait doing it for the content of my website!</p>
 <h3 id="ok-so-why-then-not-_x-io_-or-_y-js_-">Ok, so why then not <em>X.io</em> or <em>Y.js</em> ?</h3>
 <p>Believe me, I tried almost all generators out there: many of them are nice pieces of software, from whom I gathered a lot of useful ideas and inspiration, but they all either lacked some crucial featured that I needed, or were written in a language I am not really skilled in.</p>
-<p>Moreover, I think that generating a set of <code>.html</code> files from a bunch of Markdown ones should be a task that any <em>full stack developer</em> should be able to accomplish in a couple of hours. So I stopped wandering on Github and wrote the <code>0.0.1</code> of Waffel.</p>
+<p>Moreover, I think that generating a set of <code>.html</code> files from a bunch of Markdown ones should be a task that any web developer should be able to accomplish in a couple of hours. So I stopped wandering on Github and wrote the <code>0.0.1</code> of Waffel.</p>
 
 </section>
 <hr>
