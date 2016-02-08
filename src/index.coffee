@@ -129,7 +129,7 @@ module.exports = class Waffel extends EventEmitter
     millis = elapsed[1] / 1000000
     @log "--> Generated #{(pages.length + '').cyan} pages in #{elapsed[0]}.#{millis.toFixed(0)}s."
     if @options.sitemap
-      @_createSitemap(pages).then => @emit 'generation:complete'
+      @_generateSitemap(pages).then => @emit 'generation:complete'
     else
       @emit 'generation:complete'
     @_launchServer() if @options.server and !@serverStarted
@@ -354,7 +354,7 @@ module.exports = class Waffel extends EventEmitter
       fs.outputFile target, output, (err) =>
         callback err, page: _page, data: data, url: url
 
-  _createSitemap: (pages) =>
+  _generateSitemap: (pages) =>
     target = path.join @options.destinationFolder, @options.sitemapName
     output = nunjucks.render @options.sitemapName,
       _.extend {}, @_getHelpers(),
@@ -364,8 +364,8 @@ module.exports = class Waffel extends EventEmitter
         pages   : pages.filter (p) -> !_.isBoolean p.page.sitemap and p.page.sitemap is not false
         now     : new Date
     fs.outputFileAsync(target, output).then =>
-        @log "--> Created #{@options.sitemapName.cyan}"
-        true
+      @log "--> Created #{@options.sitemapName.cyan}"
+      true
 
   _getHelpers: (context = {})=>
     _.transform @helpers, (help, func, key) =>
