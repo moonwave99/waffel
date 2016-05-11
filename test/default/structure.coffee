@@ -57,6 +57,10 @@ describe 'Output structure', ->
         .sort()
       dataTags.toString().should.equal generatedTags.toString()
 
+    it "should limit page number", ->
+      destinationFolder = path.join wfl.options.destinationFolder, blogPage.pages.feed.url
+      glob.sync('*.html', cwd: destinationFolder).length.should.be.exactly 1
+
     it "should paginate posts", ->
       destinationFolder = path.join wfl.options.destinationFolder, blogPage.pages.index.url
       pageRootFolder = path.join destinationFolder, 'page'

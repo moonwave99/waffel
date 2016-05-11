@@ -17,6 +17,14 @@ structure:
         sort:
           field: date
           order: desc
+      feed:
+        template:   blog/index
+        url:        /blog/feed
+        sitemap:    false
+        pageLimit:  1
+        sort:
+          field: date
+          order: desc
       categories:
         template: blog/category
         url:      /blog/category/:category
