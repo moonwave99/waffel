@@ -319,6 +319,9 @@ module.exports = class Waffel extends EventEmitter
         .chunk(page.paginate or @options.defaultPagination)
         .value()
 
+      if page.pageLimit
+        pages = pages.slice 0, Math.abs +page.pageLimit
+
       pages.map (p, index) =>
         _page = _.clone page
         _page.pagination =
