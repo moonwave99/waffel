@@ -47,6 +47,15 @@ filters =
     data = _.sortBy data, (bin) -> -bin.freq
     data.slice(0, thresh).map (x) -> x.key
 
+  loc: (data, language) ->
+    if _.isArray data
+      data.map (item) =>
+        if item._localised then item[language] or item[@options.fallbackLanguage] else item
+    else if not data._localised
+      data
+    else
+      data[language] or data[@options.fallbackLanguage]    
+
 lodash_filters.forEach (m) ->
   filters[m] = _[m]
 
