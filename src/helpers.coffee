@@ -38,7 +38,8 @@ module.exports =
 
   loc: (data = {}, language) ->
     wfl = _.last arguments
-    language = language or wfl.options.defaultLanguage
+    page = arguments[arguments.length-2]
+    language = if wfl.options.languages.indexOf(language) > -1 then language else page.language or wfl.options.defaultLanguage
     if _.isArray data
       data.map (item) =>
         if item._localised then item[language] or item[wfl.options.fallbackLanguage] else item

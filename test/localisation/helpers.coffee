@@ -58,10 +58,10 @@ describe 'Helpers', ->
     describe 'with default language', ->
       lan = wfl_localised.options.defaultLanguage
       it 'should return localised version of passed entity', ->
-        helpers.loc(post, lan).title
+        helpers.loc(post, lan, wfl_localised).title
           .should.equal post[lan].title
     describe 'with other language', ->
       lan = wfl_localised.options.languages[1]
       it 'should return localised version of passed entity', ->
-        helpers.loc(post, lan).title
+        helpers.loc(post, lan, wfl_localised).title
           .should.equal post[lan].title

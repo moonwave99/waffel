@@ -38,5 +38,5 @@ describe 'Helpers', ->
     describe 'without localisation', ->
       lan = wfl.options.defaultLanguage
       it 'should return entity itself', ->
-        helpers.loc(post, lan)
+        helpers.loc(post, lan, wfl)
           .should.equal post
