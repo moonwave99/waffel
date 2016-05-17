@@ -85,11 +85,9 @@ module.exports = class Waffel extends EventEmitter
     @helpers = _.extend {}, helpers, @options.helpers
     @filters = _.extend {}, filters, @options.filters
 
-    @filters.excerpt = _.memoize @filters.excerpt, (text, size) ->
-      "#{md5(text)}.#{size}"
-
-    @filters.top = _.memoize @filters.top, (data, size) ->
-      "#{_.flattenDeep data .join ''}.#{size}"
+    @filters.loc      = _.memoize @filters.loc, (data, language)  -> "#{data[0]._collection}_#{language}"
+    @filters.excerpt  = _.memoize @filters.excerpt, (text, size)  -> "#{md5(text)}.#{size}"
+    @filters.top      = _.memoize @filters.top, (data, size)      -> "#{_.flattenDeep data .join ''}.#{size}"
 
     @data = {}
 
@@ -215,7 +213,7 @@ module.exports = class Waffel extends EventEmitter
     data.slug = data.slug || path.basename relativePath, @options.dataExt
     if tokens[1] in @options.languages
       language = tokens[1]
-      _data[collection][data.slug] || = { _localised: true }
+      _data[collection][data.slug] || = { _localised: true, _collection: collection }
       _data[collection][data.slug][language] = data
     else
       _data[collection][data.slug] = data
