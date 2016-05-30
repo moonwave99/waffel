@@ -58,6 +58,8 @@ module.exports = class Waffel extends EventEmitter
     server:             false
     watch:              false
     watchInterval:      5000
+    config:
+      env:              'dev'
     markdownOptions:
       gfm:          true
       tables:       true
@@ -95,7 +97,7 @@ module.exports = class Waffel extends EventEmitter
     catch e then @error "Could not locate structureFile: #{@options.structureFile}", e
     site = yaml.safeLoad structureFileContents
 
-    @config = site.config
+    @config = _.extend @options.config, site.config
     @structure = site.structure
 
   getRevision: =>

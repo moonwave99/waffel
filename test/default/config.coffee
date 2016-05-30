@@ -6,6 +6,9 @@ config  = global.config
 require 'should-promised'
 
 describe 'Instantiate Waffel', ->
+  it 'should set environment', ->
+    should(wfl.config.env).be.equal global.config.config.env
+
   it 'should set locations', ->
     should(wfl.options.root).be.equal config.root
 

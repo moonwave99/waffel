@@ -17,6 +17,8 @@ config = global.config =
   localesFolder:      'locales'
   destinationFolder:  '../public_default'
   structureFile:      'site_default.yml'
+  config:
+    env:  'test'
 
 wfl = global.wfl = new Waffel global.config
 
