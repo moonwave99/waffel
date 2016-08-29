@@ -27,10 +27,12 @@ describe 'Localised output structure', ->
       Promise.all wfl_localised.options.languages.map (l) ->
         _path = path.join dataFolder, l
         new Promise (resolve, reject) ->
-          glob "*.md", { cwd: _path }, (err, files) ->
-            if err then return reject _path
-            contents[l] = files.map (x) -> matter.read(path.join(_path, x), delims: wfl.options.frontmatter.delims)
-            resolve _path
+          glob('*.md', cwd: _path )
+            .then (files) ->
+              contents[l] = files.map (x) -> matter.read(path.join(_path, x), delims: wfl.options.frontmatter.delims)
+              resolve _path
+            .catch (err) ->
+              reject _path
       .then ->
         done()
       .catch (e) ->

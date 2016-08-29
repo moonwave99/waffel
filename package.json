@@ -33,7 +33,7 @@
     "chokidar": "^1.4.2",
     "colors": "^1.0.3",
     "fs-extra": "^0.18.0",
-    "globby": "^1.2.0",
+    "globby": "^6.0.0",
     "gray-matter": "^2.0.0",
     "i18next": "^2.0.4",
     "i18next-node-fs-backend": "0.0.6",

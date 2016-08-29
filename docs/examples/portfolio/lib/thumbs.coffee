@@ -3,14 +3,14 @@ path        = require 'path'
 async       = require 'async'
 Promise     = require 'bluebird'
 colors      = require 'colors'
-glob        = Promise.promisifyAll require 'globby'
+glob        = require 'globby'
 im          = Promise.promisifyAll require 'imagemagick'
 
 module.exports = (pattern, thumbPath, thumbRelativePath, thumbnailWidth, root = process.cwd(), callback) ->
-  thumbnailStartTime = process.hrtime()      
-  glob.callAsync(null, pattern).then (images) ->
+  thumbnailStartTime = process.hrtime()
+  glob(pattern).then (images) ->
     tasks = _.reduce images,  (memo, img) ->
-      memo.push ((img) -> 
+      memo.push ((img) ->
         (parallelCallback) ->
           async.series [
             # get info for original image
@@ -33,11 +33,11 @@ module.exports = (pattern, thumbPath, thumbRelativePath, thumbnailWidth, root = 
             info = if results[1] then _.extend results[0], thumb: results[1] else results[0]
             if err then throw err
             parallelCallback err, info
-            
+
       )(img)
       memo
     ,[]
-  
+
     async.parallel tasks, (err, data) ->
       if err then throw err
       imgInfo = _.reduce data, (memo, img) ->

@@ -36,10 +36,11 @@ describe 'Output structure', ->
     contents = []
 
     before (done) ->
-      glob "*.md", { cwd: dataFolder }, (err, files) ->
-        if err then return done()
-        contents = files.map (x) -> matter.read(path.join(dataFolder, x), delims: wfl.options.frontmatter.delims)
-        done()
+      glob('*.md', cwd: dataFolder )
+        .then (files) ->
+          contents = files.map (x) -> matter.read(path.join(dataFolder, x), delims: wfl.options.frontmatter.delims)
+          done()
+        .catch done
 
     it "should group posts by category", ->
       destinationFolder = path.join wfl.options.destinationFolder, blogPage.pages.categories.url.split('/').filter( (x) -> x.indexOf(':') == -1 ).join('/')

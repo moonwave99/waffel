@@ -1,5 +1,6 @@
 filters       = require './filters'
 helpers       = require './helpers'
+utils         = require './utils'
 
 _             = require 'lodash'
 colors        = require 'colors'
@@ -8,6 +9,7 @@ chokidar      = require 'chokidar'
 Promise       = require 'bluebird'
 path          = require 'path'
 md5           = require 'md5'
+glob          = require 'globby'
 EventEmitter  = require('events').EventEmitter
 util          = require 'util'
 async         = require 'async'
@@ -23,7 +25,6 @@ cheerio       = require 'cheerio'
 pushserve     = require 'pushserve'
 
 fs            = Promise.promisifyAll require 'fs-extra'
-glob          = Promise.promisifyAll require 'globby'
 
 module.exports = class Waffel extends EventEmitter
   defaults:
@@ -164,7 +165,7 @@ module.exports = class Waffel extends EventEmitter
 
   _getFiles: (_path) =>
     @log "--> Globbing #{_path.cyan}:"
-    glob.callAsync( @, _path).then (files) =>
+    glob(_path).then (files) =>
       _data = {}
       files.forEach (file) =>
         @_parseFile file, _data
@@ -205,7 +206,7 @@ module.exports = class Waffel extends EventEmitter
     tasks
 
   _parseFile: (file, _data) =>
-    relativePath = file.replace @options.dataFolder, ''
+    relativePath = utils.relativisePath file, @options.dataFolder
     tokens = relativePath.split(path.sep).slice 1
     collection = tokens[0]
     _data[collection] ||= {}
