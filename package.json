@@ -43,7 +43,7 @@
     "md5": "^2.0.0",
     "moment": "^2.9.0",
     "nunjucks": "^2.2.0",
-    "nunjucks-markdown": "1.1.0",
+    "nunjucks-markdown": "^2.0.0",
     "pushserve": "^0.1.6"
   },
   "devDependencies": {
