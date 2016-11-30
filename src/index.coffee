@@ -114,16 +114,20 @@ module.exports = class Waffel extends EventEmitter
 
   generate: (options = {}) =>
     @log "--> Start generation process...\n---"
-    dataPath = path.join @options.dataFolder, "**/*#{@options.dataExt}"
+    dataPaths = [
+      path.join @options.dataFolder, "**/*#{@options.dataExt}"
+      path.join @options.dataFolder, "**/*.json"
+    ]
+
     if @options.watch
       localesPath = path.join @options.localesFolder, "**/*.json"
       viewPath    = path.join @options.viewFolder, "**/*"
       debounced_generate = _.debounce =>
-        @_generate dataPath, options
+        @_generate dataPaths, options
         , @options.watchInterval
-      @watcher = chokidar.watch [dataPath, localesPath, viewPath]
+      @watcher = chokidar.watch dataPaths.concat [localesPath, viewPath]
       @watcher.on 'change', debounced_generate
-    @_generate dataPath, options
+    @_generate dataPaths, options
 
   postGenerate: (err, pages) =>
     elapsed = process.hrtime @start
@@ -163,20 +167,29 @@ module.exports = class Waffel extends EventEmitter
     markdown.register @env, marked
     nunjucks.precompile @options.viewFolder, { env: @env }
 
-  _getFiles: (_path) =>
-    @log "--> Globbing #{_path.cyan}:"
-    glob(_path).then (files) =>
-      _data = {}
-      files.forEach (file) =>
-        @_parseFile file, _data
-      _data
+  _getFiles: (dataPaths = []) =>
+    Promise.all dataPaths.map (_path) =>
+      @log "--> Globbing #{_path.cyan}:"
+      glob(_path).then (files) =>
+        _data = {}
+        files.forEach (file) =>
+          if path.extname(file) == '.json'
+            collection = path.basename file, '.json'
+            _data[collection] = fs.readJsonSync file
+          else
+            @_parseFile file, _data
+        _data
+    .then (data) =>
+      mergedData = {}
+      data.forEach (x) => _.merge mergedData, x
+      mergedData
 
-  _generate: (_path, options) =>
+  _generate: (dataPaths, options) =>
     @._loadLocales().then =>
       @_registerTemplates()
       @start = process.hrtime()
       @emit 'generation:start'
-      @_getFiles(_path).then (data) =>
+      @_getFiles(dataPaths).then (data) =>
         @data = data
         if options.data then _.merge @data, options.data
         fs.ensureDirAsync( @options.destinationFolder ).then =>
@@ -216,7 +229,7 @@ module.exports = class Waffel extends EventEmitter
     data.slug = data.slug || path.basename relativePath, @options.dataExt
     if tokens[1] in @options.languages
       language = tokens[1]
-      _data[collection][data.slug] || = { _localised: true, _collection: collection }
+      _data[collection][data.slug] ||= { _localised: true, _collection: collection }
       _data[collection][data.slug][language] = data
     else
       _data[collection][data.slug] = data
