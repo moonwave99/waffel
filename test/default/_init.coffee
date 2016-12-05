@@ -15,7 +15,7 @@ config = global.config =
   viewFolder:         'views'
   staticFolder:       'assets'
   localesFolder:      'locales'
-  destinationFolder:  '../public_default'
+  destinationFolder:  '../output/public_default'
   structureFile:      'site_default.yml'
   config:
     env:  'test'

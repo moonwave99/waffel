@@ -11,7 +11,7 @@ config_uglyUrls = global.config_uglyUrls =
   viewFolder:         'views'
   staticFolder:       'assets'
   localesFolder:      'locales'
-  destinationFolder:  '../public_uglyUrls'
+  destinationFolder:  '../output/public_uglyUrls'
   structureFile:      'site_default.yml'
 
 wfl_uglyUrls = global.wfl_uglyUrls = new Waffel global.config_uglyUrls

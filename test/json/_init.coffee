@@ -12,7 +12,7 @@ config_json = global.config_json =
   viewFolder:         'views'
   staticFolder:       'assets'
   localesFolder:      'locales'
-  destinationFolder:  '../public_json'
+  destinationFolder:  '../output/public_json'
   structureFile:      'site_default.yml'
 
 wfl_json = global.wfl_json = new Waffel global.config_json

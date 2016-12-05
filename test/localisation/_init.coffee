@@ -12,7 +12,7 @@ config_localised = global.config_localised =
   viewFolder:         'views'
   staticFolder:       'assets'
   localesFolder:      'locales'
-  destinationFolder:  '../public_localised'
+  destinationFolder:  '../output/public_localised'
   structureFile:      'site_default.yml'
 
 wfl_localised = global.wfl_localised = new Waffel global.config_localised
