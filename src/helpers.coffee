@@ -3,6 +3,12 @@ _       = require 'lodash'
 _propertiesToPick = ['language', 'localised', 'page']
 
 module.exports =
+  classes: (classes = {}) ->
+    output = []
+    for className, value of classes
+      if value then output.push className
+    output.join ''
+      
   url: (name, data = {}, options = {}) ->
     _.merge _.pick(arguments[arguments.length-2], _propertiesToPick), options
     wfl = _.last arguments

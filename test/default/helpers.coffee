@@ -17,6 +17,18 @@ describe 'Helpers', ->
   before (done) ->
     post = _.sample wfl.data.posts
     done()
+  describe 'classes()', ->
+    inputClasses =
+      classOne: true
+      classTwo: false
+    it "should include keys with truthy values", ->
+      helpers.classes inputClasses
+        .should.equal 'classOne'
+    it "should exclude keys with falsey values", ->
+      helpers.classes inputClasses
+        .indexOf 'classTwo'
+        .should.be.exactly -1
+
   describe 'url()', ->
     it "should output home URL", ->
       helpers.url 'home', wfl
