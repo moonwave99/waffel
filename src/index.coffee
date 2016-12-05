@@ -1,6 +1,7 @@
 filters       = require './filters'
 helpers       = require './helpers'
 utils         = require './utils'
+Server        = require './server'
 
 _             = require 'lodash'
 colors        = require 'colors'
@@ -22,7 +23,6 @@ nunjucks      = require 'nunjucks'
 markdown      = require 'nunjucks-markdown'
 marked        = require 'marked'
 cheerio       = require 'cheerio'
-pushserve     = require 'pushserve'
 
 fs            = Promise.promisifyAll require 'fs-extra'
 
@@ -72,6 +72,7 @@ module.exports = class Waffel extends EventEmitter
       port:       1999
       path:       'public'
       indexPath:  'public/404.html'
+      extensions: ['html']
 
   log: =>
     console.log.apply null, arguments if not @options.silent
@@ -137,7 +138,7 @@ module.exports = class Waffel extends EventEmitter
       @_generateSitemap(pages).then => @emit 'generation:complete'
     else
       @emit 'generation:complete'
-    @_launchServer() if @options.server and !@serverStarted
+    @_launchServer()
 
   _loadLocales: =>
     new Promise (resolve, reject) =>
@@ -392,8 +393,13 @@ module.exports = class Waffel extends EventEmitter
         func.apply null, arguments
 
   _launchServer: =>
-    opts = _.extend {}, @options.serverConfig, @options.server
-    server = pushserve opts, =>
+    if !@options.server or (@server && @server.started) then return
+    extensions = {}
+    if @options.uglyUrls and !@options.displayExt
+      extensions = extensions: [@options.outputExt.slice(1)]
+
+    opts = _.extend extensions, @options.serverConfig, @options.server
+    @server = new Server opts
+    @server.start().then =>
       @log "--> waffel server waiting for you at " + "http://localhost:#{opts.port}".green
-      @emit 'server:start', server
-      @serverStarted = true
+      @emit 'server:start', @server
