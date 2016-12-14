@@ -10,7 +10,8 @@ filters =
   limit: (array = [], count = 10) ->
     array.slice 0, count
 
-  format: (date, format) ->
+  format: (date, format, locale = @options.defaultLanguage) ->
+    moment.locale locale
     moment(date).format format || @options.dateFormat
 
   excerpt: (text, size = 200) ->
@@ -54,7 +55,7 @@ filters =
     else if not data._localised
       data
     else
-      data[language] or data[@options.fallbackLanguage]    
+      data[language] or data[@options.fallbackLanguage]
 
 lodash_filters.forEach (m) ->
   filters[m] = _[m]
