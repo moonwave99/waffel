@@ -19,7 +19,7 @@
   "license": "MIT",
   "dependencies": {
     "assetsmanager-brunch": "^1.8.1",
-    "auto-reload-brunch": "^1.7.8",
+    "brunch": "^2.10.8",
     "clean-css-brunch": "^1.7.2",
     "css-brunch": "^1.7.0",
     "handlebars-brunch": "^1.9.1",
@@ -30,6 +30,7 @@
     "uglify-js-brunch": "^1.7.8"
   },
   "devDependencies": {
+    "auto-reload-brunch": "^1.7.8",
     "bluebird": "^2.9.25",
     "coffee-script": "^1.9.2",
     "colors": "^1.1.0",

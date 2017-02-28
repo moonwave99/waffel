@@ -17,11 +17,11 @@ shell.exec "npm run build"
 examples =
   jekyll:
     destinationFolder: path.join __dirname, '..', 'dist/examples/cinema-blog-ala-jekyll/demo'
-    domain: 'http://moonwave99.github.io/waffel/examples/cinema-blog-ala-jekyll/demo'
+    domain: 'https://moonwave99.github.io/waffel/examples/cinema-blog-ala-jekyll/demo'
     deploy: require "../../examples/jekyll/deploy"
   portfolio:
     destinationFolder: path.join __dirname, '..', 'dist/examples/portfolio/demo'
-    domain: 'http://moonwave99.github.io/waffel/examples/portfolio/demo'
+    domain: 'https://moonwave99.github.io/waffel/examples/portfolio/demo'
     deploy: require "../../examples/portfolio/deploy"
 
 generate = (name, example) ->

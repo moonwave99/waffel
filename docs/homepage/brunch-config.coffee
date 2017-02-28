@@ -34,14 +34,14 @@ exports.config =
   overrides:
     gh_pages:
       optimize: true
-      sourcemaps: false
+      sourceMaps: false
       paths:
         public: 'dist'
+      hooks:
+        onCompile: (generatedFiles) ->
+          wfl = new Waffel
+            domain:             'https://moonwave99.github.io/waffel'
+            destinationFolder:  'dist'
 
-      onCompile: (generatedFiles) ->
-        wfl = new Waffel
-          domain:             'http://moonwave99.github.io/waffel'
-          destinationFolder:  'dist'
-
-        wfl.init().then ->
-          wfl.generate()
+          wfl.init().then ->
+            wfl.generate()
