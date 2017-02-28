@@ -8,28 +8,28 @@ exports.config =
     stylesheets:
       joinTo:
         'css/app.css': /^(vendor|bower_components|app)/
-        
+
   server:
     path: 'server.coffee'
-          
+
   conventions:
     assets: /(assets|vendor\/assets|font)/
-    
-  plugins:            
+
+  plugins:
     assetsmanager:
       minTimeSpanSeconds: 10
       copyTo:
-        '' : ['data/images']    
-        
+        '' : ['data/images']
+
     autoReload:
       enabled:
         js: on
         css: on
         assets: off
-        
+
   overrides:
     gh_pages:
       optimize: true
-      sourcemaps: false
+      sourceMaps: false
       paths:
         public: 'dist'
