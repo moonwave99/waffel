@@ -59,6 +59,7 @@ module.exports = class Waffel extends EventEmitter
     server:             false
     watch:              false
     watchInterval:      5000
+    parallelLimit:      100
     config:
       env:              'dev'
     markdownOptions:
@@ -199,7 +200,7 @@ module.exports = class Waffel extends EventEmitter
           for language in languages
             tasks = tasks.concat @_generateForLanguage language, true
           tasks = tasks.concat @_generateForLanguage @options.defaultLanguage, false
-          async.parallel tasks, @postGenerate
+          async.parallelLimit tasks, @options.parallelLimit, @postGenerate
 
   _generateForLanguage: (language, localised) =>
     tasks = []
