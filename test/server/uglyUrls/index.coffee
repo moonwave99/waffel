@@ -12,7 +12,7 @@ baseURL = "http://localhost:#{config_server_ugly.serverConfig.port}"
 describe 'Dev server with uglyUrls', ->
   it "should listen on port #{config_server_ugly.serverConfig.port}", ->
     needle.getAsync(baseURL).then (response) ->
-      should( response[0].statusCode ).be.exactly 200
+      should( response.statusCode ).be.exactly 200
   it "should serve data from subfolders", ->
     needle.getAsync("#{baseURL}/about").then (response) ->
-      should( response[0].statusCode ).be.exactly 200
+      should( response.statusCode ).be.exactly 200
