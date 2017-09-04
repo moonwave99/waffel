@@ -1,7 +1,8 @@
-filters       = require './filters'
-helpers       = require './helpers'
-utils         = require './utils'
-Server        = require './server'
+filters         = require './filters'
+helpers         = require './helpers'
+utils           = require './utils'
+MarkdownEngine  = require './markdown-engine'
+Server          = require './server'
 
 _             = require 'lodash'
 colors        = require 'colors'
@@ -21,7 +22,6 @@ Backend       = require 'i18next-node-fs-backend'
 moment        = require 'moment'
 nunjucks      = require 'nunjucks'
 markdown      = require 'nunjucks-markdown'
-marked        = require 'marked'
 cheerio       = require 'cheerio'
 
 fs            = Promise.promisifyAll require 'fs-extra'
@@ -62,11 +62,7 @@ module.exports = class Waffel extends EventEmitter
     parallelLimit:      100
     config:
       env:              'dev'
-    markdownOptions:
-      gfm:          true
-      tables:       true
-      smartLists:   true
-      smartypants:  false
+    markdownOptions:    {}
     frontmatter:
       delims: ['---', '---']
     serverConfig:
@@ -102,6 +98,7 @@ module.exports = class Waffel extends EventEmitter
 
     @config = _.extend @options.config, site.config
     @structure = site.structure
+    @markdownEngine = @options.markdownEngine || new MarkdownEngine @options.markdownOptions
 
   getRevision: =>
     new Promise (resolve, reject) =>
@@ -165,8 +162,7 @@ module.exports = class Waffel extends EventEmitter
     for name, filter of @filters
       @env.addFilter name, filter.bind @
 
-    marked.setOptions @options.markdownOptions
-    markdown.register @env, marked
+    markdown.register @env, @markdownEngine.getRenderer()
     nunjucks.precompile @options.viewFolder, { env: @env }
 
   _getFiles: (dataPaths = []) =>
