@@ -21,9 +21,10 @@ describe 'Helpers', ->
     inputClasses =
       classOne: true
       classTwo: false
+      classThree: true
     it "should include keys with truthy values", ->
       helpers.classes inputClasses
-        .should.equal 'classOne'
+        .should.equal 'classOne classThree'
     it "should exclude keys with falsey values", ->
       helpers.classes inputClasses
         .indexOf 'classTwo'

@@ -7,8 +7,8 @@ module.exports =
     output = []
     for className, value of classes
       if value then output.push className
-    output.join ''
-      
+    output.join ' '
+
   url: (name, data = {}, options = {}) ->
     _.merge _.pick(arguments[arguments.length-2], _propertiesToPick), options
     wfl = _.last arguments
