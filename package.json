@@ -1,6 +1,6 @@
 {
   "name": "waffel",
-  "version": "0.1.15",
+  "version": "0.1.16",
   "description": "Static site generation done tasty.",
   "main": "lib/index.js",
   "homepage": "https://moonwave99.github.io/waffel/",
