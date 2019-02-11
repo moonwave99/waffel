@@ -1,7 +1,7 @@
 Waffel  = require '../../src/index'
 Promise = require 'bluebird'
 path    = require 'path'
-fs      = Promise.promisifyAll require 'fs-extra'
+fs      = require 'fs-extra'
 
 config_json = global.config_json =
   silent:             true

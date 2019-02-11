@@ -3,7 +3,7 @@ cheerio = require 'cheerio'
 marked  = require 'marked'
 matter  = require 'gray-matter'
 path    = require 'path'
-fs      = Promise.promisifyAll require 'fs-extra'
+fs      = require 'fs-extra'
 _       = require 'lodash'
 parser  = require 'xml-parser'
 should  = require 'should'
@@ -19,7 +19,7 @@ describe 'Sitemap', ->
   rx = ///\/index#{wfl.options.outputExt}$///
   totalPages = 0
   before (done) ->
-    fs.readFileAsync sitemapPath, 'utf8'
+    fs.readFile sitemapPath, 'utf8'
       .then (content) ->
         sitemapContent = parser(content).root.children.map (x) -> x.children[0].content
         done()

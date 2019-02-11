@@ -193,7 +193,7 @@ module.exports = class Waffel extends EventEmitter
       @_getFiles(dataPaths).then (data) =>
         @data = data
         if options.data then _.merge @data, options.data
-        fs.ensureDirAsync( @options.destinationFolder ).then =>
+        fs.ensureDir( @options.destinationFolder ).then =>
           tasks = []
           languages = if @options.localiseDefault then @options.languages else @options.languages.filter (l) => l != @options.defaultLanguage
           for language in languages
@@ -385,7 +385,7 @@ module.exports = class Waffel extends EventEmitter
         data    : @data
         pages   : pages.filter (p) -> !_.isBoolean p.page.sitemap and p.page.sitemap is not false
         now     : new Date
-    fs.outputFileAsync(target, output).then =>
+    fs.outputFile(target, output).then =>
       @log "--> Created #{@options.sitemapName.cyan}"
       true
 

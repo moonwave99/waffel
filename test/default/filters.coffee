@@ -3,7 +3,6 @@ cheerio = require 'cheerio'
 marked  = require 'marked'
 matter  = require 'gray-matter'
 path    = require 'path'
-fs      = Promise.promisifyAll require 'fs-extra'
 should  = require 'should'
 wfl     = global.wfl
 config  = global.config

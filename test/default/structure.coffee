@@ -70,7 +70,7 @@ describe 'Output structure', ->
       ).sortBy (x) ->
         if pageNum = x.replace(destinationFolder, '').match /\d+/ then +pageNum[0] else 1
       .map (x)->
-        fs.readFileAsync x, 'utf8'
+        fs.readFile x, 'utf8'
           .then (content) ->
             $ = cheerio.load content
       .value()

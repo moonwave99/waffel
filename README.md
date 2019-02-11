@@ -68,7 +68,7 @@ Stare at the green fields via:
 
 The MIT License (MIT)
 
-Copyright (c) 20015 Diego Caponera
+Copyright (c) 2019 Diego Caponera
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

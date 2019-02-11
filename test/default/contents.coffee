@@ -3,7 +3,7 @@ cheerio = require 'cheerio'
 marked  = require 'marked'
 matter  = require 'gray-matter'
 path    = require 'path'
-fs      = Promise.promisifyAll require 'fs-extra'
+fs      = require 'fs-extra'
 should  = require 'should'
 wfl     = global.wfl
 config  = global.config
@@ -17,7 +17,7 @@ describe 'Content Generation', ->
     homepage = path.join wfl.options.destinationFolder, "index#{wfl.options.outputExt}"
     $ = null
     before (done) ->
-      fs.readFileAsync homepage, 'utf8'
+      fs.readFile homepage, 'utf8'
         .then (content) ->
           $ = cheerio.load content
           done()
@@ -38,7 +38,7 @@ describe 'Content Generation', ->
     outputPath    = path.join wfl.options.destinationFolder, sourceContent.data.slug, "index#{wfl.options.outputExt}"
     $ = null
     before (done) ->
-      fs.readFileAsync(outputPath, 'utf8').then (output)->
+      fs.readFile(outputPath, 'utf8').then (output)->
         $ = cheerio.load output
         done()
       .catch(done)

@@ -2,7 +2,7 @@ Waffel  = require '../../src/index'
 Engine  = require './engine'
 Promise = require 'bluebird'
 path    = require 'path'
-fs      = Promise.promisifyAll require 'fs-extra'
+fs      = require 'fs-extra'
 
 destinationFolder = '../output/public_markdown-engine'
 absoluteDestinationFolder = path.join __dirname, '..', destinationFolder

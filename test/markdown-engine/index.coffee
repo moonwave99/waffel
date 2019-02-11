@@ -2,7 +2,7 @@ Promise = require 'bluebird'
 cheerio = require 'cheerio'
 matter  = require 'gray-matter'
 path    = require 'path'
-fs      = Promise.promisifyAll require 'fs-extra'
+fs      = require 'fs-extra'
 should  = require 'should'
 wfl     = global.wfl_markdownEngine
 config  = global.config_markdownEngine
@@ -23,7 +23,7 @@ describe 'Content Generation with alternative Markdown engine', ->
     outputPath    = path.join wfl.options.destinationFolder, sourceContent.data.slug, "index#{wfl.options.outputExt}"
     $ = null
     before (done) ->
-      fs.readFileAsync(outputPath, 'utf8').then (output)->
+      fs.readFile(outputPath, 'utf8').then (output)->
         $ = cheerio.load output
         done()
       .catch(done)
