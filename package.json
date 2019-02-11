@@ -1,6 +1,6 @@
 {
   "name": "waffel",
-  "version": "0.1.17",
+  "version": "0.1.18",
   "description": "Static site generation done tasty.",
   "main": "lib/index.js",
   "homepage": "https://moonwave99.github.io/waffel/",
@@ -26,16 +26,15 @@
   ],
   "scripts": {
     "test": "node_modules/.bin/mocha --recursive --reporter spec --timeout 15000 --compilers coffee:coffee-script/register",
-    "prepublish": "coffee --bare -o lib -c src/*.coffee"
+    "prepublishOnly": "coffee --bare -o lib -c src/*.coffee"
   },
   "license": "MIT",
   "dependencies": {
     "async": "^2.1.5",
-    "bluebird": "^3.5.0",
-    "cheerio": "^0.19.0",
+    "cheerio": "^0.22.0",
     "chokidar": "^1.6.0",
     "colors": "^1.0.3",
-    "express": "^4.14.0",
+    "express": "^4.16.4",
     "fs-extra": "^7.0.0",
     "globby": "^6.0.0",
     "gray-matter": "^2.0.0",
@@ -43,14 +42,15 @@
     "i18next-node-fs-backend": "0.0.6",
     "js-yaml": "^3.3.0",
     "lodash": "^3.6.0",
-    "marked": "^0.3.3",
+    "marked": "^0.6.0",
     "md5": "^2.0.0",
-    "moment": "^2.9.0",
+    "moment": "^2.24.0",
     "nunjucks": "^2.2.0",
     "nunjucks-markdown": "^2.0.0",
     "pretty": "^2.0.0"
   },
   "devDependencies": {
+    "bluebird": "^3.5.0",
     "coffee-script": "^1.9.1",
     "markdown-it": "^8.4.0",
     "mocha": "^2.3.3",
