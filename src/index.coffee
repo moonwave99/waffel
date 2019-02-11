@@ -8,7 +8,6 @@ _             = require 'lodash'
 colors        = require 'colors'
 exec          = require('child_process').exec
 chokidar      = require 'chokidar'
-Promise       = require 'bluebird'
 path          = require 'path'
 md5           = require 'md5'
 glob          = require 'globby'
@@ -23,8 +22,8 @@ moment        = require 'moment'
 nunjucks      = require 'nunjucks'
 markdown      = require 'nunjucks-markdown'
 cheerio       = require 'cheerio'
-
-fs            = Promise.promisifyAll require 'fs-extra'
+pretty        = require 'pretty'
+fs            = require 'fs-extra'
 
 module.exports = class Waffel extends EventEmitter
   defaults:
@@ -63,6 +62,10 @@ module.exports = class Waffel extends EventEmitter
     config:
       env:              'dev'
     markdownOptions:    {}
+    prettyHTML:
+      enable:           true
+      options:
+        ocd: true
     frontmatter:
       delims: ['---', '---']
     serverConfig:
@@ -366,6 +369,10 @@ module.exports = class Waffel extends EventEmitter
       pageInfo = data.slug || data.group || page.group || ''
       pageInfo = if pageInfo then " [#{pageInfo}]" else ''
       @log "#{languageInfo.red}Generating #{name.green}#{pageInfo.yellow}#{paginationInfo.magenta} at: #{target.cyan}" if @options.verbose
+
+      if @options.prettyHTML.enable and path.extname(target) == '.html'
+        output = pretty output, @options.prettyHTML.options
+
       fs.outputFile target, output, (err) =>
         callback err, page: _page, data: data, url: url
 
