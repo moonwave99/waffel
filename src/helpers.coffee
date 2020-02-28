@@ -38,9 +38,13 @@ module.exports =
     _.compact( [wfl.options.domain, wfl.options.basePath, url] ).join '/'
 
   t: (key) ->
-    wfl = _.last arguments
-    page = arguments[arguments.length-2]
-    wfl.i18n key, lng: page.language
+    [wfl, page, args] = [
+      arguments[arguments.length - 1],
+      arguments[arguments.length - 2],
+      if arguments.length > 2 then arguments[arguments.length - 3] else {}
+    ]
+    args.lng = page.language
+    wfl.i18n key, args
 
   loc: (data = {}, language) ->
     wfl = _.last arguments

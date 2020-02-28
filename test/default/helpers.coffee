@@ -52,3 +52,12 @@ describe 'Helpers', ->
       it 'should return entity itself', ->
         helpers.loc(post, lan, wfl)
           .should.equal post
+
+  describe 't()', ->
+    it 'should return translation for given key', ->
+      helpers.t('simple', { language: 'en' }, wfl)
+        .should.equal 'simple'
+
+    it 'should return translation for given key', ->
+      helpers.t('interpolated', { key: 'value' }, { language: 'en' }, wfl)
+        .should.equal 'interpolated: value'
