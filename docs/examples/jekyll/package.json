@@ -20,7 +20,7 @@
     "bluebird": "^2.9.25",
     "faker": "git://github.com/FotoVerite/Faker.js#e47f38e811d1f487c460d65ca59d7ef6dc034819",
     "fs-extra": "^0.18.2",
-    "lodash": "^3.7.0",
+    "lodash": "^4.17.15",
     "shelljs": "^0.5.3",
     "yaml-front-matter": "^3.2.3"
   }
