@@ -52,7 +52,7 @@
   "devDependencies": {
     "bluebird": "^3.5.0",
     "coffee-script": "^1.9.1",
-    "markdown-it": "^8.4.0",
+    "markdown-it": "^12.3.2",
     "mocha": "^2.3.3",
     "needle": "^1.4.2",
     "should": "^7.1.1",
