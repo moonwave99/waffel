@@ -42,7 +42,7 @@
     "i18next-node-fs-backend": "0.0.6",
     "js-yaml": "^3.13.1",
     "lodash": "^3.6.0",
-    "marked": "^0.8.0",
+    "marked": "^4.0.10",
     "md5": "^2.0.0",
     "moment": "^2.24.0",
     "nunjucks": "^2.2.0",
