@@ -53,7 +53,7 @@
     "bluebird": "^3.5.0",
     "coffee-script": "^1.9.1",
     "markdown-it": "^8.4.0",
-    "mocha": "^2.3.3",
+    "mocha": "^10.1.0",
     "needle": "^1.4.2",
     "should": "^7.1.1",
     "should-promised": "^0.3.1",
